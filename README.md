@@ -4,7 +4,7 @@
 Добавить описание игры.
 
 ## Master application [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2017_2_42.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2017_2_42)
-### [https://42-master.herokuapp.com](https://42-master.herokuapp.com)
+### [https://master-42.herokuapp.com](https://master-42.herokuapp.com)
 
 
 ## Members
