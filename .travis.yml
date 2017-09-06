@@ -8,7 +8,7 @@ branches:
 deploy:
   provider: heroku
   app:
-    master: 42-master
+    master: master-42
   api_key:
     master:
       secure: I2y2cHFXusTbougz7kfqitcwdbG5aT3lv3BuVp/wHekGdxSLf8Y9+SkWy3MwrSBzVfBmLv82Qe5eHh63PNOFchgVjfB/P7zftCNG0E3yJs0DcnIh7dg/KNLI/ETXGra5KCpT9PEh4346yR6cYCGamvx3rS/wQ08Nb2VBNVtj+MOciHUIjSm6RteE6Z7qSdNhVPdx6Bizt/JTL/8sIHTpolDWVn8l5SWm0wFQp1T//iqlW1Oa+7gQT3tSFgrtcl4vy413kQuWMveoTAAZ4W9zt/XUv7FWMgsO0IUqjCekiMQhIM1E3yEd7MQRdtkWra6MfXcMD/t8i5mvzqoWkQIdxGPYtekrYAkTKVSOmYJZUa5e7xR6/M1DAYfzdyEpXGAqhKldkTDKvKJ6AUxmAV3ZLoO57m9zZy4+QUtDsABpbB0Ty3W/H43fqgL4vMe2aYR6nJrjTXD5cZi0ZHkxOa+X80hIziGU8rcBkdQIXrCnpaVTbTW36cMfoMoAci5BLH6SMBEJQl2QCC0TetQ84FOAXjXalKKPBuVVmXD4SreVGzu5rj7mbCtK5ygAHcdSduWJsmr9HzG307ctSLCn520ZRg+Mxhf8LObZ5zDU26lYSK+sI6ZQBKNG2+O8JWQy0XpSmcVgSa/nobsy91+EAdtpOkbUCy0Zg1uhfvKK8n6pFSI=
