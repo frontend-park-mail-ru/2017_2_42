@@ -1,0 +1,19 @@
+{
+  "name": "empty",
+  "version": "1.0.0",
+  "description": "Empty",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2017_2_42.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2017_2_42/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2017_2_42#readme"
+}
