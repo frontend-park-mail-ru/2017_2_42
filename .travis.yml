@@ -4,7 +4,8 @@ language: node_js
 node_js: 7
 branches:
   only:
-    - master
+    - sandbox
+    - nightly
 deploy:
   provider: heroku
   app:
