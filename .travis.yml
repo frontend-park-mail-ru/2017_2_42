@@ -8,7 +8,7 @@ branches:
 deploy:
   provider: heroku
   app:
-    sanbox: sandbox-42
+    sandbox: sandbox-42
   on:
     branch: sandbox
   api_key:
