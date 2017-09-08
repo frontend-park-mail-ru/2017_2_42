@@ -1,13 +1,13 @@
 const express = require('express');
 
+const staticPath = './';
+
 const app = express();
+app.set('port', process.env.PORT || 8080);
 
-app.use(express.static('public'));
+app.use('/', express.static(staticPath));
+app.use('*', (req, res) => {res.status(404).send('Not found')});
 
-app.get('*', (req, res) => {
-    res.send('Nope', 404);
-});
-
-app.listen(process.env.PORT || 8080, () => {
+app.listen(app.get('port'), () => {
     console.log('Started');
 });
