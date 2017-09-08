@@ -1,0 +1,52 @@
+body {
+    background: black round;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    background: url("../static/chalkboard.jpg") round;
+    height: 100%;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+}
+
+.main a {
+    font-size: 100px;
+    font-family: 'Cabin Sketch', serif;
+    color: #f4f4f0;
+    -webkit-font-smoothing: antialiased;
+    margin: auto;
+}
+
+.main a:hover {
+    font-size: 100px;
+    font-family: 'Cabin Sketch', serif;
+    font-weight: bold;
+    color: #f4f4f0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.chalk-border {
+    border: 10px solid rgba(255,255,255,.8);
+    border-image: url("https://www.unicefusa.org/sites/default/files/answer-box.png") 20;
+    height: 20%;
+}
+
+.footer-menu {
+    position: absolute;
+    bottom: 1%;
+    width: 95%;
+    height: 15%;
+    left: 1%;
+}
