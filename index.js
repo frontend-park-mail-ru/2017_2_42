@@ -8,6 +8,6 @@ app.get('*', (req, res) => {
     res.send('Nope', 404);
 });
 
-app.listen(process.env.PORT || '8080', () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('Started');
 });

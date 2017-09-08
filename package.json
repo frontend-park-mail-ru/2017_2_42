@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/frontend-park-mail-ru/2017_2_42/issues"
   },
-  "homepage": "https://github.com/frontend-park-mail-ru/2017_2_42#readme"
+  "homepage": "https://github.com/frontend-park-mail-ru/2017_2_42#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
 }
