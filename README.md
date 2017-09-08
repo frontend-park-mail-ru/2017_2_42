@@ -3,7 +3,7 @@
 ## Description
 Добавить описание игры.
 
-## Master application [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2017_2_42.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2017_2_42)
+## Nightly application [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2017_2_42.svg?branch=nightly)](https://travis-ci.org/frontend-park-mail-ru/2017_2_42)
 ### [https://master-42.herokuapp.com](https://master-42.herokuapp.com)
 
 
