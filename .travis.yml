@@ -4,7 +4,7 @@ language: node_js
 node_js: 7
 branches:
   only:
-  - nighlty
+  - nightly
 deploy:
   provider: heroku
   api_key:
