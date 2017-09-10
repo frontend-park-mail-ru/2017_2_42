@@ -1,0 +1,59 @@
+@import "main.css";
+
+form.signup {
+    font-family: "Cabin Sketch", serif;
+    color: #f4f4f0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    /*display: none;*/
+}
+
+form.signup h2.signup-header {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+form.signup input[type=text], form.signup input[type=password], form.signup input[type=email] {
+    font-family: inherit;
+    color: inherit;
+    font-size: 30px;
+    background: none;
+    border: 10px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/border-chalk.png") 20;
+    padding: 5px;
+    height: 50px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+form.signup input:focus {
+    outline: none;
+}
+
+form.signup input::placeholder {
+    color: rgba(244, 244, 240, 0.5);
+    background-color: transparent;
+}
+
+form.signup input[type="button"] {
+    /*animation: blink 2s infinite linear both;*/
+    width: 100%;
+    font-family: "Cabin Sketch", serif;
+    font-weight: 900;
+    font-size: 50px;
+    color: #ffffff;
+    border: none;
+    background: url("../img/chalk-background-filled.png");
+    border-radius: 15px;
+    opacity: 0.5;
+    min-height: 70px;
+    max-height: 70px;
+}
+
+form.signup input[type=button]:hover {
+    animation-play-state: initial;
+    opacity: 1;
+}

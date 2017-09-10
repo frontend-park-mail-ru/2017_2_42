@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="//fonts.googleapis.com/css?family=Cabin+Sketch:400,700" rel="stylesheet" type="text/css">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form-login.css">
+    <link rel="stylesheet" href="css/form-signup.css">
     <title>Title</title>
 </head>
 <body>
@@ -11,19 +11,27 @@
     <a>PLAY GAME</a>
     <div class="footer-menu chalk-border" hidden></div>
 </div>
-<div class="login-form">
+<div class="forms">
     <form action="" class="login">
         <h2 class="login-header">LOGIN</h2>
-        <input name="username" type="text" class="chalk-border" placeholder="login">
+        <input name="username" type="text" placeholder="username">
         <input name="password" type="password" placeholder="password">
         <input type="button" value="PLAY">
         <p class="social-login">or login with</p>
-        <!--<div class="social">-->
-            <ul class="social">
-                <li><a class="social-login-vk">VK</a></li>
-                <li><a class="socia-login-fb">FB</a></li>
-            </ul>
-        <!--</div>-->
+        <ul class="social">
+            <li><a class="social-login-vk">VK</a></li>
+            <li><a class="social-login-fb">FB</a></li>
+        </ul>
+        <p class="signup">or</p>
+        <input type="button" value="SIGN UP">
+    </form>
+    <form action="" class="signup">
+        <h2 class="signup-header">SIGNUP</h2>
+        <input name="username" type="text" placeholder="username">
+        <input name="email" type="email" placeholder="email">
+        <input name="password" type="password" placeholder="password">
+        <input name="confirm-password" type="password" placeholder="one more time">
+        <input type="button" value="OK">
     </form>
 </div>
 <script src="./bundle.js"></script>
