@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Cheri; /* Гарнитура шрифта */
+    src: url(../static/fonts/CHERL___.ttf); /* Путь к файлу со шрифтом */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -19,7 +24,7 @@ body, html {
     height: 100%;
 }
 
-.login-form {
+.forms {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -36,6 +41,7 @@ form.login {
     flex-direction: column;
     align-items: center;
     height: 100%;
+    display: none;
 }
 
 form.login h2.login-header {
@@ -66,20 +72,22 @@ form.login input::placeholder {
 }
 
 form.login input[type="button"] {
-    /*display: block;*/
-    /*height: 30px;*/
+    animation: blink 2s infinite linear both;
     width: 100%;
     font-family: "Cabin Sketch", serif;
     font-weight: 900;
     font-size: 50px;
-    color: #f4f4f0;
+    color: #ffffff;
     border: none;
     background: url("../static/chalk-background-filled.png");
     border-radius: 15px;
     opacity: 0.5;
+    min-height: 70px;
+    max-height: 70px;
 }
 
 form.login input[type=button]:hover {
+    animation-play-state: initial;
     opacity: 1;
 }
 
@@ -113,32 +121,35 @@ form.login input[type=button]:hover {
     left: 1%;
 }
 
-.social-login {
+form.login .social-login, p.signup {
     font-family: "Cabin Sketch", cursive;
     color: #f4f4f0;
-    font-size: 20px;
+    font-size: 30px;
 }
+
 
 form * {
     margin-bottom: 20px;
 }
 
-.social .social-login-vk {
+form.login .social .social-login-vk {
     background: url("../static/icons/vkontakte-draw-logo.svg") no-repeat;
 }
 
-.social .socia-login-fb {
+form.login .social .social-login-fb {
     background: url("../static/icons/facebook-logo.svg") no-repeat;
 }
 
 
-.social {
+form.login .social {
     display: flex;
     list-style: none;
     width: 100%;
     margin: 0;
     padding: 0;
     justify-content: space-around;
+    min-height: 70px;
+    max-height: 70px;
 }
 
 .social li a {
@@ -149,14 +160,25 @@ form * {
 }
 
 .social li a:hover {
-    animation: shake 0.5s infinite linear both;
+    animation: shake 0.5s linear both;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
 }
 
 @keyframes blink{
-
+    0%, 25% {
+        opacity: 1;
+    }
+    25%, 50% {
+        opacity: 0;
+    }
+    50%, 75% {
+        opacity: 0.5;
+    }
+    75%, 100% {
+        opacity: 1;
+    }
 }
 
 @keyframes shake {
