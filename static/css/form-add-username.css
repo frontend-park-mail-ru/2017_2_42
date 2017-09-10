@@ -1,6 +1,6 @@
 @import "main.css";
 
-form.signup {
+form.add-username {
     font-family: "Cabin Sketch", serif;
     color: #f4f4f0;
     display: flex;
@@ -11,12 +11,11 @@ form.signup {
     display: none;
 }
 
-form.signup h2.signup-header {
-    font-size: 60px;
-    margin-bottom: 20px;
+form.add-username .username-header {
+    font-size: 30px;
 }
 
-form.signup input[type=text], form.signup input[type=password], form.signup input[type=email] {
+form.add-username input[type=text] {
     font-family: inherit;
     color: inherit;
     font-size: 30px;
@@ -29,17 +28,16 @@ form.signup input[type=text], form.signup input[type=password], form.signup inpu
     margin-bottom: 10px;
 }
 
-form.signup input:focus {
+form.add-username input:focus {
     outline: none;
 }
 
-form.signup input::placeholder {
+form.login input::placeholder {
     color: rgba(244, 244, 240, 0.75);
     background-color: transparent;
 }
 
-form.signup input[type="button"] {
-    /*animation: blink 2s infinite linear both;*/
+form.add-username input[type="button"] {
     width: 100%;
     font-family: "Cabin Sketch", serif;
     font-weight: 900;
@@ -53,7 +51,7 @@ form.signup input[type="button"] {
     max-height: 70px;
 }
 
-form.signup input[type=button]:hover {
+form.add-username input[type=button]:hover {
     animation-play-state: initial;
     opacity: 1;
 }
