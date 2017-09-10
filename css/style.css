@@ -65,6 +65,20 @@ form.login input::placeholder {
     background-color: transparent;
 }
 
+form.login input[type="button"] {
+    /*display: block;*/
+    /*height: 30px;*/
+    width: 100%;
+    font-family: "Cabin Sketch", serif;
+    font-weight: 900;
+    font-size: 50px;
+    color: #f4f4f0;
+    border: none;
+    background: url("../static/chalk-background-filled.png");
+    border-radius: 15px;
+    opacity: 0.5;
+}
+
 form.login input[type=button]:hover {
     opacity: 1;
 }
@@ -109,27 +123,14 @@ form * {
     margin-bottom: 20px;
 }
 
-form.login input[type="button"] {
-    /*display: block;*/
-    /*height: 30px;*/
-    width: 100%;
-    font-family: "Cabin Sketch", serif;
-    font-weight: 900;
-    font-size: 50px;
-    color: #f4f4f0;
-    border: none;
-    background: url("../static/chalk-background-filled.png");
-    border-radius: 15px;
-    opacity: 0.5;
-}
-
-.social .social-vk {
+.social .social-login-vk {
     background: url("../static/icons/vkontakte-draw-logo.svg") no-repeat;
 }
 
-.social .social-fb {
+.social .socia-login-fb {
     background: url("../static/icons/facebook-logo.svg") no-repeat;
 }
+
 
 .social {
     display: flex;
@@ -147,3 +148,31 @@ form.login input[type="button"] {
     height: 70px;
 }
 
+.social li a:hover {
+    animation: shake 0.5s infinite linear both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes blink{
+
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(0, -1px, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(0, 2px, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(0, -4px, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(0, 4px, 0);
+    }
+}
