@@ -1,24 +1,72 @@
-body {
-    background: black round;
-}
-
 * {
     margin: 0;
     padding: 0;
 }
 
 body, html {
-    background: url("../static/chalkboard.jpg") round;
+    background: url("../static/chalkboard.jpg");
+    background-size: cover;
     height: 100%;
 }
 
 .main {
+    /*display: flex;*/
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+}
+
+.login-form {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
     flex-direction: column;
     height: 100%;
+}
+
+form.login {
+    font-family: "Cabin Sketch", serif;
+    color: #f4f4f0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+form.login h2.login-header {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+form.login input[type=text], form.login input[type=password] {
+    font-family: inherit;
+    color: inherit;
+    font-size: 30px;
+    background: none;
+    border: 10px solid rgba(255, 255, 255, .8);
+    border-image: url("../static/border-chalk.png") 20;
+    padding: 5px;
+    height: 50px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+form.login input:focus {
+    outline: none;
+}
+
+form.login input::placeholder {
+    color: rgba(244, 244, 240, 0.5);
+    background-color: transparent;
+}
+
+form.login input[type=button]:hover {
+    opacity: 1;
 }
 
 .main a {
@@ -38,8 +86,8 @@ body, html {
 }
 
 .chalk-border {
-    border: 10px solid rgba(255,255,255,.8);
-    border-image: url("https://www.unicefusa.org/sites/default/files/answer-box.png") 20;
+    border: 10px solid rgba(255, 255, 255, .8);
+    border-image: url("../static/border-chalk.png") 20;
     height: 20%;
 }
 
@@ -50,3 +98,52 @@ body, html {
     height: 15%;
     left: 1%;
 }
+
+.social-login {
+    font-family: "Cabin Sketch", cursive;
+    color: #f4f4f0;
+    font-size: 20px;
+}
+
+form * {
+    margin-bottom: 20px;
+}
+
+form.login input[type="button"] {
+    /*display: block;*/
+    /*height: 30px;*/
+    width: 100%;
+    font-family: "Cabin Sketch", serif;
+    font-weight: 900;
+    font-size: 50px;
+    color: #f4f4f0;
+    border: none;
+    background: url("../static/chalk-background-filled.png");
+    border-radius: 15px;
+    opacity: 0.5;
+}
+
+.social .social-vk {
+    background: url("../static/icons/vkontakte-draw-logo.svg") no-repeat;
+}
+
+.social .social-fb {
+    background: url("../static/icons/facebook-logo.svg") no-repeat;
+}
+
+.social {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+}
+
+.social li a {
+    display: block;
+    width: 70px;
+    color: transparent;
+    height: 70px;
+}
+
