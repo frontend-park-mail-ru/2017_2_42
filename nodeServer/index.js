@@ -3,7 +3,7 @@ const express = require('express');
 const staticPath = './';
 
 const app = express();
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 8000);
 
 app.use('/', express.static(staticPath));
 app.use('*', (req, res) => {res.status(404).send('Not found')});
