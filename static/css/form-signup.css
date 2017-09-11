@@ -1,7 +1,7 @@
 @import "./main.css";
 
 form.signup {
-    font-family: "Cabin Sketch", serif;
+    font-family: 'KGSecondChancesSketch', serif;
     color: #f4f4f0;
     display: flex;
     justify-content: center;
@@ -12,14 +12,14 @@ form.signup {
 }
 
 form.signup h2.signup-header {
-    font-size: 60px;
+    font-size: 50px;
     margin-bottom: 20px;
 }
 
 form.signup input[type=text], form.signup input[type=password], form.signup input[type=email] {
     font-family: inherit;
     color: inherit;
-    font-size: 30px;
+    font-size: 25px;
     background: none;
     border: 10px solid rgba(255, 255, 255, .8);
     border-image: url("../img/border-chalk.png") 20;
@@ -39,11 +39,10 @@ form.signup input::placeholder {
 }
 
 form.signup input[type="button"] {
-    /*animation: blink 2s infinite linear both;*/
     width: 100%;
-    font-family: "Cabin Sketch", serif;
+    font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;
-    font-size: 50px;
+    font-size: 40px;
     color: #ffffff;
     border: none;
     background: url("../img/chalk-background-filled.png");
@@ -52,6 +51,7 @@ form.signup input[type="button"] {
     min-height: 70px;
     max-height: 70px;
 }
+
 
 form.signup input[type=button]:hover {
     animation-play-state: initial;
