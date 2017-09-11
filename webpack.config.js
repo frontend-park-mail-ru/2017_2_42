@@ -1,6 +1,7 @@
 'use strict';
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: __dirname,
@@ -44,7 +45,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('./bundle.css'),
-
+        new HtmlWebpackPlugin('./index.html'),
     ],
     devServer: {
         contentBase: __dirname + '/static',
