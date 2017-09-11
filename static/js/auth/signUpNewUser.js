@@ -1,6 +1,7 @@
 import {flags, validateEmail, validatePassword, validateUsername,} from "./validation"
 
 let signUpForm = document.getElementById("signup");
+console.log(signUpForm);
 
 signUpForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -8,7 +9,7 @@ signUpForm.addEventListener('submit', (event) => {
     let username = signUpForm.elements['username'].value;
     let email = signUpForm.elements['email'].value;
     let password = signUpForm.elements['password'].value;
-    let confirmation = signUpForm.elements['confirmation'].value;
+    let confirmation = signUpForm.elements['confirm-password'].value;
 
     let errCode = validateUsername(username) || validateEmail(email) || validatePassword(password, confirmation);
 
@@ -64,14 +65,14 @@ const handleError = (errCode) => {
     }
 };
 
-const signUpNewUser = (username, email, password, callback) =>{
+const signUpNewUser = (username, email, password) =>{
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    xhr.open('POST', '/signup', true);
+    xhr.open('POST', '/auth/signup', true);
 
     const user = {username, email, password};
     const body = JSON.stringify(user);
-
+    console.log(body);
     xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 
     xhr.onreadystatechange = function () {
@@ -82,8 +83,8 @@ const signUpNewUser = (username, email, password, callback) =>{
         }
 
         const response = JSON.parse(xhr.responseText);
-        callback(null, response);
+        alert('SUccess');
     };
 
-    xhr.send();
+    xhr.send(body);
 };
