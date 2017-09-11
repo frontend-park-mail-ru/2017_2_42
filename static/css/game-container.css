@@ -1,0 +1,43 @@
+@import "main.css";
+
+.main-game-container {
+    display: flex;
+    /*padding-top: 7%;*/
+    /*align-items: center;*/
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    color: #f4f4f0;
+    display: none;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.left-panel {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    /*margin-top: 10% ;*/
+    align-self: flex-start;
+    margin-top: 2%;
+    width: 200px;
+    height: 70%;
+}
+
+.main-game-space {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    flex-grow: 1;
+    /*margin-top: 10% ;*/
+    min-width: 500px;
+    height: 90%;
+}
+
+.right-panel {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    /*margin-top: 10% ;*/
+    width: 200px;
+    height: 90%;
+}
