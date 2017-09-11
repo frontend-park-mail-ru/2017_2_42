@@ -3,8 +3,10 @@ export const flags = {
     1001: 'Введите ваш реальный email',
     1100: 'Логин должен содержать минимум 3 символа',
     1101: 'Логин должен начинаться с латинской буквы и содержать в себе не более двух символов "_" или "-"',
+    1102: 'Введите логин',
     1200: 'Пароль должен быть не короче 8 символов',
     1201: 'Пароли не совпадают',
+    1202: 'Введите пароль'
 };
 
 /**
@@ -46,11 +48,15 @@ export const validateUsername = (username) => {
  * @return {number} Код ошибки или undefined
  */
 export const validatePassword = (password, confirmation) => {
-    if (password.length < 8){
+    if (password === 0) {
+        return 1202;
+    }
+
+    if (password.length < 8) {
         return 1200;
     }
 
-    if (password !== confirmation){
+    if (password !== confirmation) {
         return 1201;
     }
 };

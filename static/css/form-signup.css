@@ -1,4 +1,4 @@
-@import "main.css";
+@import "./main.css";
 
 form.signup {
     font-family: "Cabin Sketch", serif;
@@ -8,7 +8,7 @@ form.signup {
     flex-direction: column;
     align-items: center;
     height: 100%;
-    display: none;
+    /*display: none;*/
 }
 
 form.signup h2.signup-header {
