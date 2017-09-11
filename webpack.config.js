@@ -1,25 +1,50 @@
 'use strict';
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+    context: __dirname,
+    devtool: "source-map",
     entry: {
         main: './static/js/main.js',
     },
 
     output: {
-        filename: '[name].js',
+        filename: './bundle.js',
         path: __dirname + '/public'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader', {publicPath: __dirname})
+                use: [
+                    "style-loader",
+                    "css-loader"
+                ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif|jpeg)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.html$/,
+
+                use: [
+                    "html-loader"
+                ]
             }
         ]
     },
-    plugins: [
-        new ExtractTextPlugin(__dirname + '/public/bundle.css'),
-    ]
+    devServer: {
+        contentBase: __dirname + '/static',
+        inline: true,
+        port: 1234
+    },
 };

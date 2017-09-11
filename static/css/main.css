@@ -28,7 +28,7 @@ body, html {
 
 .main {
     display: flex;
-    /*display: none;*/
+    display: none;
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
