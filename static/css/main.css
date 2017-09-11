@@ -1,18 +1,18 @@
 @font-face {
-    font-family: 'Cabin Sketch';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Cabin Sketch Regular'), local('CabinSketch-Regular'), url(../fonts/CabinSketch.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+    font-family: 'KGSecondChancesSketch';
+    /*font-style: normal;*/
+    /*font-weight: 400;*/
+    src: url(../fonts/KGSecondChancesSketch.ttf) format('truetype');
+    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
 }
 
-@font-face {
-    font-family: 'Cabin Sketch';
-    font-style: normal;
-    font-weight: 700;
-    src: local('Cabin Sketch Bold'), local('CabinSketch-Bold'), url(../fonts/CabinSketchBold.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
+/*@font-face {*/
+    /*font-family: 'Cabin Sketch';*/
+    /*font-style: normal;*/
+    /*font-weight: 700;*/
+    /*src: local('Cabin Sketch Bold'), local('CabinSketch-Bold'), url(../fonts/CabinSketchBold.woff2) format('woff2');*/
+    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
+/*}*/
 
 
 * {
@@ -21,6 +21,7 @@
 }
 
 body, html {
+    /*overflow-y: hidden;*/
     background: url("../img/chalkboard.jpg");
     background-size: cover;
     height: 100%;
@@ -30,7 +31,7 @@ body, html {
     display: flex;
     display: none;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
     height: 100%;
@@ -38,6 +39,7 @@ body, html {
 
 .forms {
     display: flex;
+    /*display: none;*/
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
@@ -61,7 +63,7 @@ body, html {
 
 .main a {
     font-size: 100px;
-    font-family: 'Cabin Sketch', serif;
+    font-family: 'KGSecondChancesSketch', serif;
     font-weight: 900;
     color: #f4f4f0;
     -webkit-font-smoothing: antialiased;
@@ -71,7 +73,7 @@ body, html {
 
 .main a:hover {
     font-size: 105px;
-    font-family: 'Cabin Sketch', serif;
+    font-family: 'KGSecondChancesSketch', serif;
     font-weight: 900;
     color: #f4f4f0;
     -webkit-font-smoothing: antialiased;

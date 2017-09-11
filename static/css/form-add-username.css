@@ -1,7 +1,7 @@
 @import "main.css";
 
 form.add-username {
-    font-family: "Cabin Sketch", serif;
+    font-family: "KGSecondChancesSketch", serif;
     color: #f4f4f0;
     display: flex;
     justify-content: center;
@@ -39,7 +39,7 @@ form.login input::placeholder {
 
 form.add-username input[type="button"] {
     width: 100%;
-    font-family: "Cabin Sketch", serif;
+    font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;
     font-size: 50px;
     color: #ffffff;
