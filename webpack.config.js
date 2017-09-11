@@ -45,10 +45,13 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('./bundle.css'),
-        new HtmlWebpackPlugin('./index.html'),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './static/index.html'
+        }),
     ],
     devServer: {
-        contentBase: __dirname + '/static',
+        contentBase: __dirname + '/public',
         inline: true,
         port: 1234
     },
