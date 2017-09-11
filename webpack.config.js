@@ -1,5 +1,6 @@
 'use strict';
 
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     context: __dirname,
@@ -7,7 +8,6 @@ module.exports = {
     entry: {
         main: './static/js/main.js',
     },
-
     output: {
         filename: './bundle.js',
         path: __dirname + '/public'
@@ -16,10 +16,10 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                    "style-loader",
-                    "css-loader"
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader']
+                })
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
@@ -42,6 +42,10 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new ExtractTextPlugin('./bundle.css'),
+
+    ],
     devServer: {
         contentBase: __dirname + '/static',
         inline: true,
