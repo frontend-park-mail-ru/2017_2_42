@@ -1,19 +1,26 @@
-import {flags, validateEmail, validatePassword, validateUsername,} from "./validation"
+import {validateEmail, validatePassword, validateUsername, validationStatus,} from "./validation"
+import {json_request, METHOD_POST} from "../tools/json_request";
+
+const SIGNUP_PATH = '/auth/signup';
 
 let signUpForm = document.getElementById("signup");
-console.log(signUpForm);
+
+export const usernameField = signUpForm.elements['username'];
+export const emailField = signUpForm.elements['email'];
+export const passwordField = signUpForm.elements['password'];
+export const confirmationField = signUpForm.elements['confirm-password'];
 
 signUpForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    let username = signUpForm.elements['username'].value;
-    let email = signUpForm.elements['email'].value;
-    let password = signUpForm.elements['password'].value;
-    let confirmation = signUpForm.elements['confirm-password'].value;
+    let username = usernameField.value;
+    let email = emailField.value;
+    let password = passwordField.value;
+    let confirmation = confirmationField.value;
 
     let errCode = validateUsername(username) || validateEmail(email) || validatePassword(password, confirmation);
 
-    if (errCode === undefined) {
+    if (errCode === validationStatus.SUCCESS) {
         signUpNewUser(username, email, password);
         signUpForm.reset();
     } else {
@@ -27,64 +34,57 @@ signUpForm.addEventListener('submit', (event) => {
  */
 const handleError = (errCode) => {
     switch (errCode) {
-        // 1000: 'Введите email',
-        case 1000:
+        case validationStatus.USERNAME_FIELD_EMPTY:
             // todo
-            alert(flags[errCode]);
+            usernameField.style.borderColor = 'red';
             break;
 
-        // 1001: 'Введите ваш реальный email',
-        case 1001:
+        case validationStatus.USERNAME_FIELD_BAD:
             // todo
-            alert(flags[errCode]);
             break;
 
-        // 1100: 'Логин должен содержать минимум 3 символа',
-        case 1100:
+        case validationStatus.PASSWORD_FIELD_EMPTY:
             // todo
-            alert(flags[errCode]);
             break;
 
-        // 1101: 'Логин должен начинаться с латинской буквы и содержать в себе не более двух символов "_" или "-"',
-        case 1101:
+        case validationStatus.PASSWORD_FIELD_BAD:
             // todo
-            alert(flags[errCode]);
             break;
 
-        // 1200: 'Пароль должен быть не короче 8 символов',
-        case 1200:
+        case validationStatus.EMAIL_FIELD_BAD:
             // todo
-            alert(flags[errCode]);
             break;
 
-        // 1201: 'Пароли не совпадают',
-        case 1201:
+        case validationStatus.EMAIL_FIELD_EMPTY:
             // todo
-            alert(flags[errCode]);
+            break;
+        case validationStatus.CONFIRMATION_FIELD_BAD:
+            // todo
             break;
     }
 };
 
-const signUpNewUser = (username, email, password) =>{
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.open('POST', '/auth/signup', true);
+const signUpNewUser = (username, email, password) => {
+    const signupForm = {username, email, password};
+    alert("jddjdj");
+    debugger;
 
-    const user = {username, email, password};
-    const body = JSON.stringify(user);
-    console.log(body);
-    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState !== 4) return;
-
-        if (+xhr.status !== 200) {
-            return callback(xhr, null);
+    json_request(METHOD_POST, SIGNUP_PATH, signupForm, (respStatus, respBody) => {
+        switch (respStatus) {
+            case 200:
+                signUpForm.style.display = "none";
+                break;
+            case 400: {
+                alert('Wrong data');
+                break;
+            }
+            case 409:
+                alert('User exists');
+                break;
+            default:
+                alert('Server error');
+                break;
         }
-
-        const response = JSON.parse(xhr.responseText);
-        alert('SUccess');
-    };
-
-    xhr.send(body);
+    })
 };
+
