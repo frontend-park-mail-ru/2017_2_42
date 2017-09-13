@@ -9,6 +9,7 @@ form.signup {
     align-items: center;
     height: 100%;
     /*display: none;*/
+    display: none;
 }
 
 form.signup h2.signup-header {
@@ -38,7 +39,7 @@ form.signup input::placeholder {
     background-color: transparent;
 }
 
-form.signup input[type="button"] {
+form.signup input[type=submit] {
     width: 100%;
     font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;
@@ -53,7 +54,7 @@ form.signup input[type="button"] {
 }
 
 
-form.signup input[type=button]:hover {
+form.signup input[type=submit]:hover {
     animation-play-state: initial;
     opacity: 1;
 }
