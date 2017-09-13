@@ -37,7 +37,7 @@ form.login input::placeholder {
     background-color: transparent;
 }
 
-form.add-username input[type="button"] {
+form.add-username input[type=submit] {
     width: 100%;
     font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;

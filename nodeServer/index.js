@@ -14,10 +14,11 @@ let signedUsers = {};
 const app = express();
 app.set('port', process.env.PORT || 8000);
 
-app.use(morgan('dev'));
-app.use('/', express.static(staticPath));
+// app.use(morgan('dev'));
 app.use(body.json());
 app.use(cookie());
+
+app.use('/', express.static(staticPath));
 
 app.post('/auth/signup', (req, res) => {
     console.log(req.body);
@@ -28,6 +29,7 @@ app.post('/auth/signup', (req, res) => {
 
     if(!username || !email || !password){
         const error = 'not valid';
+        console.log(error);
         res.status(400).json({error});
     }
 
@@ -38,10 +40,12 @@ app.post('/auth/signup', (req, res) => {
         signedUsers[id] = username;
 
         res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+        console.log(id);
         res.json({id});
     }else {
         const error = 'User already exists';
-        res.status(400).json({error});
+        console.log(error);
+        res.status(409).json({error});
     }
 });
 

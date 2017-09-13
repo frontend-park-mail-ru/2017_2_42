@@ -1,7 +1,6 @@
 @import "main.css";
 
 .main-game-container {
-    display: flex;
     /*padding-top: 7%;*/
     /*align-items: center;*/
     justify-content: flex-start;
@@ -9,35 +8,98 @@
     flex-wrap: wrap;
     flex-direction: row;
     color: #f4f4f0;
-    display: none;
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
+    display: flex;
+    /*display: none;*/
+    height: 92%;
+    padding: 2%;
 }
 
 .left-panel {
     border: 15px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/chalk_border_big.png") 40;
+    border-image: url("../img/border.svg") 40;
+    border-image-source: url("../img/border.svg");
+    /*-webkit-border-image: url("../img/border.svg") 40;*/
     /*margin-top: 10% ;*/
     align-self: flex-start;
-    margin-top: 2%;
-    width: 200px;
+    /*margin-top: 2%;*/
+    width: 10%;
     height: 70%;
 }
 
 .main-game-space {
     border: 15px solid rgba(255, 255, 255, .8);
     border-image: url("../img/chalk_border_big.png") 40;
+    align-self: flex-start;
     flex-grow: 1;
+    image-rendering: pixelated;
     /*margin-top: 10% ;*/
     min-width: 500px;
-    height: 90%;
+    height: 98%;
 }
 
 .right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /*padding: 1%;*/
     border: 15px solid rgba(255, 255, 255, .8);
     border-image: url("../img/chalk_border_big.png") 40;
+    -webkit-backface-visibility: hidden;
+    image-rendering: pixelated;
+    /*-webkit-border-image: url("../img/chalk_border_big.png") 40;*/
+    align-self: flex-start;
     /*margin-top: 10% ;*/
-    width: 200px;
-    height: 90%;
+    min-width: 10%;
+    height: 98%;
+}
+
+.right-panel::-webkit-scrollbar {
+    width: 0;
+}
+
+.down-panel {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    align-self: stretch;
+    /*margin-top: 10% ;*/
+    width: 100%;
+    height: 20%;
+    display: none;
+}
+
+.items {
+    list-style: none;
+    /*height: 90%;*/
+}
+
+.item {
+    margin: 5%;
+    border: 10px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/border-chalk.png") 20;
+    max-height: 150px;
+    min-height: 100px;
+}
+
+@media screen and (max-height: 768px) {
+    .item {
+        height: 50px;
+    }
+    /*form.login input[type=text], form.login input[type=password]   {*/
+        /*font-size: 20px;*/
+    /*}*/
+    /*form.login input[type="button"] {*/
+        /*font-size: 30px;*/
+    /*}*/
+}
+
+.list > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /*max-height: calc(100% - 76px);*/
+    overflow: auto;
+}
+
+.list > ul::-webkit-scrollbar {
+    width: 0;
 }

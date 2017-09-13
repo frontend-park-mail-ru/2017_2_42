@@ -67,7 +67,7 @@ form.login input[type="button"] {
     max-height: 70px;
 }
 
-form.login input[type=button]:hover {
+form.login input[type=submit]:hover {
     animation-play-state: initial;
     opacity: 1;
 }

@@ -1,13 +1,19 @@
-export const flags = {
-    1000: 'Введите email',
-    1001: 'Введите ваш реальный email',
-    1100: 'Логин должен содержать минимум 3 символа',
-    1101: 'Логин должен начинаться с латинской буквы и содержать в себе не более двух символов "_" или "-"',
-    1102: 'Введите логин',
-    1200: 'Пароль должен быть не короче 8 символов',
-    1201: 'Пароли не совпадают',
-    1202: 'Введите пароль'
+export const validationStatus = {
+    SUCCESS: 0,
+
+    EMAIL_FIELD_EMPTY: 1000,
+    EMAIL_FIELD_BAD: 1001,
+
+    USERNAME_FIELD_EMPTY: 1100,
+    USERNAME_FIELD_BAD: 1101,
+
+    PASSWORD_FIELD_EMPTY: 1200,
+    PASSWORD_FIELD_BAD: 1201,
+
+    CONFIRMATION_FIELD_BAD: 1302
 };
+
+
 
 /**
  * Проверяет email на лексическую валидность
@@ -16,13 +22,15 @@ export const flags = {
  */
 export const validateEmail = (email) => {
     if (email.length === 0) {
-        return 1000;
+        return validationStatus.EMAIL_FIELD_EMPTY;
     }
 
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email)) {
-        return 1001;
+    let emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegExp.test(email)) {
+        return validationStatus.EMAIL_FIELD_BAD;
     }
+
+    return validationStatus.SUCCESS;
 };
 
 /**
@@ -32,13 +40,15 @@ export const validateEmail = (email) => {
  */
 export const validateUsername = (username) => {
     if (username.length < 3) {
-        return 1100;
+        return validationStatus.USERNAME_FIELD_EMPTY;
     }
 
-    let re = /^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/;
-    if (!re.test(username)) {
-        return 1101;
+    let usernameRegExp = /^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/;
+    if (!usernameRegExp.test(username)) {
+        return validationStatus.USERNAME_FIELD_BAD;
     }
+
+    return validationStatus.SUCCESS;
 };
 
 /**
@@ -49,14 +59,16 @@ export const validateUsername = (username) => {
  */
 export const validatePassword = (password, confirmation) => {
     if (password === 0) {
-        return 1202;
+        return validationStatus.PASSWORD_FIELD_EMPTY;
     }
 
     if (password.length < 8) {
-        return 1200;
+        return validationStatus.USERNAME_FIELD_BAD;
     }
 
     if (password !== confirmation) {
-        return 1201;
+        return validationStatus.CONFIRMATION_FIELD_BAD;
     }
+
+    return validationStatus.SUCCESS;
 };

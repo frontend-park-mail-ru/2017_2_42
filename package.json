@@ -35,4 +35,7 @@
     "style-loader": "^0.18.2"
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2017_2_42#readme",
+  "devDependencies": {
+    "webpack-dev-server": "^2.7.1"
+  }
 }
