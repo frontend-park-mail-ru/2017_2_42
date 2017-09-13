@@ -10,28 +10,34 @@
     <title>Title</title>
 </head>
 <body>
-<div class="main">
-    <a>PLAY GAME</a>
-    <div class="footer-menu chalk-border" hidden></div>
-</div>
-<div class="forms">
-    <form action="" class="login">
-        <h2 class="login-header">LOGIN</h2>
 
-        <input name="username" type="text" placeholder="username">
-        <input name="password" type="password" placeholder="password">
-        <input type="submit" value="PLAY">
-        <p class="signup">or</p>
-        <input type="button" value="SIGN UP">
-        <p class="social-login">or login with</p>
+<section id="greeting">
+    <div class="main">
+        <a>PLAY GAME</a>
+    </div>
+</section>
 
-        <ul class="social">
-            <li><a class="social-login-vk">VK</a></li>
-            <li><a class="social-login-fb">FB</a></li>
-        </ul>
+<section id="login" class="forms">
+        <form action="" class="login">
+            <h2 class="login-header">LOGIN</h2>
 
-    </form>
-    <form class="signup" id="signup">
+            <input name="username" type="text" placeholder="username">
+            <input name="password" type="password" placeholder="password">
+            <input type="submit" value="PLAY">
+            <p class="signup">or</p>
+            <input type="button" value="SIGN UP">
+
+            <p class="social-login">or login with</p>
+
+            <ul class="social">
+                <li><a class="social-login-vk">VK</a></li>
+                <li><a class="social-login-fb">FB</a></li>
+            </ul>
+        </form>
+</section>
+
+<section id="signup" class="forms">
+    <form class="signup">
         <h2 class="signup-header">SIGNUP</h2>
         <input name="username" type="text" placeholder="username">
         <input name="email" type="text" placeholder="email">
@@ -39,35 +45,54 @@
         <input name="confirm-password" type="password" placeholder="one more time">
         <input type="submit" value="DONE!">
     </form>
+</section>
+
+<section id="add-username" class="forms">
     <form action="" class="add-username">
         <h3 class="username-header">...and one small step</h3>
         <input name="username" type="text" placeholder="username" pattern=>
         <input type="submit" value="DONE!">
     </form>
-</div>
-<div class="main-game-container">
+</section>
+
+<section class="main-game-container" id="main-game-container">
+    <!--<div class="main-game-container">-->
     <!--<div class="left-panel">-->
     <!--</div>-->
     <div class="main-game-space">
 
     </div>
     <div class="right-panel list" id="list_1">
-        <!--<span data-scroll="0"></span>-->
         <ul class="items">
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
-            <li><div class="item"></div></li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
+            <li>
+                <div class="item"></div>
+            </li>
         </ul>
-        <!--<span data-scroll="1"></span>-->
     </div>
-    <div class="down-panel">
 
-    </div>
-</div>
+    <!--</div>-->
+</section>
+<!--<div class="down-panel">-->
+
+<!--</div>-->
 <!--<script src="./bundle.js"></script>-->
 </body>
 </html>

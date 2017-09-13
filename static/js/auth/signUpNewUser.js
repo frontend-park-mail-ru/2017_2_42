@@ -1,9 +1,12 @@
 import {validateEmail, validatePassword, validateUsername, validationStatus,} from "./validation"
 import {json_request, METHOD_POST} from "../tools/json_request";
 
-const SIGNUP_PATH = '/auth/signup';
+const PATHS = {
+    SIGNUP_PATH: '/auth/signup',
+    LOGIN_PATH: '/auth/signup'
+};
 
-let signUpForm = document.getElementById("signup");
+let signUpForm = document.getElementsByClassName("signup");
 
 export const usernameField = signUpForm.elements['username'];
 export const emailField = signUpForm.elements['email'];
@@ -36,7 +39,8 @@ const handleError = (errCode) => {
     switch (errCode) {
         case validationStatus.USERNAME_FIELD_EMPTY:
             // todo
-            usernameField.style.borderColor = 'red';
+            usernameField.style.color = "rgba(255, 255, 0, 0.5)";
+            usernameField.placeholder.style.color = "rgba(255, 255, 0, 0.5)";
             break;
 
         case validationStatus.USERNAME_FIELD_BAD:
@@ -68,7 +72,7 @@ const signUpNewUser = (username, email, password) => {
     const signupForm = {username, email, password};
     debugger;
 
-    json_request(METHOD_POST, SIGNUP_PATH, signupForm, (respStatus, respBody) => {
+    json_request(METHOD_POST, PATHS.SIGNUP_PATH, signupForm, (respStatus, respBody) => {
         switch (respStatus) {
             case 200:
                 signUpForm.style.display = "none";

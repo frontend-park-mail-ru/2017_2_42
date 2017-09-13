@@ -1,6 +1,10 @@
 
 @import "main.css";
 
+.forms#login {
+    display: none;
+}
+
 form.login {
     font-family: "KGSecondChancesSketch", serif;
     color: #f4f4f0;

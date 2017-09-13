@@ -9,9 +9,9 @@
     flex-direction: row;
     color: #f4f4f0;
     display: flex;
-    /*display: none;*/
     height: 92%;
     padding: 2%;
+    display: none;
 }
 
 .left-panel {
@@ -31,10 +31,10 @@
     border-image: url("../img/chalk_border_big.png") 40;
     align-self: flex-start;
     flex-grow: 1;
-    image-rendering: pixelated;
     /*margin-top: 10% ;*/
     min-width: 500px;
     height: 98%;
+    /*animation: fade-main ease-in-out 0.5s;*/
 }
 
 .right-panel {
@@ -49,7 +49,7 @@
     /*-webkit-border-image: url("../img/chalk_border_big.png") 40;*/
     align-self: flex-start;
     /*margin-top: 10% ;*/
-    min-width: 10%;
+    width: 10%;
     height: 98%;
 }
 
@@ -60,11 +60,25 @@
 .down-panel {
     border: 15px solid rgba(255, 255, 255, .8);
     border-image: url("../img/chalk_border_big.png") 40;
-    align-self: stretch;
+    position: fixed;
     /*margin-top: 10% ;*/
-    width: 100%;
+    width: 82%;
+    margin-left: 2%;
     height: 20%;
-    display: none;
+    /*bottom: -100%;*/
+    bottom: 2%;
+    animation: fade ease-in-out 0.5s;
+    z-index: 1;
+}
+
+@-webkit-keyframes fade {
+    from { bottom: -100%; }
+    to { bottom: 2%}
+}
+
+@-webkit-keyframes fade-main {
+    from { height: 98%;}
+    to {height: 70%}
 }
 
 .items {
@@ -76,20 +90,8 @@
     margin: 5%;
     border: 10px solid rgba(255, 255, 255, .8);
     border-image: url("../img/border-chalk.png") 20;
-    max-height: 150px;
+    max-height: 100px;
     min-height: 100px;
-}
-
-@media screen and (max-height: 768px) {
-    .item {
-        height: 50px;
-    }
-    /*form.login input[type=text], form.login input[type=password]   {*/
-        /*font-size: 20px;*/
-    /*}*/
-    /*form.login input[type="button"] {*/
-        /*font-size: 30px;*/
-    /*}*/
 }
 
 .list > ul {

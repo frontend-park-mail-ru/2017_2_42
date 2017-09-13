@@ -1,5 +1,9 @@
 @import "./main.css";
 
+.forms#add-username {
+    display: none;
+}
+
 form.signup {
     font-family: 'KGSecondChancesSketch', serif;
     color: #f4f4f0;
@@ -9,7 +13,7 @@ form.signup {
     align-items: center;
     height: 100%;
     /*display: none;*/
-    display: none;
+    /*display: none;*/
 }
 
 form.signup h2.signup-header {
@@ -23,7 +27,7 @@ form.signup input[type=text], form.signup input[type=password], form.signup inpu
     font-size: 25px;
     background: none;
     border: 10px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/border-chalk.png") 20;
+    border-image: url("../img/border-chalk.png") 20 ;
     padding: 5px;
     height: 50px;
     width: 300px;
@@ -35,7 +39,7 @@ form.signup input:focus {
 }
 
 form.signup input::placeholder {
-    color: rgba(244, 244, 240, 0.75);
+    color: rgba(255, 243, 238, 0.5);
     background-color: transparent;
 }
 
