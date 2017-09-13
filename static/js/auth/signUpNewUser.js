@@ -6,7 +6,7 @@ const PATHS = {
     LOGIN_PATH: '/auth/signup'
 };
 
-let signUpForm = document.getElementsByClassName("signup");
+let signUpForm = document.getElementById("signup").getElementsByTagName('form')[0];
 
 export const usernameField = signUpForm.elements['username'];
 export const emailField = signUpForm.elements['email'];
