@@ -13,6 +13,20 @@ export const emailField = signUpForm.elements['email'];
 export const passwordField = signUpForm.elements['password'];
 export const confirmationField = signUpForm.elements['confirm-password'];
 
+const singleTimeEventListener = (field, fieldEvent, fieldCallback) => {
+    if (typeof fieldEvent === "string" && typeof fieldCallback === "function") {
+        field.addEventListener(fieldEvent, function evCallback(event) {
+            fieldCallback(event);
+            event.currentTarget.removeEventListener(fieldEvent, evCallback);
+        });
+    }
+};
+
+const wrong_input_event_callback = (event) => {
+    alert(1);
+};
+
+
 signUpForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -40,7 +54,7 @@ const handleError = (errCode) => {
         case validationStatus.USERNAME_FIELD_EMPTY:
             // todo
             usernameField.style.color = "rgba(255, 255, 0, 0.5)";
-            usernameField.placeholder.style.color = "rgba(255, 255, 0, 0.5)";
+            singleTimeEventListener(usernameField, 'click', wrong_input_event_callback);
             break;
 
         case validationStatus.USERNAME_FIELD_BAD:
