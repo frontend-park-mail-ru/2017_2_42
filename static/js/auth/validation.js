@@ -58,7 +58,7 @@ export const validateUsername = (username) => {
  * @return {number} Код ошибки или undefined
  */
 export const validatePassword = (password, confirmation) => {
-    if (password === 0) {
+    if (password.length === 0) {
         return validationStatus.PASSWORD_FIELD_EMPTY;
     }
 

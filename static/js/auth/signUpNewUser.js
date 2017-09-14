@@ -35,50 +35,65 @@ signUpForm.addEventListener('submit', (event) => {
     let password = passwordField.value;
     let confirmation = confirmationField.value;
 
-    let errCode = validateUsername(username) || validateEmail(email) || validatePassword(password, confirmation);
+    let statuses = [];
 
-    if (errCode === validationStatus.SUCCESS) {
+    statuses.push(validateUsername(username));
+    statuses.push(validatePassword(password, confirmation));
+    statuses.push(validateEmail(email));
+
+    let errCodesArr = statuses.filter((status) => {
+        return status !== validationStatus.SUCCESS
+    });
+
+
+    if (errCodesArr.length === 0) {
         signUpNewUser(username, email, password);
         signUpForm.reset();
     } else {
-        handleError(errCode);
+        handleError(errCodesArr);
     }
 });
 
 /**
  * Обработчик ошибок возникших при валидации формы регистрации
- * @param errCode код ошибки
+ * @param errCodesArr коды ошибок
  */
-const handleError = (errCode) => {
-    switch (errCode) {
-        case validationStatus.USERNAME_FIELD_EMPTY:
-            // todo
-            usernameField.style.color = "rgba(255, 255, 0, 0.5)";
-            singleTimeEventListener(usernameField, 'click', wrong_input_event_callback);
-            break;
+const handleError = (errCodesArr) => {
+    for (let errCode of errCodesArr) {
+        console.log(errCode === validationStatus.PASSWORD_FIELD_EMPTY);
 
-        case validationStatus.USERNAME_FIELD_BAD:
-            // todo
-            break;
 
-        case validationStatus.PASSWORD_FIELD_EMPTY:
-            // todo
-            break;
+        switch (errCode) {
+            case validationStatus.USERNAME_FIELD_EMPTY:
+                // todo
+                usernameField.style.color = "rgba(255, 255, 0, 0.5)";
+                singleTimeEventListener(usernameField, 'click', wrong_input_event_callback);
+                break;
 
-        case validationStatus.PASSWORD_FIELD_BAD:
-            // todo
-            break;
+            case validationStatus.USERNAME_FIELD_BAD:
+                // todo
+                break;
 
-        case validationStatus.EMAIL_FIELD_BAD:
-            // todo
-            break;
+            case validationStatus.PASSWORD_FIELD_EMPTY:
+                // todo
+                singleTimeEventListener(passwordField, 'click', wrong_input_event_callback);
+                break;
 
-        case validationStatus.EMAIL_FIELD_EMPTY:
-            // todo
-            break;
-        case validationStatus.CONFIRMATION_FIELD_BAD:
-            // todo
-            break;
+            case validationStatus.PASSWORD_FIELD_BAD:
+                // todo
+                break;
+
+            case validationStatus.EMAIL_FIELD_BAD:
+                // todo
+                break;
+
+            case validationStatus.EMAIL_FIELD_EMPTY:
+                // todo
+                break;
+            case validationStatus.CONFIRMATION_FIELD_BAD:
+                // todo
+                break;
+        }
     }
 };
 
