@@ -16,8 +16,8 @@
 
 .left-panel {
     border: 15px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/border.svg") 40;
-    border-image-source: url("../img/border.svg");
+    border-image: url("../img/chalk_border_big.png") 40;
+    border-image-source: url("../img/chalk_border_big.png");
     /*-webkit-border-image: url("../img/border.svg") 40;*/
     /*margin-top: 10% ;*/
     align-self: flex-start;
