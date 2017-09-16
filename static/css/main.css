@@ -28,9 +28,14 @@ body, html {
     height: 100%;
 }
 
+
+#play-game {
+    display: none;
+}
+
 .main {
     display: flex;
-    display: none;
+    /*display: none;*/
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -48,19 +53,7 @@ body, html {
     height: 100%;
 }
 
-.chalk-border {
-    border: 10px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/border-chalk.png") 20;
-    height: 20%;
-}
 
-.footer-menu {
-    position: absolute;
-    bottom: 1%;
-    width: 95%;
-    height: 15%;
-    left: 1%;
-}
 
 .main a {
     font-size: 100px;
@@ -83,4 +76,14 @@ body, html {
 
 form * {
     margin-bottom: 20px;
+}
+
+.input-ok {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_input_border.png") 15;
+}
+
+.input-error {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_input_border_error.png") 15;
 }

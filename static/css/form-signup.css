@@ -1,7 +1,7 @@
 @import "./main.css";
 
-.forms#add-username {
-    display: none;
+.forms#signup {
+    /*display: none;*/
 }
 
 form.signup {
@@ -17,48 +17,66 @@ form.signup {
 }
 
 form.signup h2.signup-header {
-    font-size: 50px;
+    font-size: 3rem;
     margin-bottom: 20px;
 }
 
 form.signup input[type=text], form.signup input[type=password], form.signup input[type=email] {
     font-family: inherit;
     color: inherit;
-    font-size: 25px;
+    font-size: 1.5rem;
+    max-font-size: 10px;
     background: none;
-    border: 10px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/border-chalk.png") 20 ;
     padding: 5px;
-    height: 50px;
-    width: 300px;
+    height: 7vh;
+    max-height: 50px;
+    width: 24vw;
     margin-bottom: 10px;
 }
+
 
 form.signup input:focus {
     outline: none;
 }
 
 form.signup input::placeholder {
-    color: rgba(255, 243, 238, 0.5);
+    color: rgba(244, 244, 244, 0.5);
     background-color: transparent;
 }
 
 form.signup input[type=submit] {
-    width: 100%;
+    width: 26vw;
     font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;
-    font-size: 40px;
+    font-size: 3rem;
     color: #ffffff;
     border: none;
     background: url("../img/chalk-background-filled.png");
     border-radius: 15px;
     opacity: 0.5;
-    min-height: 70px;
+    height: 10vh;
     max-height: 70px;
 }
-
 
 form.signup input[type=submit]:hover {
     animation-play-state: initial;
     opacity: 1;
+}
+
+.container {
+    /*height: 8vh;*/
+    position: relative;
+    margin: 0;
+}
+
+.error-message {
+    position: absolute;
+    font-size: 2.5vh;
+    max-font-size: 5em;
+    left:102%;
+    top: 2rem;
+    color: firebrick;
+    white-space: nowrap;
+    display: none;
+    transition: display 3s;
 }

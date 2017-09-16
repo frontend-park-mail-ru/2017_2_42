@@ -6,6 +6,7 @@ export const validationStatus = {
 
     USERNAME_FIELD_EMPTY: 1100,
     USERNAME_FIELD_BAD: 1101,
+    USERNAME_FIELD_TOO_SHORT: 1102,
 
     PASSWORD_FIELD_EMPTY: 1200,
     PASSWORD_FIELD_BAD: 1201,
@@ -40,7 +41,7 @@ export const validateEmail = (email) => {
  */
 export const validateUsername = (username) => {
     if (username.length < 3) {
-        return validationStatus.USERNAME_FIELD_EMPTY;
+        return validationStatus.USERNAME_FIELD_TOO_SHORT;
     }
 
     let usernameRegExp = /^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/;
@@ -63,7 +64,7 @@ export const validatePassword = (password, confirmation) => {
     }
 
     if (password.length < 8) {
-        return validationStatus.USERNAME_FIELD_BAD;
+        return validationStatus.PASSWORD_FIELD_BAD;
     }
 
     if (password !== confirmation) {

@@ -24,7 +24,7 @@ export class User {
         http.post('/auth/login', reqBody, callback);
     }
 
-    _whoami() {
+    whoami() {
         http.get('/auth/me', (xhr, response) => {
             if (response.serverStatus !== 'OK') {
                 return;

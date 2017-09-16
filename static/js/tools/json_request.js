@@ -6,7 +6,7 @@ export const METHOD_GET = 'GET';
  * @param method http request method
  * @param path request to this path
  * @param jsonObject json object to transfer
- * @param callback(respStatus, respBody) with arguments of response status and response body
+ * @param callback(xhr) with arguments of response status and response body
  */
 export const json_request = (method, path, jsonObject, callback) => {
 
@@ -34,8 +34,7 @@ export const json_request = (method, path, jsonObject, callback) => {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState !== 4) return;
-
-        callback(xhr.status, xhr.responseText);
+        callback(xhr);
     };
 
     xhr.send(jsonString);
