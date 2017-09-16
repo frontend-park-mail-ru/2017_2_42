@@ -98,8 +98,8 @@ const handleError = (errCodesArr) => {
 };
 
 const signUpNewUser = (username, email, password) => {
-    const signupForm = {username, email, password};
-    debugger;
+    let confirmation = confirmationField.value;
+    const signupForm = {username, email, password, confirmation};
 
     json_request(METHOD_POST, PATHS.SIGNUP_PATH, signupForm, (respStatus, respBody) => {
         switch (respStatus) {
