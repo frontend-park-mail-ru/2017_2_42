@@ -1,5 +1,9 @@
 @import "main.css";
 
+.main-game-container#main-game-container {
+    display: none;
+}
+
 .main-game-container {
     /*padding-top: 7%;*/
     /*align-items: center;*/
