@@ -10,7 +10,8 @@ export const user = new User();
 
 export const startGame = () => {
     const playGamePage = new Page(document.getElementById("play-game"));
-    playGamePage.elem.addEventListener('click', (event) => {
+    const playGameBtn = playGamePage.elem.getElementsByClassName("play-game-btn");
+    playGameBtn.addEventListener('click', (event) => {
         event.preventDefault();
         user.whoami();
         if (user.isAuthorized()) {
