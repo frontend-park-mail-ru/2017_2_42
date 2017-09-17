@@ -1,17 +1,18 @@
 'use strict';
+import {PATHS} from "../tools/paths";
+
+const _serverPath = PATHS.BACKEND_SERVER;
 
 export class http {
-    static _server_path = '';
 
     /**
      * GET request to server
      * @param path path of request
      * @param callback function that handles xhr response and response body
      */
-    static get = (path, callback) => {
+    static get(path, callback) {
         this._request('GET', path, null, callback);
     };
-
 
     /**
      * POST request to server.
@@ -19,7 +20,7 @@ export class http {
      * @param body body of request
      * @param callback function that handles xhr response and response body
      */
-    static post = (path, body, callback) => {
+    static post(path, body, callback) {
         this._request('POST', path, body, callback);
     };
 
@@ -31,7 +32,7 @@ export class http {
      * @param callback function that handles xhr response and response body
      * @private
      */
-    static _request = (method, path, body, callback) => {
+    static _request(method, path, body, callback) {
         if (method !== 'GET' && method !== 'POST' ||
             typeof path !== "string" ||
             typeof body !== "string" ||
@@ -42,7 +43,7 @@ export class http {
 
         const xhr = new XMLHttpRequest();
 
-        xhr.open(method, this._server_path + path, true);
+        xhr.open(method, _serverPath + path, true);
         xhr.withCredentials = true;
 
         xhr.onreadystatechange = () => {
@@ -50,19 +51,22 @@ export class http {
                 return;
             }
             if (+xhr.status >= 500) {
-                callback(xhr, {serverStatus: 'SERVER_DOWN'});
+                let response = {};
+                response.serverStatus = 'SERVER_DOWN';
+                callback(xhr, response);
             }
 
-            const response = JSON.parse(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+
+            if (response === undefined) {
+                response = {};
+            }
+
             response.serverStatus = 'OK';
 
             callback(xhr, response);
         };
 
-        if (method === 'GET') {
-            xhr.send();
-        } else {
-            xhr.send(body);
-        }
+        xhr.send(body)
     }
 }

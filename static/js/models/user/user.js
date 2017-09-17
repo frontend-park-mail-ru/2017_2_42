@@ -1,6 +1,7 @@
 'use strict';
 
-import {http} from "../http/http";
+import {http} from "../../http/http";
+import {signupResponseHandler} from "../../auth/signup/signupUtils";
 
 export class User {
     constructor() {
@@ -8,14 +9,16 @@ export class User {
         this.email = null;
     }
 
-    signup(username, email, password, confirmation, callback) {
+    signup(username, email, password, confirmation) {
         const reqBody = JSON.stringify({username, email, password, confirmation});
-        http.post('/auth/signup', reqBody, (xhr, response) => {
-            if (response.status === "SUCCESS" && +xhr.status === 200) {
+
+        http.post('/auth/signup', reqBody, (xhr, resp) => {
+            if (resp.status === "SUCCESS" && +xhr.status === 200) {
                 this.username = username;
                 this.email = email;
             }
-            callback(xhr, response);
+
+            signupResponseHandler(xhr, resp);
         });
     }
 

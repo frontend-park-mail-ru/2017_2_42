@@ -5,7 +5,6 @@ const uuid = require('uuid/v4');
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
-const reload = require('reload');
 
 const staticPath = './public';
 
@@ -19,35 +18,33 @@ app.use(morgan('dev'));
 app.use(body.json());
 app.use(cookie());
 
-reload(app);
-
 app.use('/', express.static(staticPath));
 
-app.post('/auth/signup', (req, res) => {
+app.post('/api/auth/signup', (req, res) => {
     console.log(req.body);
+
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
 
+
     if(!username || !email || !password){
         const error = 'not valid';
-        console.log(error);
         res.status(400).json({error});
     }
 
     if(!users[username]){
         users[username] = [password, email];
 
-        const session_id = uuid();
-        signedUsers[session_id] = username;
+        const id = uuid();
+        signedUsers[id] = username;
 
-        res.cookie('session_id', session_id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-        console.log(session_id);
-        res.json({error: null});
+        res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+
+        res.json({id});
     }else {
-        const error = 'USERNAME_ALREADY_EXISTS';
-        console.log(error);
-        res.status(409).json({error:error});
+        const error = 'User already exists';
+        res.status(409).json({error});
     }
 });
 
@@ -60,6 +57,10 @@ app.post('/auth/me', (req, res) => {
     }else{
         res.status(401).end();
     }
+});
+
+app.post('/auth/login', (req, res) => {
+
 });
 
 app.use('*', (req, res) => {res.status(404).send('Not found')});

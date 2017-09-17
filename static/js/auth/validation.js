@@ -15,13 +15,67 @@ export const validationStatus = {
 };
 
 
+/**
+ * Validates signup form for lexical validity
+ * @param username username to check
+ * @param email email to check
+ * @param password password to check
+ * @param confirmation checks password for equality
+ * @return {Array} error codes array
+ */
+export const validateSignupForm = (username, email, password, confirmation) => {
+    let errCodes = [];
+
+    let usernameStatus = validateUsername(username);
+    let emailStatus = validateEmail(email);
+    let passwordsStatus = validatePassAndConf(password, confirmation);
+
+    if (usernameStatus !== validationStatus.SUCCESS) {
+        errCodes.push(usernameStatus);
+    }
+
+    if (passwordsStatus !== validationStatus.SUCCESS) {
+        errCodes.push(passwordsStatus);
+    }
+
+    if (emailStatus !== validationStatus.SUCCESS) {
+        errCodes.push(emailStatus);
+    }
+
+    return errCodes;
+};
+
+
+/**
+ * Validates login form for lexical validity
+ * @param username username to check
+ * @param password password to check
+ * @return {Array} error codes array
+ */
+export const validateLoginForm = (username, password) => {
+    let errCodes = [];
+
+    let usernameStatus = validateUsername(username);
+    let passwordsStatus = validatePassword(password);
+
+    if (usernameStatus !== validationStatus.SUCCESS) {
+        errCodes.push(usernameStatus);
+    }
+
+    if (passwordsStatus !== validationStatus.SUCCESS) {
+        errCodes.push(passwordsStatus);
+    }
+
+    return errCodes;
+};
+
 
 /**
  * Проверяет email на лексическую валидность
  * @param email email для проверки
  * @returns {number} Код ошибки или undefined
  */
-export const validateEmail = (email) => {
+const validateEmail = (email) => {
     if (email.length === 0) {
         return validationStatus.EMAIL_FIELD_EMPTY;
     }
@@ -39,7 +93,7 @@ export const validateEmail = (email) => {
  * @param username username  для проверки
  * @returns {number} Код ошибки или undefined
  */
-export const validateUsername = (username) => {
+const validateUsername = (username) => {
     if (username.length < 3) {
         return validationStatus.USERNAME_FIELD_TOO_SHORT;
     }
@@ -58,13 +112,11 @@ export const validateUsername = (username) => {
  * @param confirmation подтверждение пароля для проверки
  * @return {number} Код ошибки или undefined
  */
-export const validatePassword = (password, confirmation) => {
-    if (password.length === 0) {
-        return validationStatus.PASSWORD_FIELD_EMPTY;
-    }
+const validatePassAndConf = (password, confirmation) => {
+    let passwordStatus = validatePassword(password);
 
-    if (password.length < 8) {
-        return validationStatus.PASSWORD_FIELD_BAD;
+    if (passwordStatus !== validationStatus.SUCCESS) {
+        return passwordStatus;
     }
 
     if (password !== confirmation) {
@@ -73,3 +125,17 @@ export const validatePassword = (password, confirmation) => {
 
     return validationStatus.SUCCESS;
 };
+
+const validatePassword = (password) => {
+    if (password.length === 0) {
+        return validationStatus.PASSWORD_FIELD_EMPTY;
+    }
+
+    if (password.length < 8) {
+        return validationStatus.PASSWORD_FIELD_BAD;
+    }
+
+    return validationStatus.SUCCESS;
+};
+
+
