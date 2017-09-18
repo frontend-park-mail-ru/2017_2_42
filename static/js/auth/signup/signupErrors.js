@@ -23,8 +23,6 @@ export const backendBadErrors = {
  */
 
 export const backendConflictErrors = {
-    SUCCESS: 0,
-
     EMAIL_ALREADY_EXISTS: "EMAIL_ALREADY_EXISTS",
     USERNAME_ALREADY_EXISTS: "USERNAME_ALREADY_EXISTS"
 };
