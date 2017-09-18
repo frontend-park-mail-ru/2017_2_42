@@ -4,4 +4,5 @@ import '../css/form-login.css'
 import '../css/form-signup.css'
 import '../css/game-container.css'
 import "html-loader!../index.html"
-import "./auth/signup/signUpNewUser"
+
+import "./app/startGame"

@@ -1,6 +1,7 @@
-import {validateSignupForm} from "../validation"
+import {validateSignupForm} from "../validation/validation"
 import {http} from "../../http/http";
 import {PATHS} from "../../tools/paths";
+import {validationErrorHandler} from "../validation/validationHandler";
 
 import {
     confirmationField,
@@ -9,7 +10,6 @@ import {
     signUpForm,
     signupResponseHandler,
     usernameField,
-    validationErrorHandler
 } from "./signupUtils";
 
 const signUpNewUser = (username, email, password, confirmation) => {
@@ -39,7 +39,7 @@ const signupSubmitCallback = (event) => {
     if (errCodesArr.length === 0) {
         signUpNewUser(username, email, password, confirmation);
     } else {
-        validationErrorHandler(errCodesArr);
+        validationErrorHandler(errCodesArr, usernameField, passwordField, emailField, confirmationField);
     }
 };
 

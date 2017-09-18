@@ -13,7 +13,7 @@ form.signup {
     align-items: center;
     height: 100%;
     /*display: none;*/
-    /*display: none;*/
+    display: none;
 }
 
 form.signup h2.signup-header {
