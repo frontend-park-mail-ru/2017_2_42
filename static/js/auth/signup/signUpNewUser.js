@@ -21,6 +21,7 @@ const signUpNewUser = (username, email, password, confirmation) => {
             alert('server error');
             return;
         }
+
         signupResponseHandler(xhr, resp);
     })
 };
@@ -29,12 +30,12 @@ const signUpNewUser = (username, email, password, confirmation) => {
 const signupSubmitCallback = (event) => {
     event.preventDefault();
 
-    let username = usernameField.value;
-    let email = emailField.value;
-    let password = passwordField.value;
-    let confirmation = confirmationField.value;
+    const username = usernameField.value;
+    const email = emailField.value;
+    const password = passwordField.value;
+    const confirmation = confirmationField.value;
 
-    let errCodesArr = validateSignupForm(username, email, password, confirmation);
+    const errCodesArr = validateSignupForm(username, email, password, confirmation);
 
     if (errCodesArr.length === 0) {
         signUpNewUser(username, email, password, confirmation);

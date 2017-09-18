@@ -1,6 +1,8 @@
 import {validateLoginForm} from "../validation/validation";
-import {loginForm, passwordField, usernameField} from "./loginUtils";
+import {loginForm, loginResponseHandler, passwordField, usernameField} from "./loginUtils";
 import {validationErrorHandler} from "../validation/validationHandler";
+import {http} from "../../http/http";
+import {PATHS} from "../../tools/paths";
 
 const loginListenerCallback = (event) => {
     event.preventDefault();
@@ -18,8 +20,17 @@ const loginListenerCallback = (event) => {
 };
 
 const loginUser = (username, password) => {
-    console.log("YEAH");
-    //todo
+    const loginForm = {username, password};
+    const reqBody = JSON.stringify(loginForm);
+
+    http.post(PATHS.LOGIN_PATH, reqBody, (xhr, resp) => {
+        if (resp.serverStatus !== "OK") {
+            alert('lolo');
+            return;
+        }
+
+        loginResponseHandler(xhr, resp);
+    });
 };
 
 export const addLoginEventListener = () => {
