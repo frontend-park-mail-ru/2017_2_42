@@ -27,8 +27,8 @@ form.login input[type=text], form.login input[type=password] {
     /*font-size: 30px;*/
     font-size: 2rem;
     background: none;
-    border: 10px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/chalk_input_border.png") 20;
+    /*border: 10px solid rgba(255, 255, 255, .8);*/
+    /*border-image: url("../img/chalk_input_border.png") 10;*/
     padding: 5px;
     height: 7vh;
     max-height: 50px;
@@ -57,7 +57,7 @@ form.login input::placeholder {
     background-color: transparent;
 }
 
-form.login input[type=submit] {
+form.login input[type=submit], form.login input[type=button] {
     width: 26vw;
     font-family: "KGSecondChancesSketch", serif;
     font-weight: 900;
