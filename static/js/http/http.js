@@ -45,6 +45,7 @@ export class http {
 
         xhr.open(method, _serverPath + path, true);
         xhr.withCredentials = true;
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState !== 4) {
