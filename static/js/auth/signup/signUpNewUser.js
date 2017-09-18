@@ -6,21 +6,21 @@ import {
     confirmationField,
     emailField,
     passwordField,
-    setOKInputState,
     signUpForm,
     signupResponseHandler,
     usernameField,
     validationErrorHandler
 } from "./signupUtils";
 
-const signUpNewUser = (username, email, password) => {
-    const signupForm = {username, email, password};
+const signUpNewUser = (username, email, password, confirmation) => {
+    const signupForm = {username, email, password, confirmation};
+    const reqBody = JSON.stringify(signupForm);
 
-    http.post(PATHS.SIGNUP_PATH, JSON.stringify(signupForm), (xhr, resp) => {
+    http.post(PATHS.SIGNUP_PATH, reqBody, (xhr, resp) => {
         if (resp.serverStatus !== 'OK') {
             alert('server error');
+            return;
         }
-
         signupResponseHandler(xhr, resp);
     })
 };
@@ -44,10 +44,8 @@ const signupSubmitCallback = (event) => {
 };
 
 export const addSignupSubmitListener = () => {
-    console.log(1);
     signUpForm.addEventListener('submit', signupSubmitCallback);
 };
-addSignupSubmitListener();
 
 export const removeSignupSubmitListener = () => {
     signUpForm.removeEventListener('submit', signupSubmitCallback);

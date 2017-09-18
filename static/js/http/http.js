@@ -55,6 +55,7 @@ export class http {
                 let response = {};
                 response.serverStatus = 'SERVER_DOWN';
                 callback(xhr, response);
+                return;
             }
 
             let response = JSON.parse(xhr.responseText);
