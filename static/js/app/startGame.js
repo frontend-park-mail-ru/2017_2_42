@@ -2,9 +2,11 @@
  * Created by zwirec on 16.09.17.
  */
 
+
 "use strict";
 
 import {User} from "../models/user/user";
+import {addSignupSubmitListener} from "../auth/signup/signUpNewUser";
 
 export const user = new User();
 
@@ -23,3 +25,6 @@ export const startGame = () => {
         }
     })
 };
+
+addSignupSubmitListener();
+

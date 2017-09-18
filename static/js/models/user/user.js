@@ -1,6 +1,6 @@
 'use strict';
 
-import {http} from "../http/http";
+import {http} from "../../http/http";
 
 export class User {
     constructor() {
@@ -8,20 +8,9 @@ export class User {
         this.email = null;
     }
 
-    signup(username, email, password, confirmation, callback) {
-        const reqBody = JSON.stringify({username, email, password, confirmation});
-        http.post('/auth/signup', reqBody, (xhr, response) => {
-            if (response.status === "SUCCESS" && +xhr.status === 200) {
-                this.username = username;
-                this.email = email;
-            }
-            callback(xhr, response);
-        });
-    }
-
-    login(username, password, callback) {
-        const reqBody = JSON.stringify({username, password});
-        http.post('/auth/login', reqBody, callback);
+    login(username, email) {
+        this.username = username;
+        this.email = email;
     }
 
     whoami() {
