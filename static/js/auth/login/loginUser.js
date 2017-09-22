@@ -29,7 +29,7 @@ const loginUser = (username, password) => {
             return;
         }
 
-        loginResponseHandler(xhr, resp);
+        loginResponseHandler(xhr, resp, username, password);
     });
 };
 

@@ -83,7 +83,7 @@ const validateUsername = (username) => {
         return validationStatus.USERNAME_FIELD_TOO_SHORT;
     }
 
-    let usernameRegExp = /^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/;
+    let usernameRegExp = /^[A-Za-z][A-Za-z0-9]*?([-_][A-Za-z0-9]+){0,2}$/;
     if (!usernameRegExp.test(username)) {
         return validationStatus.USERNAME_FIELD_BAD;
     }

@@ -9,37 +9,37 @@ export const validationErrorHandler = (errCodesArr, usernameField, passwordField
 
             case validationStatus.USERNAME_FIELD_BAD:
                 setErrorInputState(usernameField, "username isn't correct");
-                singleTimeEventListener(usernameField, 'click', setOKInputState);
+                singleTimeEventListener(usernameField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.USERNAME_FIELD_TOO_SHORT:
                 setErrorInputState(usernameField, "username must be at least 3 characters");
-                singleTimeEventListener(usernameField, 'click', setOKInputState);
+                singleTimeEventListener(usernameField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.PASSWORD_FIELD_EMPTY:
                 setErrorInputState(passwordField, "enter password");
-                singleTimeEventListener(passwordField, 'click', setOKInputState);
+                singleTimeEventListener(passwordField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.PASSWORD_FIELD_BAD:
                 setErrorInputState(passwordField, "password must be at least 8 characters");
-                singleTimeEventListener(passwordField, 'click', setOKInputState);
+                singleTimeEventListener(passwordField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.EMAIL_FIELD_BAD:
                 setErrorInputState(emailField, "enter a correct email");
-                singleTimeEventListener(emailField, 'click', setOKInputState);
+                singleTimeEventListener(emailField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.EMAIL_FIELD_EMPTY:
                 setErrorInputState(emailField, "enter email");
-                singleTimeEventListener(emailField, 'click', setOKInputState);
+                singleTimeEventListener(emailField, 'focus', setOKInputState);
                 break;
 
             case validationStatus.CONFIRMATION_FIELD_BAD:
                 setErrorInputState(confirmationField, "passwords don't match");
-                singleTimeEventListener(confirmationField, 'click', setOKInputState);
+                singleTimeEventListener(confirmationField, 'focus', setOKInputState);
                 break;
         }
     }
