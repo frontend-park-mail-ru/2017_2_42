@@ -51,6 +51,8 @@ const handleError = (errCode, usernameField,
 export const validationErrorHandler = (errCodesArr, usernameField,
                                        passwordField, emailField,
                                        confirmationField) => {
-  errCodesArr.forEach(handleError, usernameField,
-    passwordField, emailField, confirmationField);
+  for (let errCode of errCodesArr) {
+    handleError(errCode, usernameField,
+      passwordField, emailField, confirmationField);
+  }
 };
