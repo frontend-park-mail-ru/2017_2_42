@@ -4,7 +4,7 @@ import {disposableListener} from '../../tools/eventUtils';
 import {setErrorInputState, setOKInputState} from '../../tools/inputUtils';
 
 const handleError = (errCode, usernameField,
-                     passwordField, emailField, confirmationField) => {
+                     emailField, passwordField, confirmationField) => {
   switch (errCode) {
     case validationStatus.USERNAME_FIELD_BAD:
       setErrorInputState(usernameField, 'username isn\'t correct');
@@ -53,6 +53,6 @@ export const validationErrorHandler = (errCodesArr, usernameField,
                                        confirmationField) => {
   for (let errCode of errCodesArr) {
     handleError(errCode, usernameField,
-      passwordField, emailField, confirmationField);
+      emailField, passwordField, confirmationField);
   }
 };
