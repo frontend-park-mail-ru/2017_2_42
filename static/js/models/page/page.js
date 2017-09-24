@@ -4,15 +4,16 @@
 
 
 class Page {
-    constructor(elem){
-        this.elem = elem;
-}
-    show() {
-        this.elem.style.display = "block";
-    }
+  constructor(elem) {
+    this.elem = elem;
+  }
 
-    hide() {
-        this.elem.style.display = "none";
-    }
+  show() {
+    this.elem.style.display = 'block';
+  }
+
+  hide() {
+    this.elem.style.display = 'none';
+  }
 
 }

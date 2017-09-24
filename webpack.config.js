@@ -5,7 +5,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: __dirname,
-    devtool: "source-map",
+  devtool: 'source-map',
     entry: {
         main: './static/js/main.js',
     },
@@ -16,12 +16,27 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader']
-                })
+              enforce: 'pre',
+              test: /\.js$/,
+              exclude: /node_modules/,
+              loader: 'eslint-loader',
+              options: {
+                failOnWarning: true,
+                failOnError: true
+              }
             },
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+          },
+          {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: ['css-loader']
+            })
+          },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
@@ -38,7 +53,7 @@ module.exports = {
                 test: /\.html$/,
 
                 use: [
-                    "html-loader"
+                  'html-loader'
                 ]
             }
         ]

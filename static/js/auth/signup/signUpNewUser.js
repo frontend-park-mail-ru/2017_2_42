@@ -1,55 +1,57 @@
-import {validateSignupForm} from "../validation/validation"
-import {http} from "../../http/http";
-import {PATHS} from "../../tools/paths";
-import {validationErrorHandler} from "../validation/validationHandler";
+import {validateSignupForm} from '../validation/validation';
+import {http} from '../../http/http';
+import {PATHS} from '../../tools/paths';
+import {validationErrorHandler} from '../validation/validationHandler';
 
 import {
-    confirmationField,
-    emailField,
-    passwordField,
-    signUpForm,
-    signupResponseHandler,
-    usernameField,
-} from "./signupUtils";
+  confirmationField,
+  emailField,
+  passwordField,
+  signUpForm,
+  signupResponseHandler,
+  usernameField,
+} from './signupUtils';
 
 const signUpNewUser = (username, email, password, confirmation) => {
-    const signupForm = {username, email, password, confirmation};
-    const reqBody = JSON.stringify(signupForm);
+  const signupForm = {username, email, password, confirmation};
+  const reqBody = JSON.stringify(signupForm);
 
-    http.post(PATHS.SIGNUP_PATH, reqBody, (xhr, resp) => {
-        if (resp.serverStatus !== 'OK') {
-            alert('server error');
-            return;
-        }
+  http.post(PATHS.SIGNUP_PATH, reqBody, (xhr, resp) => {
+    if (resp.serverStatus !== 'OK') {
+      alert('server error');
+      return;
+    }
 
-        signupResponseHandler(xhr, resp);
-    })
+    signupResponseHandler(xhr, resp);
+  });
 };
 
 
 const signupSubmitCallback = (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    const username = usernameField.value;
-    const email = emailField.value;
-    const password = passwordField.value;
-    const confirmation = confirmationField.value;
+  const username = usernameField.value;
+  const email = emailField.value;
+  const password = passwordField.value;
+  const confirmation = confirmationField.value;
 
-    const errCodesArr = validateSignupForm(username, email, password, confirmation);
+  const errCodesArr =
+    validateSignupForm(username, email, password, confirmation);
 
-    if (errCodesArr.length === 0) {
-        signUpNewUser(username, email, password, confirmation);
-    } else {
-        validationErrorHandler(errCodesArr, usernameField, passwordField, emailField, confirmationField);
-    }
+  if (errCodesArr.length === 0) {
+    signUpNewUser(username, email, password, confirmation);
+  } else {
+    validationErrorHandler(errCodesArr,
+      usernameField, passwordField, emailField, confirmationField);
+  }
 };
 
 export const addSignupSubmitListener = () => {
-    signUpForm.addEventListener('submit', signupSubmitCallback);
+  signUpForm.addEventListener('submit', signupSubmitCallback);
 };
 
 export const removeSignupSubmitListener = () => {
-    signUpForm.removeEventListener('submit', signupSubmitCallback);
+  signUpForm.removeEventListener('submit', signupSubmitCallback);
 };
 
 

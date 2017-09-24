@@ -3,30 +3,32 @@
  */
 
 
-"use strict";
+'use strict';
 
-import {User} from "../models/user/user";
-import {addSignupSubmitListener} from "../auth/signup/signUpNewUser";
-import {addLoginEventListener} from "../auth/login/loginUser";
+import {User} from '../models/user/user';
+import {addSignupSubmitListener} from '../auth/signup/signUpNewUser';
+import {addLoginEventListener} from '../auth/login/loginUser';
 
 export const user = new User();
 
 export const startGame = () => {
-    const playGamePage = new Page(document.getElementById("play-game"));
-    const playGameBtn = playGamePage.elem.getElementsByClassName("play-game-btn");
-    playGameBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        user.whoami();
-        if (user.isAuthorized()) {
-            playGamePage.hide();
-            new Page(document.getElementById("login")).show();
-        } else {
-            playGamePage.hide();
-            new Page(document.getElementById("signup")).show();
-        }
-    })
+  const playGamePage = new Page(document.getElementById('play-game'));
+
+  const playGameBtn = playGamePage.elem
+    .getElementsByClassName('play-game-btn');
+
+  playGameBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    user.whoami();
+    if (user.isAuthorized()) {
+      playGamePage.hide();
+      new Page(document.getElementById('login')).show();
+    } else {
+      playGamePage.hide();
+      new Page(document.getElementById('signup')).show();
+    }
+  });
 };
 
 addSignupSubmitListener();
 addLoginEventListener();
-
