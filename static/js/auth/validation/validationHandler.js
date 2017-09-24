@@ -1,7 +1,7 @@
 import {validationStatus} from '../errors/validationErrors';
 import {disposableListener} from '../../tools/eventUtils';
 
-import {setErrorInputState, setOKInputState,} from '../../tools/inputUtils';
+import {setErrorInputState, setOKInputState} from '../../tools/inputUtils';
 
 const handleError = (errCode, usernameField,
                      passwordField, emailField, confirmationField) => {

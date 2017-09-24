@@ -1,6 +1,11 @@
 import {validateLoginForm} from '../validation/validation';
 
-import {loginForm, loginResponseHandler, passwordField, usernameField,} from './loginUtils';
+import {
+  loginForm,
+  loginResponseHandler,
+  passwordField,
+  usernameField,
+} from './loginUtils';
 
 import {validationErrorHandler} from '../validation/validationHandler';
 import {http} from '../../http/http';
