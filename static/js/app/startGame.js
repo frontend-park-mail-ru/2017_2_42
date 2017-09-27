@@ -6,7 +6,6 @@
 'use strict';
 
 import {User} from '../models/user/user';
-import {addSignupSubmitListener} from '../auth/signup/signUpNewUser';
 import {addLoginEventListener} from '../auth/login/loginUser';
 
 export const user = new User();
@@ -30,5 +29,4 @@ export const startGame = () => {
   });
 };
 
-addSignupSubmitListener();
 addLoginEventListener();
