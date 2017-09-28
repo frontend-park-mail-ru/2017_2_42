@@ -1,11 +1,13 @@
 import {Block} from "../block/block";
 
 export class Input extends Block {
-  constructor(el) {
+  constructor(attrs = {}, classes = []) {
+    const el = document.createElement('input');
+    el.classList.add(...classes);
+    for (let val in attrs) {
+      el.setAttribute(val, attrs[val])
+    }
     super(el);
-
-    this.value = null;
-    this.defaultPlaceholder = el.placeholder;
   }
 
   static Create(attrs = {}, classes = [], placeholder) {

@@ -3,18 +3,22 @@
  */
 
 import {Block} from "../block/block"
+import {signup_fields} from "../config/signup-fields";
+import {Input} from "../input/input";
 
 
 export class Form extends Block {
-    constructor(classes = [], blocks = []) {
+    constructor(classes = []) {
         const el = document.createElement('form');
         classes.forEach((cls) => {
             el.classList.add(cls)
         });
         super(el);
-        blocks.forEach(function (b) {
-            this.append(b);
-        }.bind(this));
+        this.childArr = [];
+        this.listenerRemovers = [];
+        // blocks.forEach(function (b) {
+        //     this.append(b);
+        // }.bind(this));
     }
 
     onSubmit(callback) {

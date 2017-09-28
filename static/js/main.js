@@ -10,6 +10,8 @@ import {login_fields, social_button} from "./blocks/config/login-fields"
 import {signup_fields} from "./blocks/config/signup-fields"
 import {Block} from "./blocks/block/block";
 import {Form} from "./blocks/form/form";
+import {FormSignup} from "./blocks/form/form_signup";
+import FormLogin from "./blocks/form/form_login";
 
 // import './app/startGame';
 //
@@ -44,25 +46,7 @@ sections.hide();
 
 function openLogin() {
     if (!sections.login.ready) {
-        let form_blocks = [Block.Create('h2', {}, ["login-header"], 'LOGIN')];
-        for (let input of login_fields) {
-            let div = Block.Create('div', {}, ["input__container"]);
-            const inp = Block.Create('input', input.attrs, input.classes);
-            //TODO сделать на input.on('click', callback) смену состояния
-            div.append(inp);
-            div.append(Block.Create('p', {}, ["error-message"]));
-            form_blocks.push(div)
-        }
-        form_blocks.push(Block.Create('input', {type: "submit", value: "LOGIN"}));
-        form_blocks.push(Block.Create('input', {type: "button", value: "SIGNUP"}));
-        form_blocks.push(Block.Create('p', {}, ["social-login"], "or login with"));
-        let social = Block.Create("ul", {}, ['social']);
-        for (let a of social_button) {
-            social.append(Block.Create("li").append(Block.Create("a", {}, a.classes, a.value)));
-        }
-        form_blocks.push(social);
-
-        sections.login.loginform = new Form(['login'], form_blocks);
+        sections.login.loginform = new FormLogin();
         // sections.login.loginform.onSubmit(onSubmitLoginForm);
         sections.login.ready = true;
     }
@@ -82,17 +66,7 @@ function openGame() {
 
 function openSignup() {
     if (!sections.signup.ready) {
-        let form_blocks = [Block.Create('h2', {}, ['signup-header'], 'SIGNUP')];
-        for (let input of signup_fields) {
-            let div = Block.Create('div', {}, ["input__container"]);
-            let inp = Block.Create('input', input.attrs, input.classes);
-            //TODO сделать на input.on('click', callback) смену состояния
-            div.append(inp);
-            div.append(Block.Create('p', {}, ["error-message"]));
-            form_blocks.push(div)
-        }
-        form_blocks.push(Block.Create('input', {type:'submit', value:'DONE'}));
-        sections.signup.signupform = new Form(['signup'], form_blocks);
+        sections.signup.signupform = new FormSignup();
         sections.signup.signupform.onSubmit(function (data) {
             sections.signup.hide();
             openLogin();
@@ -113,7 +87,7 @@ function openSignup() {
 function openStartGame() {
     if (!sections.start_game.ready) {
         sections.start_game.append(Block.Create('div', {}, ['main'])
-                                        .append(Block.Create('a', {}, ['play-game-btn'], 'PLAY GAME')));
+            .append(Block.Create('a', {}, ['play-game-btn'], 'PLAY GAME')));
         sections.start_game.on('click', function (event) {
             //TODO чекаем session_id
             //TODO если ок, то sections.startgame.hide(); openGame()
