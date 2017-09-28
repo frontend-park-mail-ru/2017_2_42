@@ -3,6 +3,8 @@
  * Backend error values in response json while status code == 400 (BAD REQUEST)
  */
 export const errors = {
+  SUCCESS: 'SUCCESS',
+
   USERNAME_FIELD_EMPTY: 'USERNAME_FIELD_EMPTY',
   USERNAME_FIELD_BAD: 'USERNAME_FIELD_BAD',
   USERNAME_FIELD_TOO_SHORT: 'USERNAME_FIELD_TOO_SHORT',
@@ -26,4 +28,9 @@ export const errors = {
    */
   USERNAME_NOT_EXISTS: 'USERNAME_NOT_EXISTS',
   PASSWORD_WRONG: 'PASSWORD_WRONG',
+
+  /**
+   * Server unavailable
+   */
+  SERVER_UNAVAILABLE: 'SERVER_UNAVAILABLE',
 };

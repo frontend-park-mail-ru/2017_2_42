@@ -13,7 +13,6 @@ form.login {
     flex-direction: column;
     align-items: center;
     height: 100%;
-    display: none;
 }
 
 form.login h2.login-header {

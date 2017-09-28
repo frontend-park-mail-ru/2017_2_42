@@ -1,3 +1,5 @@
+'use strict';
+
 import {http} from "../../modules/http";
 import {ErrorsHandler} from "../../tools/errors/errorsHandler";
 import {Validator} from "../../modules/validator";
@@ -16,23 +18,27 @@ export class LoginForm {
       password: null,
     };
 
-    this.form = document.getElementById('login')
-      .getElementsByTagName('form')[0];
+    this.page = document.getElementById('login');
+
+    this.form = this.page.getElementsByTagName('form')[0];
 
     this.usernameField = this.form.elements['username'];
     this.passwordField = this.form.elements['password'];
 
     this.errorHandler = new ErrorsHandler(
       this.usernameField, this.passwordField);
+
+    this.promise = this._deferPromise();
   }
 
   show() {
-    this.form.style.display = 'block';
-    return this._addSubmitListener();
+    this.page.style.display = 'flex';
+    this._addSubmitListener();
+    return this.promise;
   }
 
   hide() {
-    this.form.style.display = 'none';
+    this.page.style.display = 'none';
     this._removeSubmitListener();
   }
 
@@ -47,19 +53,17 @@ export class LoginForm {
 
   /**
    * Event listener callback
-   * @param {Function} resolve
-   * @param {Function} reject
    * @param {Event} event event
    * @private
    */
-  _onSubmit(event, resolve, reject) {
+  _onSubmit(event) {
     event.preventDefault();
     this._getValues();
 
     Validator.validateLoginForm(this.formValues)
       .then(this._loginUser)
       .then(/*todo*/)
-      .then(resolve('good'))
+      .then(this.promise.resolve('good'))
       .catch(ErrorsHandler);
   }
 
@@ -75,16 +79,24 @@ export class LoginForm {
   }
 
   _addSubmitListener() {
-    return new Promise((resolve, reject) => {
-      this.form.addEventListener('submit', (event) => {
-        this._onSubmit(event, resolve, reject);
-      });
-    });
+    this.form.addEventListener('submit', ev => this._onSubmit(ev));
   };
 
   _removeSubmitListener() {
-    this.form.removeEventListener('submit', this._onSubmit);
+    this.form.removeEventListener('submit', ev => this._onSubmit(ev));
   }
 
+  _deferPromise() {
+    let rej, res;
 
+    let promise = new Promise((resolve, reject) => {
+      res = resolve;
+      rej = reject;
+    });
+
+    promise.reject = rej;
+    promise.resolve = res;
+
+    return promise;
+  }
 }
