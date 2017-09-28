@@ -11,4 +11,9 @@ export class SignUpPage {
     this.section.style.display = 'flex';
     this.signUpForm.show();
   }
+
+  hide() {
+    this.section.style.display = 'none';
+    this.signUpForm.hide();
+  }
 }

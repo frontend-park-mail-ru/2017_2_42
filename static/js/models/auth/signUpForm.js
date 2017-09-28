@@ -5,6 +5,7 @@ import {Validator} from "../../modules/validator";
 import {http} from "../../modules/http";
 import {PATHS} from "../../tools/paths";
 import {errors} from "../../tools/errors/errors";
+import {app} from "../../main";
 
 /**
  * Sign up form model page
@@ -38,7 +39,6 @@ export class SignUpForm {
 
   /**
    *
-   * @return {Promise}
    */
   show() {
     this._addSubmitListener();
@@ -73,7 +73,7 @@ export class SignUpForm {
 
     Validator.validateSignUpForm(this.formValues)
       .then(() => this._signUpNewUser())
-      .then(() => this.promise.resolve('good'))
+      .then(() => app.go(app.goMap.gamePage))
       .catch((errorsArr) => this.errorHandler.handle(errorsArr));
   }
 

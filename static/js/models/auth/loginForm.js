@@ -62,7 +62,7 @@ export class LoginForm {
 
     Validator.validateLoginForm(this.formValues)
       .then(() => this._loginUser())
-      .then(app.go(app.goMap.gamePage))
+      .then(() => app.go(app.goMap.gamePage))
       .catch((errorsArr) => this.errorHandler.handle(errorsArr));
   }
 
