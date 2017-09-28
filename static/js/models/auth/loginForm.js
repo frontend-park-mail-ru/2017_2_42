@@ -30,12 +30,10 @@ export class LoginForm {
     this.errorHandler = new ErrorsHandler(
       this.usernameField, this.passwordField);
 
-    this.promise = this._deferPromise();
   }
 
   show() {
     this._addSubmitListener();
-    return this.promise;
   }
 
   hide() {
@@ -93,17 +91,4 @@ export class LoginForm {
     this.form.removeEventListener('submit', ev => this._onSubmit(ev));
   }
 
-  _deferPromise() {
-    let rej, res;
-
-    let promise = new Promise((resolve, reject) => {
-      res = resolve;
-      rej = reject;
-    });
-
-    promise.reject = rej;
-    promise.resolve = res;
-
-    return promise;
-  }
 }

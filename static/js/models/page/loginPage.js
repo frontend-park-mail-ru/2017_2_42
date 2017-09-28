@@ -1,6 +1,7 @@
 import {LoginForm} from "../auth/loginForm";
 import {disposableListener} from "../../tools/eventUtils";
-// import {app} from "fro../../main";
+import {app} from "../../main";
+
 //
 export class LoginPage {
   constructor() {

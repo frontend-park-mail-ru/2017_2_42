@@ -6,76 +6,53 @@ import {http} from "../../modules/http";
 import {PATHS} from "../../tools/paths";
 import {errors} from "../../tools/errors/errors";
 import {app} from "../../main";
+import {Form} from "../../blocks/form/form";
+import {signUpFields, signUpConfig} from "./signUpConfig";
 
 /**
  * Sign up form model page
  */
-export class SignUpForm {
+export class SignUpForm extends Form {
   /**
    * Initializes main vars
    */
-  constructor(page) {
-    this.formValues = {
-      username: null,
-      email: null,
-      password: null,
-      confirmation: null,
-    };
+  constructor(form, page) {
+    super(form.elem, form.childArr);
 
     this.page = page;
+    this.page.appendChild(this.elem);
 
-    this.form = this.page.getElementsByTagName('form')[0];
+    this.errorHandler = new ErrorsHandler(
+      this.childArr[0],
+      this.childArr[2],
+      this.childArr[1],
+      this.childArr[3]
+    );
+  }
 
-    this.usernameField = this.form.elements['username'];
-    this.emailField = this.form.elements['email'];
-    this.passwordField = this.form.elements['password'];
-    this.confirmationField = this.form.elements['confirm-password'];
+  static Create(page) {
+    let form = super.Create(signUpConfig, signUpFields);
 
-    this.errorHandler = new ErrorsHandler(this.usernameField,
-      this.passwordField, this.emailField, this.confirmationField);
-
-    this.promise = this._deferPromise();
+    return new SignUpForm(form, page);
   }
 
   /**
    *
    */
   show() {
-    this._addSubmitListener();
+    this.on('submit', function (e) {
+      e.preventDefault();
+      this._collectData();
+
+      Validator.validateSignUpForm(this.values)
+        .then(() => this._signUpNewUser())
+        .then(() => app.go(app.goMap.gamePage))
+        .catch((errorsArr) => this.errorHandler.handle(errorsArr));
+    }.bind(this));
+
+    super.show();
   }
 
-  /**
-   * Hides the sign up form
-   */
-  hide() {
-    this._removeSubmitListener();
-  }
-
-  /**
-   * Collects values from fields
-   * @private
-   */
-  _getValues() {
-    this.formValues.username = this.usernameField.value;
-    this.formValues.email = this.emailField.value;
-    this.formValues.password = this.passwordField.value;
-    this.formValues.confirmation = this.confirmationField.value;
-  }
-
-  /**
-   * Event listener callback
-   * @param {Event} event
-   * @private
-   */
-  _onSubmit(event) {
-    event.preventDefault();
-    this._getValues();
-
-    Validator.validateSignUpForm(this.formValues)
-      .then(() => this._signUpNewUser())
-      .then(() => app.go(app.goMap.gamePage))
-      .catch((errorsArr) => this.errorHandler.handle(errorsArr));
-  }
 
   /**
    * Signs up new user via http request
@@ -83,7 +60,7 @@ export class SignUpForm {
    * @private
    */
   _signUpNewUser() {
-    const requestBody = JSON.stringify(this.formValues);
+    const requestBody = JSON.stringify(this.values);
 
     return http.prPost(PATHS.SIGNUP_PATH, requestBody)
       .catch((xhr) => {
@@ -94,35 +71,4 @@ export class SignUpForm {
         throw [resp.message,];
       });
   };
-
-  /**
-   * Adding event listener on submit to form
-   * @private
-   */
-  _addSubmitListener() {
-    this.form.addEventListener('submit', ev => this._onSubmit(ev));
-  };
-
-  /**
-   * Removing event listener on submit from form
-   * @private
-   */
-  _removeSubmitListener() {
-    this.form.removeEventListener('submit', ev => this._onSubmit(ev));
-  };
-
-  _deferPromise() {
-    let rej, res;
-
-    let promise = new Promise((resolve, reject) => {
-      res = resolve;
-      rej = reject;
-    });
-
-    promise.reject = rej;
-    promise.resolve = res;
-
-    return promise;
-  }
-
 }

@@ -3,61 +3,66 @@
  */
 
 import {Block} from "../block/block"
-import {signup_fields} from "../config/signup-fields";
 import {Input} from "../input/input";
 
 
 export class Form extends Block {
-    constructor(classes = []) {
-        const el = document.createElement('form');
-        classes.forEach((cls) => {
-            el.classList.add(cls)
-        });
-        super(el);
-        this.childArr = [];
-        this.listenerRemovers = [];
-        // blocks.forEach(function (b) {
-        //     this.append(b);
-        // }.bind(this));
+  constructor(elem, childArr) {
+    super(elem);
+
+    this.childArr = childArr;
+    this.values = {};
+  }
+
+  /**
+   *
+   * @param formConfig
+   * @param inputsConfig
+   * @return {Block}
+   * @constructor
+   */
+  static Create(formConfig, inputsConfig) {
+    const tagName = 'form';
+
+    let form = super.Create(tagName, formConfig.attrs, formConfig.classes);
+
+    for (let inputConfig of inputsConfig) {
+      form.append(Input.Create(inputConfig.attrs, inputConfig.classes));
     }
 
-    onSubmit(callback) {
-        this._elem.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const formdata = {};
-            const elements = this._elem.elements;
-            for (let name in elements) {
-                formdata[name] = elements[name].value;
-            }
+    return new Form(form.elem, form.childArr);
+  }
 
-            callback(formdata);
-        }.bind(this));
+  show() {
+    super.show();
+
+    for (let input of this.childArr) {
+      input.show();
     }
+  }
 
-    setErrorInputState(fields = {}) {
-        for (let name in fields) {
-            const input = this._elem.elements[name];
-            input.classList.remove("input-ok");
-            input.classList.add("input-error");
-            const p = input.nextElementSibling;
-            p.style.display = "block";
-            p.textContent = fields[name]
-        }
+  hide() {
+    super.hide();
 
+    for (let input of this.childArr) {
+      input.hide();
     }
+  }
 
-    setOKInputState(fields = {}) {
-        for (let name in fields) {
-            const input = this._elem.elements[name];
-            input.classList.remove("input-error");
-            input.classList.add("input-ok");
-            const p = input.nextElementSibling;
-            p.style.display = "none";
-        }
+  onSubmit(callback) {
+    this.on('submit', function (e) {
+      e.preventDefault();
+      this._collectData();
 
+      callback(this.values);
+    }.bind(this));
+  }
+
+  _collectData() {
+    for (let inputBlock of this.childArr) {
+      if (inputBlock.type !== 'submit') {
+        this.values[inputBlock.name] = inputBlock.getValue();
+      }
     }
-
-    reset() {
-        this.el.reset();
-    }
+  }
 }

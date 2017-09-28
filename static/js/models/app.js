@@ -10,6 +10,11 @@ export class App {
     this.loginPage = new LoginPage();
     this.gamePage = new GamePage();
 
+    this.startPage.hide();
+    this.signUpPage.hide();
+    this.loginPage.hide();
+    this.gamePage.hide();
+
     this.goMap = {
       start: this.startPage,
       signUp: this.signUpPage,

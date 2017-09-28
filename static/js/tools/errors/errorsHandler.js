@@ -3,78 +3,65 @@ import {setErrorInputState, setOKInputState} from "../inputUtils";
 import {disposableListener} from "../eventUtils";
 
 export class ErrorsHandler {
-  constructor(usernameField, passwordField,
-              emailField, confirmationField) {
-    this.usernameField = usernameField;
-    this.passwordField = passwordField;
-    this.emailField = emailField;
-    this.confirmationField = confirmationField;
+  constructor(usernameInput, passwordInput,
+              emailInput, confirmationInput) {
+    this.usernameInput = usernameInput;
+    this.passwordInput = passwordInput;
+    this.emailInput = emailInput;
+    this.confirmationInput = confirmationInput;
   }
 
   handle(errorsArr) {
     for (let error of errorsArr) {
       switch (error) {
         case errors.USERNAME_FIELD_EMPTY:
-          setErrorInputState(this.usernameField, 'enter username');
-          disposableListener(this.usernameField, 'focus', setOKInputState);
+          this.usernameInput.setErrorInputState('enter username');
           break;
 
         case errors.USERNAME_FIELD_BAD:
-          setErrorInputState(this.usernameField, 'username isn\'t correct');
-          disposableListener(this.usernameField, 'focus', setOKInputState);
+          this.usernameInput.setErrorInputState('username isn\'t correct');
           break;
 
         case errors.USERNAME_FIELD_TOO_SHORT:
-          setErrorInputState(this.usernameField, 'username must be at least ' +
+          this.usernameInput.setErrorInputState('username must be at least ' +
             '3 characters');
-          disposableListener(this.usernameField, 'focus', setOKInputState);
           break;
 
         case errors.USERNAME_ALREADY_EXISTS:
-          setErrorInputState(this.usernameField, 'username already exists');
-          disposableListener(this.usernameField, 'focus', setOKInputState);
+          this.usernameInput.setErrorInputState('username already exists');
           break;
 
         case errors.USERNAME_NOT_EXISTS:
-          setErrorInputState(this.usernameField, 'username doesn\'t exist');
-          disposableListener(this.usernameField, 'focus', setOKInputState);
+          this.usernameInput.setErrorInputState('username doesn\'t exist');
           break;
 
         case errors.EMAIL_FIELD_EMPTY:
-          setErrorInputState(this.emailField, 'enter email');
-          disposableListener(this.emailField, 'focus', setOKInputState);
+          this.emailInput.setErrorInputState('enter email');
           break;
 
         case errors.EMAIL_FIELD_BAD:
-          setErrorInputState(this.emailField, 'enter a correct email');
-          disposableListener(this.emailField, 'focus', setOKInputState);
+          this.emailInput.setErrorInputState('enter a correct email');
           break;
 
         case errors.EMAIL_ALREADY_EXISTS:
-          setErrorInputState(this.emailField, 'user with this email already exists');
-          disposableListener(this.emailField, 'focus', setOKInputState);
+          this.emailInput.setErrorInputState('user with this email already exists');
           break;
 
         case errors.PASSWORD_FIELD_EMPTY:
-          setErrorInputState(this.passwordField, 'enter password');
-          disposableListener(this.passwordField, 'focus', setOKInputState);
+          this.passwordInput.setErrorInputState('enter password');
           break;
 
         case errors.PASSWORD_FIELD_BAD:
-          setErrorInputState(this.passwordField, 'password must be at least ' +
+          this.passwordInput.setErrorInputState('password must be at least ' +
             '8 characters');
-          disposableListener(this.passwordField, 'focus', setOKInputState);
           break;
 
         case errors.PASSWORD_WRONG:
-          setErrorInputState(this.passwordField, 'wrong password');
-          disposableListener(this.passwordField, 'focus', setOKInputState);
+          this.passwordInput.setErrorInputState('wrong password');
           break;
 
         case errors.CONFIRMATION_FIELD_BAD:
-          setErrorInputState(this.confirmationField, 'password doesn\'t match');
-          disposableListener(this.confirmationField,
-            'focus', setOKInputState);
+          this.confirmationInput.setErrorInputState('password doesn\'t match');
           break;
       }
     }
