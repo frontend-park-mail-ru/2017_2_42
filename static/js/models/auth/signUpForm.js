@@ -13,7 +13,7 @@ export class SignUpForm {
   /**
    * Initializes main vars
    */
-  constructor() {
+  constructor(page) {
     this.formValues = {
       username: null,
       email: null,
@@ -21,7 +21,7 @@ export class SignUpForm {
       confirmation: null,
     };
 
-    this.page = document.getElementById('signup');
+    this.page = page;
 
     this.form = this.page.getElementsByTagName('form')[0];
 
@@ -41,16 +41,13 @@ export class SignUpForm {
    * @return {Promise}
    */
   show() {
-    this.page.style.display = 'flex';
     this._addSubmitListener();
-    return this.promise;
   }
 
   /**
    * Hides the sign up form
    */
   hide() {
-    this.page.style.display = 'none';
     this._removeSubmitListener();
   }
 

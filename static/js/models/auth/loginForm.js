@@ -5,6 +5,7 @@ import {ErrorsHandler} from "../../tools/errors/errorsHandler";
 import {Validator} from "../../modules/validator";
 import {PATHS} from "../../tools/paths";
 import {errors} from "../../tools/errors/errors";
+import {app} from "../../main";
 
 /**
  * Login form model page
@@ -13,13 +14,13 @@ export class LoginForm {
   /**
    * Initializes main vars
    */
-  constructor() {
+  constructor(page) {
     this.formValues = {
       username: null,
       password: null,
     };
 
-    this.page = document.getElementById('login');
+    this.page = page;
 
     this.form = this.page.getElementsByTagName('form')[0];
 
@@ -33,13 +34,11 @@ export class LoginForm {
   }
 
   show() {
-    this.page.style.display = 'flex';
     this._addSubmitListener();
     return this.promise;
   }
 
   hide() {
-    this.page.style.display = 'none';
     this._removeSubmitListener();
   }
 
@@ -63,7 +62,7 @@ export class LoginForm {
 
     Validator.validateLoginForm(this.formValues)
       .then(() => this._loginUser())
-      .then(() => this.promise.resolve('good'))
+      .then(app.go(app.goMap.gamePage))
       .catch((errorsArr) => this.errorHandler.handle(errorsArr));
   }
 
@@ -78,11 +77,11 @@ export class LoginForm {
     return http.prPost(PATHS.LOGIN_PATH, requestBody)
       .catch((xhr) => {
         if (xhr.status >= 500) {
-          throw [].push(errors.SERVER_UNAVAILABLE);
+          throw [errors.SERVER_UNAVAILABLE,];
         }
 
         let resp = JSON.parse(xhr.responseText);
-        throw [].push(resp.message);
+        throw [resp.message,];
       });
   }
 
