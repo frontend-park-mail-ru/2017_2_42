@@ -117,7 +117,7 @@ export class http {
           return;
         }
 
-        if (xhr.status > 400) {
+        if (xhr.status >= 400) {
           reject(xhr);
           return;
         }

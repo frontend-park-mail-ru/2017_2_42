@@ -4,6 +4,7 @@ import {http} from "../../modules/http";
 import {ErrorsHandler} from "../../tools/errors/errorsHandler";
 import {Validator} from "../../modules/validator";
 import {PATHS} from "../../tools/paths";
+import {errors} from "../../tools/errors/errors";
 
 /**
  * Login form model page
@@ -61,10 +62,9 @@ export class LoginForm {
     this._getValues();
 
     Validator.validateLoginForm(this.formValues)
-      .then(this._loginUser)
-      .then(/*todo*/)
-      .then(this.promise.resolve('good'))
-      .catch(ErrorsHandler);
+      .then(() => this._loginUser())
+      .then(() => this.promise.resolve('good'))
+      .catch((errorsArr) => this.errorHandler.handle(errorsArr));
   }
 
   /**
@@ -75,7 +75,15 @@ export class LoginForm {
   _loginUser() {
     const requestBody = JSON.stringify(this.formValues);
 
-    return http.prPost(PATHS.LOGIN_PATH, requestBody);
+    return http.prPost(PATHS.LOGIN_PATH, requestBody)
+      .catch((xhr) => {
+        if (xhr.status >= 500) {
+          throw [].push(errors.SERVER_UNAVAILABLE);
+        }
+
+        let resp = JSON.parse(xhr.responseText);
+        throw [].push(resp.message);
+      });
   }
 
   _addSubmitListener() {

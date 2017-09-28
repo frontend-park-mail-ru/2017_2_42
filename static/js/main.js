@@ -15,6 +15,9 @@ let lof = new LoginForm();
 suf.show()
   .then((res) => {
     suf.hide();
-    lof.show();
+    return lof.show();
+  })
+  .then(() => {
+    lof.hide();
   });
 

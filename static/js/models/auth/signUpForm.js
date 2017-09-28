@@ -94,7 +94,7 @@ export class SignUpForm {
           throw [errors.SERVER_UNAVAILABLE,];
         }
         const resp = JSON.parse(xhr.responseText);
-        throw [].push(resp.message);
+        throw [resp.message,];
       });
   };
 
