@@ -1,6 +1,6 @@
 @import "main.css";
 
-.forms#add-username {
+.forms .add-username-section {
     display: none;
 }
 

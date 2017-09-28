@@ -1,7 +1,7 @@
 
 @import "main.css";
 
-.forms#login {
+.forms .login-section {
     display: none;
 }
 

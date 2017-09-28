@@ -29,7 +29,7 @@ body, html {
 }
 
 
-#play-game {
+.play-game-section {
     display: none;
 }
 

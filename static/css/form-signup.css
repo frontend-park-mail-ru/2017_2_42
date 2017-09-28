@@ -1,6 +1,6 @@
 @import "./main.css";
 
-.forms#signup {
+.forms .signup-section {
     display: none;
 }
 
@@ -61,7 +61,7 @@ form.signup input[type=submit]:hover {
     opacity: 1;
 }
 
-.container {
+.input__container {
     /*height: 8vh;*/
     position: relative;
     margin: 0;

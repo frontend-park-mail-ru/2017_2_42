@@ -1,6 +1,6 @@
 @import "main.css";
 
-.main-game-container#main-game-container {
+.main-game-container-section {
     display: none;
 }
 
