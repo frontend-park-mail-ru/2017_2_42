@@ -34,7 +34,7 @@ export class Form extends Block {
   }
 
   show() {
-    super.show();
+    this.elem.style.display = 'flex';
 
     for (let input of this.childArr) {
       input.show();

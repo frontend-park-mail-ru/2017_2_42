@@ -6,7 +6,7 @@ import {http} from "../../modules/http";
 import {PATHS} from "../../tools/paths";
 import {errors} from "../../tools/errors/errors";
 import {app} from "../../main";
-import {Form} from "../../blocks/form/form";
+import {Form} from "./form";
 import {signUpFields, signUpConfig} from "./signUpConfig";
 
 /**
@@ -21,6 +21,11 @@ export class SignUpForm extends Form {
 
     this.page = page;
     this.page.appendChild(this.elem);
+
+    let h2 = document.createElement('h2');
+    h2.classList.add('signup-header');
+    h2.innerText = 'SIGN UP';
+    this.elem.insertBefore(h2, this.elem.firstChild);
 
     this.errorHandler = new ErrorsHandler(
       this.childArr[0],

@@ -9,7 +9,7 @@ export class StartPage {
   }
 
   show() {
-    this.page.style.display = 'flex';
+    this.page.style.display = 'block';
 
     disposableListener(this.button, 'click', function () {
       app.go(app.goMap.login);

@@ -1,4 +1,4 @@
-import {SignUpForm} from "../auth/signUpForm";
+import {SignUpForm} from "../../blocks/form/signUpForm";
 
 export class SignUpPage {
   constructor() {

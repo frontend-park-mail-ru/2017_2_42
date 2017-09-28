@@ -49,7 +49,7 @@ export class Block {
    * Отображает блок
    */
   show() {
-    this.elem.style.display = 'flex';
+    this.elem.style.display = 'block';
   }
 
   /**
@@ -70,8 +70,8 @@ export class Block {
   on(event, callback) {
     this.elem.addEventListener(event, callback);
 
-    this.listenerRemovers.push(function () {
+    this.listenerRemovers.push(() => {
       this.elem.removeEventListener(event, callback);
-    }.bind(this));
+    });
   }
 }
