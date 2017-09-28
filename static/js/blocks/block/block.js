@@ -31,6 +31,7 @@ export class Block {
         if (text) {
             elem.textContent = text;
         }
+        this.ready = false;
         return new Block(elem);
     }
 
@@ -53,14 +54,14 @@ export class Block {
      * Скрывает блок
      */
     hide() {
-        this._elem.setAttribute('hidden', 'hidden');
+        this._elem.style.display = 'none';
     }
 
     /**
      * Отображает блок
      */
     show() {
-        this._elem.removeAttribute('hidden');
+        this._elem.style.display = 'inherit';
     }
 
     /**

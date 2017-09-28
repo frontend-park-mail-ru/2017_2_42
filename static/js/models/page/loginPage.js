@@ -1,7 +1,7 @@
 import {LoginForm} from "../auth/loginForm";
 import {disposableListener} from "../../tools/eventUtils";
-import {app} from "../../main";
-
+// import {app} from "fro../../main";
+//
 export class LoginPage {
   constructor() {
     this.page = document.getElementById('login');

@@ -2,6 +2,7 @@
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+// let SplitByPathPlugin = require('split-by-path-plugin') ;
 
 module.exports = {
     context: __dirname,
@@ -33,7 +34,7 @@ module.exports = {
           {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
+              // fallback: 'style-loader',
               use: ['css-loader']
             })
           },

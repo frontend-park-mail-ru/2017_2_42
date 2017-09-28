@@ -2,7 +2,7 @@
  * Created by zwirec on 28.09.17.
  */
 
-export default signup_fields = [
+export const signup_fields = [
     {
         attrs: {
             type: 'text',

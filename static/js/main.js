@@ -13,15 +13,17 @@ import {Form} from "./blocks/form/form";
 
 // import './app/startGame';
 //
-let suf = new SignUpForm();
-let lof = new LoginForm();
+// let suf = new SignUpForm();
+// let lof = new LoginForm();
 
+
+const app = new Block(document.getElementsByTagName('body')[0]);
 
 const sections = {
-    login: Block.Create('section', {}, ['login-section']),
-    signup: Block.Create('section', {}, ['signup-section']),
+    login: Block.Create('section', {}, ['login-section', 'forms']),
+    signup: Block.Create('section', {}, ['signup-section', 'forms']),
     add_username: Block.Create('section', {}, ['add-username-section']),
-    start_game: Block.Create('section', {}, ['start-game-section']),
+    start_game: Block.Create('section', {}, ['play-game-section']),
     game: Block.Create('section', {}, ['main-game-container-section']),
     hide() {
         this.login.hide();
@@ -32,30 +34,36 @@ const sections = {
     },
 };
 
+app.append(sections.start_game)
+    .append(sections.signup)
+    .append(sections.login)
+    .append(sections.game)
+    .append(sections.add_username);
+
 sections.hide();
 
 function openLogin() {
     if (!sections.login.ready) {
-        let form_blocks = [];
-        for (let input in login_fields) {
+        let form_blocks = [Block.Create('h2', {}, ["login-header"], 'LOGIN')];
+        for (let input of login_fields) {
             let div = Block.Create('div', {}, ["input__container"]);
-            div.append(Block.Create('input', input.attrs, input.classes));
+            const inp = Block.Create('input', input.attrs, input.classes);
+            //TODO сделать на input.on('click', callback) смену состояния
+            div.append(inp);
             div.append(Block.Create('p', {}, ["error-message"]));
-            form_blocks.append(div)
+            form_blocks.push(div)
         }
-        sections.login.loginform = new Form(form_blocks);
-        sections.login.loginform.onSubmit(onSubmitLoginForm);
+        form_blocks.push(Block.Create('input', {type: "submit", value: "LOGIN"}));
+        form_blocks.push(Block.Create('input', {type: "button", value: "SIGNUP"}));
+        form_blocks.push(Block.Create('p', {}, ["social-login"], "or login with"));
         let social = Block.Create("ul", {}, ['social']);
-        for (let a in social_button) {
+        for (let a of social_button) {
             social.append(Block.Create("li").append(Block.Create("a", {}, a.classes, a.value)));
         }
-        sections.login
-            .append(Block.Create('h2', {}, ["login-header"], 'LOGIN'))
-            .append(sections.login.loginform)
-            .append(Block.Create('input', {type: "submit", value: "LOGIN"}))
-            .append(Block.Create('input', {type: "button", value: "SIGNUP"}))
-            .append(Block.Create('p', {}, ["social-login"], "or login with"))
-            .append(social);
+        form_blocks.push(social);
+
+        sections.login.loginform = new Form(['login'], form_blocks);
+        // sections.login.loginform.onSubmit(onSubmitLoginForm);
         sections.login.ready = true;
     }
     sections.hide();
@@ -66,37 +74,66 @@ function openLogin() {
     sections.login.show();
 }
 
+function openGame() {
+    if (!sections.game.ready) {
+
+    }
+}
 
 function openSignup() {
     if (!sections.signup.ready) {
-        let form_blocks = [];
-        for (let input in signup_fields) {
+        let form_blocks = [Block.Create('h2', {}, ['signup-header'], 'SIGNUP')];
+        for (let input of signup_fields) {
             let div = Block.Create('div', {}, ["input__container"]);
-            div.append(Block.Create('input', input.attrs, input.classes));
+            let inp = Block.Create('input', input.attrs, input.classes);
+            //TODO сделать на input.on('click', callback) смену состояния
+            div.append(inp);
             div.append(Block.Create('p', {}, ["error-message"]));
-            form_blocks.append(div)
+            form_blocks.push(div)
         }
-        sections.signup.signupform = new Form(form_blocks);
-        sections.signup.signupform.onSubmit(onSubmitSignupForm);
+        form_blocks.push(Block.Create('input', {type:'submit', value:'DONE'}));
+        sections.signup.signupform = new Form(['signup'], form_blocks);
+        sections.signup.signupform.onSubmit(function (data) {
+            sections.signup.hide();
+            openLogin();
+        });
         sections.signup
-            .append(Block.Create('h2', {}, [], 'SIGNUP'))
-            .append(sections.signup.signupform)
-            .append(Block.Create('input', {type:'submit', value:'DONE'}));
+            .append(sections.signup.signupform);
         sections.signup.ready = true;
     }
     sections.hide();
-    if (userService.isLoggedIn()) {
-        return openMenu();
-    }
+    // if (userService.isLoggedIn()) {
+    //     return openMenu();
+    // }
+    //TODO сюда запили проверку на авторизацию иначе form.setErrorInputState
+    sections.signup.signupform.setErrorInputState({username: "allbad"});
     sections.signup.show();
 }
 
-suf.show()
-  .then((res) => {
-    suf.hide();
-    return lof.show();
-  })
-  .then(() => {
-    lof.hide();
-  });
+function openStartGame() {
+    if (!sections.start_game.ready) {
+        sections.start_game.append(Block.Create('div', {}, ['main'])
+                                        .append(Block.Create('a', {}, ['play-game-btn'], 'PLAY GAME')));
+        sections.start_game.on('click', function (event) {
+            //TODO чекаем session_id
+            //TODO если ок, то sections.startgame.hide(); openGame()
+            sections.start_game.hide();
+            openSignup();
+        });
+        sections.start_game.ready = true
+    }
+    sections.hide();
+    sections.start_game.show()
+}
+
+openStartGame();
+
+// suf.show()
+//   .then((res) => {
+//     suf.hide();
+//     return lof.show();
+//   })
+//   .then(() => {
+//     lof.hide();
+//   });
 

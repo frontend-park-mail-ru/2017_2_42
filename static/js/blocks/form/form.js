@@ -6,8 +6,11 @@ import {Block} from "../block/block"
 
 
 export class Form extends Block {
-    constructor(blocks = []) {
+    constructor(classes = [], blocks = []) {
         const el = document.createElement('form');
+        classes.forEach((cls) => {
+            el.classList.add(cls)
+        });
         super(el);
         blocks.forEach(function (b) {
             this.append(b);
@@ -15,10 +18,10 @@ export class Form extends Block {
     }
 
     onSubmit(callback) {
-        this.el.addEventListener('submit', function (e) {
+        this._elem.addEventListener('submit', function (e) {
             e.preventDefault();
             const formdata = {};
-            const elements = this.el.elements;
+            const elements = this._elem.elements;
             for (let name in elements) {
                 formdata[name] = elements[name].value;
             }
@@ -28,8 +31,8 @@ export class Form extends Block {
     }
 
     setErrorInputState(fields = {}) {
-        for (let name of fields) {
-            const input = this.el.getElementsByName(name)[0];
+        for (let name in fields) {
+            const input = this._elem.elements[name];
             input.classList.remove("input-ok");
             input.classList.add("input-error");
             const p = input.nextElementSibling;
@@ -38,9 +41,10 @@ export class Form extends Block {
         }
 
     }
+
     setOKInputState(fields = {}) {
-        for (let name of fields) {
-            const input = this.el.getElementsByName(name)[0];
+        for (let name in fields) {
+            const input = this._elem.elements[name];
             input.classList.remove("input-error");
             input.classList.add("input-ok");
             const p = input.nextElementSibling;
@@ -48,6 +52,7 @@ export class Form extends Block {
         }
 
     }
+
     reset() {
         this.el.reset();
     }

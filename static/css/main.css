@@ -30,7 +30,8 @@ body, html {
 
 
 .play-game-section {
-    display: none;
+    height: 100%;
+    /*display: none;*/
 }
 
 .main {
@@ -62,14 +63,11 @@ body, html {
     color: #f4f4f0;
     -webkit-font-smoothing: antialiased;
     margin: auto;
-    opacity: 0.8;
+    opacity: 0.6;
+    -webkit-user-select: none;
 }
 
 .main a:hover {
-    font-size: 105px;
-    font-family: 'KGSecondChancesSketch', serif;
-    font-weight: 900;
-    color: #f4f4f0;
     -webkit-font-smoothing: antialiased;
     opacity:1;
 }
