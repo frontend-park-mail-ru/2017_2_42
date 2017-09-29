@@ -32,7 +32,8 @@ export class LoginForm extends Form {
         h2.classList.add('login-header');
         h2.innerText = 'LOGIN';
         this.elem.insertBefore(h2, this.elem.firstChild);
-        let button = this.elem.elements['signup'];
+
+      let button = this.elem.elements['signup'];
         button.addEventListener('click', function(ev) {
             app.go(app.goMap.signup);
         });

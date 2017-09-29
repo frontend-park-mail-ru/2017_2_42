@@ -1,7 +1,3 @@
-/**
- * Created by zwirec on 29.09.17.
- */
-
 export const loginConfig = {
     attrs: {},
     classes: ['login'],
