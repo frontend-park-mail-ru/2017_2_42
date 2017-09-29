@@ -14,7 +14,8 @@ export class Block {
   }
 
   /**
-   * Фабричный метод, который ползволяет удобро создавать блоки с заданными характеристиками
+   * Фабричный метод, который ползволяет удобро
+   * создавать блоки с заданными характеристиками
    * @param {string} [tagName='div'] - tagName блока
    * @param {*} [attrs={}] - объект с атрибутами блока
    * @param {string[]} [classes=[]] - список имён классов
@@ -24,12 +25,14 @@ export class Block {
   static Create(tagName = 'div', attrs = {}, classes = []) {
     const elem = document.createElement(tagName);
 
-    classes.forEach(function (className) {
+    classes.forEach(function(className) {
       elem.classList.add(className);
     });
 
     for (let name in attrs) {
-      elem.setAttribute(name, attrs[name]);
+      if (attrs.hasOwnProperty(name)) {
+        elem.setAttribute(name, attrs[name]);
+      }
     }
 
     return new Block(elem);
@@ -55,7 +58,6 @@ export class Block {
   /**
    * Добавляет к текущему блоку дочерний
    * @param {Block} block
-   * @return {Block}
    */
   append(block) {
     this.childArr.push(block);

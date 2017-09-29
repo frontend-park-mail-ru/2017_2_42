@@ -1,8 +1,16 @@
-import {errors} from "./errors";
-import {setErrorInputState, setOKInputState} from "../inputUtils";
-import {disposableListener} from "../eventUtils";
+import {errors} from './errors';
 
+/**
+ * Errors handler class
+ */
 export class ErrorsHandler {
+  /**
+   * Having inputs for settin them in error and ok state
+   * @param {Input} usernameInput username field
+   * @param {Input} passwordInput password field
+   * @param {Input} emailInput email field
+   * @param {Input} confirmationInput confirmation field
+   */
   constructor(usernameInput, passwordInput,
               emailInput, confirmationInput) {
     this.usernameInput = usernameInput;
@@ -11,6 +19,10 @@ export class ErrorsHandler {
     this.confirmationInput = confirmationInput;
   }
 
+  /**
+   * Method that handles errors in errorsArr
+   * @param {Array} errorsArr array with an errors
+   */
   handle(errorsArr) {
     for (let error of errorsArr) {
       switch (error) {
@@ -23,8 +35,8 @@ export class ErrorsHandler {
           break;
 
         case errors.USERNAME_FIELD_TOO_SHORT:
-          this.usernameInput.setErrorInputState('username must be at least ' +
-            '3 characters');
+          this.usernameInput.setErrorInputState('username must be at ' +
+            'least 3 characters');
           break;
 
         case errors.USERNAME_ALREADY_EXISTS:
@@ -44,7 +56,8 @@ export class ErrorsHandler {
           break;
 
         case errors.EMAIL_ALREADY_EXISTS:
-          this.emailInput.setErrorInputState('user with this email already exists');
+          this.emailInput.setErrorInputState('user with this email' +
+            ' already exists');
           break;
 
         case errors.PASSWORD_FIELD_EMPTY:

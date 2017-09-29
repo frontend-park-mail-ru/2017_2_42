@@ -1,11 +1,11 @@
 'use strict';
 
-import {http} from "../../modules/http";
-import {ErrorsHandler} from "../../tools/errors/errorsHandler";
-import {Validator} from "../../modules/validator";
-import {PATHS} from "../../tools/paths";
-import {errors} from "../../tools/errors/errors";
-import {app} from "../../main";
+import {http} from '../../modules/http';
+import {ErrorsHandler} from '../../tools/errors/errorsHandler';
+import {Validator} from '../../modules/validator';
+import {PATHS} from '../../tools/paths';
+import {errors} from '../../tools/errors/errors';
+import {app} from '../../main';
 
 /**
  * Login form model page
@@ -13,6 +13,7 @@ import {app} from "../../main";
 export class LoginForm {
   /**
    * Initializes main vars
+   * @param {Object} page
    */
   constructor(page) {
     this.formValues = {
@@ -29,13 +30,18 @@ export class LoginForm {
 
     this.errorHandler = new ErrorsHandler(
       this.usernameField, this.passwordField);
-
   }
 
+  /**
+   *
+   */
   show() {
     this._addSubmitListener();
   }
 
+  /**
+   *
+   */
   hide() {
     this._removeSubmitListener();
   }
@@ -75,20 +81,27 @@ export class LoginForm {
     return http.prPost(PATHS.LOGIN_PATH, requestBody)
       .catch((xhr) => {
         if (xhr.status >= 500) {
-          throw [errors.SERVER_UNAVAILABLE,];
+          throw new Array(errors.SERVER_UNAVAILABLE);
         }
 
         let resp = JSON.parse(xhr.responseText);
-        throw [resp.message,];
+        throw new Array(resp.message);
       });
   }
 
+  /**
+   *
+   * @private
+   */
   _addSubmitListener() {
-    this.form.addEventListener('submit', ev => this._onSubmit(ev));
-  };
-
-  _removeSubmitListener() {
-    this.form.removeEventListener('submit', ev => this._onSubmit(ev));
+    this.form.addEventListener('submit', (ev) => this._onSubmit(ev));
   }
 
+  /**
+   *
+   * @private
+   */
+  _removeSubmitListener() {
+    this.form.removeEventListener('submit', (ev) => this._onSubmit(ev));
+  }
 }
