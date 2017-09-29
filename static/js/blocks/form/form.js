@@ -28,6 +28,11 @@ export class Form extends Block {
 
     for (let inputConfig of inputsConfig) {
       form.append(Input.Create(inputConfig.attrs, inputConfig.classes));
+
+      let errorp = document.createElement('p');
+      errorp.classList.add('error-message');
+
+      form.elem.appendChild(errorp);
     }
 
     return new Form(form.elem, form.childArr);

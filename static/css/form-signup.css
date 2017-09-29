@@ -62,7 +62,7 @@ form.signup input[type=submit]:hover {
     opacity: 1;
 }
 
-.input__container {
+.container {
     /*height: 8vh;*/
     position: relative;
     margin: 0;
