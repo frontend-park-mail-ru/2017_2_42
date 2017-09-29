@@ -22,18 +22,16 @@ export class Block {
    * @return {Block}
    * @constructor
    */
-  static Create(tagName = 'div', attrs = {}, classes = []) {
+  static create(tagName = 'div', attrs = {}, classes = []) {
     const elem = document.createElement(tagName);
 
     classes.forEach(function(className) {
       elem.classList.add(className);
     });
 
-    for (let name in attrs) {
-      if (attrs.hasOwnProperty(name)) {
-        elem.setAttribute(name, attrs[name]);
-      }
-    }
+    Object.keys(attrs).forEach((name) => {
+      elem.setAttribute(name, attrs[name]);
+    });
 
     return new Block(elem);
   }

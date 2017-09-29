@@ -10,7 +10,7 @@ export class SignUpPage {
   constructor() {
     this.section = document.getElementById('signup');
 
-    this.signUpForm = new SignUpForm.Create(this.section);
+    this.signUpForm = SignUpForm.create(this.section);
   }
 
   /**

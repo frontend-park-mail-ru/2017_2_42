@@ -37,8 +37,8 @@ export class Input extends Block {
    * @return {Input} built input field
    * @constructor
    */
-  static Create(attrs = {}, classes = []) {
-    let inp = new super.Create('input', attrs, classes);
+  static create(attrs = {}, classes = []) {
+    let inp = super.create('input', attrs, classes);
 
     return new Input(inp.elem);
   }

@@ -24,13 +24,13 @@ export class Form extends Block {
    * @return {Block}
    * @constructor
    */
-  static Create(formConfig, inputsConfig) {
+  static create(formConfig, inputsConfig) {
     const tagName = 'form';
 
-    let form = new super.Create(tagName, formConfig.attrs, formConfig.classes);
+    let form = super.create(tagName, formConfig.attrs, formConfig.classes);
 
     for (let inputConfig of inputsConfig) {
-      form.append(new Input.Create(inputConfig.attrs, inputConfig.classes));
+      form.append(Input.create(inputConfig.attrs, inputConfig.classes));
 
       let errorp = document.createElement('p');
       errorp.classList.add('error-message');

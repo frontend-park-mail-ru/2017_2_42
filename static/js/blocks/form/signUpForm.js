@@ -43,8 +43,8 @@ export class SignUpForm extends Form {
    * @return {SignUpForm} built form
    * @constructor
    */
-  static Create(page) {
-    let form = new super.Create(signUpConfig, signUpFields);
+  static create(page) {
+    let form = super.create(signUpConfig, signUpFields);
 
     return new SignUpForm(form, page);
   }
