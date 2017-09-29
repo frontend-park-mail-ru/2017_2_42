@@ -1,19 +1,21 @@
 'use strict';
 
-import {ErrorsHandler} from "../../tools/errors/errorsHandler";
-import {Validator} from "../../modules/validator";
-import {http} from "../../modules/http";
-import {PATHS} from "../../tools/paths";
-import {errors} from "../../tools/errors/errors";
-import {app} from "../../main";
-import {Form} from "./form";
-import {signUpFields, signUpConfig} from "./signUpConfig";
+import {ErrorsHandler} from '../../tools/errors/errorsHandler';
+import {Validator} from '../../modules/validator';
+import {http} from '../../modules/http';
+import {PATHS} from '../../tools/paths';
+import {errors} from '../../tools/errors/errors';
+import {app} from '../../main';
+import {Form} from './form';
+import {signUpFields, signUpConfig} from './signUpConfig';
 
 /**
  * Sign up form model page
  */
 export class SignUpForm extends Form {
   /**
+   * @param {Form} form built form
+   * @param {Object} page page that will contain this form
    * Initializes main vars
    */
   constructor(form, page) {
@@ -35,17 +37,23 @@ export class SignUpForm extends Form {
     );
   }
 
-  static Create(page) {
-    let form = super.Create(signUpConfig, signUpFields);
+  /**
+   * Method that creates signup form
+   * @param {Object} page page that will contain this form
+   * @return {SignUpForm} built form
+   * @constructor
+   */
+  static create(page) {
+    let form = super.create(signUpConfig, signUpFields);
 
     return new SignUpForm(form, page);
   }
 
   /**
-   *
+   * Shows the form
    */
   show() {
-    this.on('submit', function (e) {
+    this.on('submit', function(e) {
       e.preventDefault();
       this._collectData();
 
@@ -70,10 +78,10 @@ export class SignUpForm extends Form {
     return http.prPost(PATHS.SIGNUP_PATH, requestBody)
       .catch((xhr) => {
         if (xhr.status >= 500) {
-          throw [errors.SERVER_UNAVAILABLE,];
+          throw new Array(errors.SERVER_UNAVAILABLE);
         }
         const resp = JSON.parse(xhr.responseText);
-        throw [resp.message,];
+        throw new Array(resp.message);
       });
   };
 }

@@ -1,12 +1,15 @@
+import {Block} from '../block/block';
+import {Input} from '../input/input';
+
 /**
- * Created by zwirec on 28.09.17.
+ * Form class for containing inputs, etc
  */
-
-import {Block} from "../block/block"
-import {Input} from "../input/input";
-
-
 export class Form extends Block {
+  /**
+   * Initializes Form
+   * @param {Object} elem
+   * @param {Object} childArr
+   */
   constructor(elem, childArr) {
     super(elem);
 
@@ -15,19 +18,19 @@ export class Form extends Block {
   }
 
   /**
-   *
-   * @param formConfig
-   * @param inputsConfig
+   * Builds the form
+   * @param {Object} formConfig config with attrs and classes for form
+   * @param {Object} inputsConfig config with attrs and classes for each input
    * @return {Block}
    * @constructor
    */
-  static Create(formConfig, inputsConfig) {
+  static create(formConfig, inputsConfig) {
     const tagName = 'form';
 
-    let form = super.Create(tagName, formConfig.attrs, formConfig.classes);
+    let form = super.create(tagName, formConfig.attrs, formConfig.classes);
 
     for (let inputConfig of inputsConfig) {
-      form.append(Input.Create(inputConfig.attrs, inputConfig.classes));
+      form.append(Input.create(inputConfig.attrs, inputConfig.classes));
 
       let errorp = document.createElement('p');
       errorp.classList.add('error-message');
@@ -38,6 +41,9 @@ export class Form extends Block {
     return new Form(form.elem, form.childArr);
   }
 
+  /**
+   * Shows the form
+   */
   show() {
     this.elem.style.display = 'flex';
 
@@ -46,6 +52,9 @@ export class Form extends Block {
     }
   }
 
+  /**
+   * Hides the form
+   */
   hide() {
     super.hide();
 
@@ -54,15 +63,10 @@ export class Form extends Block {
     }
   }
 
-  onSubmit(callback) {
-    this.on('submit', function (e) {
-      e.preventDefault();
-      this._collectData();
-
-      callback(this.values);
-    }.bind(this));
-  }
-
+  /**
+   * Collects the data
+   * @private
+   */
   _collectData() {
     for (let inputBlock of this.childArr) {
       if (inputBlock.type !== 'submit') {

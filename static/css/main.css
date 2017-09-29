@@ -1,18 +1,8 @@
 @font-face {
     font-family: 'KGSecondChancesSketch';
-    /*font-style: normal;*/
-    /*font-weight: 400;*/
     src: url(../fonts/KGSecondChancesSketch.ttf) format('truetype');
-    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
 }
 
-/*@font-face {*/
-    /*font-family: 'Cabin Sketch';*/
-    /*font-style: normal;*/
-    /*font-weight: 700;*/
-    /*src: local('Cabin Sketch Bold'), local('CabinSketch-Bold'), url(../fonts/CabinSketchBold.woff2) format('woff2');*/
-    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
-/*}*/
 
 
 * {
@@ -21,22 +11,18 @@
 }
 
 body, html {
-    /*overflow-y: hidden;*/
     background: url("../img/chalkboard.jpg");
     background-size: 100% 100%;
-    /*-webkit-background-size: cover;*/
     height: 100%;
 }
 
 
 .play-game-section {
     height: 100%;
-    /*display: none;*/
 }
 
 .main {
     display: flex;
-    /*display: none;*/
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -46,7 +32,6 @@ body, html {
 
 .forms {
     display: flex;
-    /*display: none;*/
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;

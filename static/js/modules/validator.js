@@ -1,4 +1,4 @@
-import {errors} from "../tools/errors/errors";
+import {errors} from '../tools/errors/errors';
 
 /**
  * Class Validator that validates data
@@ -66,7 +66,6 @@ export class Validator {
 
       reject(errCodes);
     });
-
   };
 
   /**
@@ -147,5 +146,4 @@ export class Validator {
 
     return errors.SUCCESS;
   };
-
 }
