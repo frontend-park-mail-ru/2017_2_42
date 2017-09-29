@@ -1,9 +1,15 @@
-import {SignUpPage} from "./page/signUpPage";
-import {LoginPage} from "./page/loginPage";
-import {StartPage} from "./page/startPage";
-import {GamePage} from "./page/gamePage";
+import {SignUpPage} from './page/signUpPage';
+import {LoginPage} from './page/loginPage';
+import {StartPage} from './page/startPage';
+import {GamePage} from './page/gamePage';
 
+/**
+ * Application class
+ */
 export class App {
+  /**
+   * Initializes class
+   */
   constructor() {
     this.startPage = new StartPage();
     this.signUpPage = new SignUpPage();
@@ -25,15 +31,21 @@ export class App {
     this.openedPage = null;
   }
 
+  /**
+   * runs the app
+   */
   run() {
     this.startPage.show();
     this.openedPage = this.startPage;
   }
 
+  /**
+   * Makes moving above pages
+   * @param {Object} page
+   */
   go(page) {
     this.openedPage.hide();
     this.openedPage = page;
     page.show();
   }
-
 }

@@ -23,20 +23,19 @@ export class http {
    * @return {Promise} resolved promise on 200 and rejected on >= 400
    */
   static prGet(path) {
-    return this._prRequest('GET', path, null)
+    return this._prRequest('GET', path, null);
   }
-
 
   /**
    * Promisified request method
-   * @param {string} method 'GET' \ 'POST'
-   * @param {string} path api path to request
-   * @param {string || null} body body of request
-   * @return {Promise} resolved on 200 or rejected on >= 400 promise
+   * @param {string} method 'GET' or 'POST' method
+   * @param {string} path request path
+   * @param {string} body request body
+   * @return {Promise} resolved promise on 200 and rejected on >= 400
    * @private
    */
   static _prRequest(method, path, body) {
-    return new Promise(function (resovle, reject) {
+    return new Promise(function(resovle, reject) {
       const xhr = new XMLHttpRequest();
 
       xhr.open(method, _serverPath + path, true);
@@ -62,6 +61,6 @@ export class http {
       } else {
         xhr.send();
       }
-    })
+    });
   }
 }

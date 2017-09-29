@@ -8,17 +8,17 @@ export const signUpFields = [
     attrs: {
       type: 'text',
       name: 'username',
-      placeholder: 'username'
+      placeholder: 'username',
     },
-    classes: ["input-ok"]
+    classes: ['input-ok'],
   },
   {
     attrs: {
       type: 'text',
       name: 'email',
-      placeholder: 'email'
+      placeholder: 'email',
     },
-    classes: ["input-ok"]
+    classes: ['input-ok'],
   },
   {
     attrs: {
@@ -26,21 +26,21 @@ export const signUpFields = [
       name: 'password',
       placeholder: 'password',
     },
-    classes: ["input-ok"]
+    classes: ['input-ok'],
   },
   {
     attrs: {
       type: 'password',
       name: 'confirmation',
-      placeholder: 'one more time'
+      placeholder: 'one more time',
     },
-    classes: ["input-ok"]
+    classes: ['input-ok'],
   },
   {
     attrs: {
       type: 'submit',
       value: 'DONE',
     },
-    classes: []
-  }
+    classes: [],
+  },
 ];
