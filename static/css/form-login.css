@@ -16,18 +16,14 @@ form.login {
 }
 
 form.login h2.login-header {
-    /*font-size: 60px;*/
     font-size: 7vh;
 }
 
 form.login input[type=text], form.login input[type=password] {
     font-family: inherit;
     color: inherit;
-    /*font-size: 30px;*/
     font-size: 2rem;
     background: none;
-    /*border: 10px solid rgba(255, 255, 255, .8);*/
-    /*border-image: url("../img/chalk_input_border.png") 10;*/
     padding: 5px;
     height: 7vh;
     max-height: 50px;
@@ -70,8 +66,7 @@ form.login input[type=submit], form.login input[type=button] {
     height: 9vh;
 }
 
-form.login input[type=submit]:hover {
-    /*animation-play-state: initial;*/
+form.login input[type=submit]:hover, form.login input[type=button]:hover {
     opacity: 1;
 }
 
