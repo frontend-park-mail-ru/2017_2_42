@@ -1,6 +1,6 @@
-import {LoginForm} from '../auth/loginForm';
-import {disposableListener} from '../../tools/eventUtils';
-import {app} from '../../main';
+// import {disposableListener} from '../../tools/eventUtils';
+import {LoginForm} from '../../blocks/form/loginForm';
+// import {app} from '../../main';
 
 /**
  *
@@ -10,21 +10,20 @@ export class LoginPage {
    *
    */
   constructor() {
-    this.page = document.getElementById('login');
+      this.section = document.getElementById('login');
 
-    this.loginForm = new LoginForm(this.page);
-    this.signUpButton = this.page.getElementsByClassName('signupBTN')[0];
+      this.loginForm = LoginForm.create(this.section);
 
-    disposableListener(this.signUpButton, 'click', () => {
-      app.go(app.goMap.signUp);
-    });
+    // disposableListener(this.signupButton, 'click', () => {
+    //   app.go(app.goMap.signup);
+    // });
   }
 
   /**
    *
    */
   show() {
-    this.page.style.display = 'flex';
+    this.section.style.display = 'flex';
     this.loginForm.show();
   }
 
@@ -32,7 +31,7 @@ export class LoginPage {
    *
    */
   hide() {
-    this.page.style.display = 'none';
+    this.section.style.display = 'none';
     this.loginForm.hide();
   }
 }

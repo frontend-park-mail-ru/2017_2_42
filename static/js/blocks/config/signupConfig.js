@@ -1,9 +1,9 @@
-export const signUpConfig = {
+export const signupConfig = {
   attrs: {},
   classes: ['signup'],
 };
 
-export const signUpFields = [
+export const signupFields = [
   {
     attrs: {
       type: 'text',

@@ -6,17 +6,17 @@ import {errors} from '../tools/errors/errors';
 export class Validator {
   /**
    * Validates signup form for lexical validity
-   * @param {Object} signUpForm form with signUp Data
+   * @param {Object} signupForm form with signup Data
    * @return {Promise} resolved or rejected with codes array
    */
-  static validateSignUpForm(signUpForm) {
+  static validateSignUpForm(signupForm) {
     return new Promise((resolve, reject) => {
       let errCodes = [];
 
-      let usernameStatus = this._validateUsername(signUpForm.username);
-      let emailStatus = this._validateEmail(signUpForm.email);
+      let usernameStatus = this._validateUsername(signupForm.username);
+      let emailStatus = this._validateEmail(signupForm.email);
       let passwordsStatus = this._validatePassAndConf(
-        signUpForm.password, signUpForm.confirmation);
+        signupForm.password, signupForm.confirmation);
 
       if (usernameStatus !== errors.SUCCESS) {
         errCodes.push(usernameStatus);
@@ -48,7 +48,7 @@ export class Validator {
     return new Promise((resolve, reject) => {
       let errCodes = [];
 
-      let usernameStatus = this._validateUsername(loginForm.username);
+      let usernameStatus = this._validateUsername(loginForm.login);
       let passwordsStatus = this._validatePassword(loginForm.password);
 
       if (usernameStatus !== errors.SUCCESS) {
@@ -79,7 +79,7 @@ export class Validator {
       return errors.PASSWORD_FIELD_EMPTY;
     }
 
-    if (password.length < 8) {
+    if (password.length < 6) {
       return errors.PASSWORD_FIELD_BAD;
     }
 

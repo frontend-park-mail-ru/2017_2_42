@@ -7,12 +7,12 @@ import {PATHS} from '../../tools/paths';
 import {errors} from '../../tools/errors/errors';
 import {app} from '../../main';
 import {Form} from './form';
-import {signUpFields, signUpConfig} from './signUpConfig';
+import {signupFields, signupConfig} from '../config/signupConfig';
 
 /**
  * Sign up form model page
  */
-export class SignUpForm extends Form {
+export class SignupForm extends Form {
     /**
      * @param {Form} form built form
      * @param {Object} page page that will contain this form
@@ -40,13 +40,13 @@ export class SignUpForm extends Form {
     /**
      * Method that creates signup form
      * @param {Object} page page that will contain this form
-     * @return {SignUpForm} built form
+     * @return {SignupForm} built form
      * @constructor
      */
     static create(page) {
-        let form = super.create(signUpConfig, signUpFields);
+        let form = super.create(signupConfig, signupFields);
 
-        return new SignUpForm(form, page);
+        return new SignupForm(form, page);
     }
 
     /**
@@ -58,7 +58,7 @@ export class SignUpForm extends Form {
             this._collectData();
 
             Validator.validateSignUpForm(this.values)
-                .then(() => this._signUpNewUser())
+                .then(() => this._signupNewUser())
                 .then(() => app.go(app.goMap.gamePage))
                 .catch((errorsArr) => this.errorHandler.handle(errorsArr));
         }.bind(this));
@@ -72,7 +72,7 @@ export class SignUpForm extends Form {
      * @return {Promise}
      * @private
      */
-    _signUpNewUser() {
+    _signupNewUser() {
         const requestBody = JSON.stringify(this.values);
 
         return http.prPost(PATHS.SIGNUP_PATH, requestBody)

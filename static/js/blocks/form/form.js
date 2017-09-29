@@ -69,7 +69,7 @@ export class Form extends Block {
    */
   _collectData() {
     for (let inputBlock of this.childArr) {
-      if (inputBlock.type !== 'submit') {
+      if (inputBlock.type !== 'submit' && inputBlock.type !== 'button') {
         this.values[inputBlock.name] = inputBlock.getValue();
       }
     }

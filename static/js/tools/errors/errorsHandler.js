@@ -12,7 +12,7 @@ export class ErrorsHandler {
    * @param {Input} confirmationInput confirmation field
    */
   constructor(usernameInput, passwordInput,
-              emailInput, confirmationInput) {
+              emailInput = null, confirmationInput = null) {
     this.usernameInput = usernameInput;
     this.passwordInput = passwordInput;
     this.emailInput = emailInput;
@@ -66,7 +66,7 @@ export class ErrorsHandler {
 
         case errors.PASSWORD_FIELD_BAD:
           this.passwordInput.setErrorInputState('password must be at least ' +
-            '8 characters');
+            '6 characters');
           break;
 
         case errors.PASSWORD_WRONG:

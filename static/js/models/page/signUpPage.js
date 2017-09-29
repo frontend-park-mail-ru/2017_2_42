@@ -1,4 +1,4 @@
-import {SignUpForm} from '../../blocks/form/signUpForm';
+import {SignupForm} from '../../blocks/form/signupForm';
 
 /**
  *
@@ -10,7 +10,7 @@ export class SignUpPage {
   constructor() {
     this.section = document.getElementById('signup');
 
-    this.signUpForm = SignUpForm.create(this.section);
+    this.signupForm = SignupForm.create(this.section);
   }
 
   /**
@@ -18,7 +18,7 @@ export class SignUpPage {
    */
   show() {
     this.section.style.display = 'flex';
-    this.signUpForm.show();
+    this.signupForm.show();
   }
 
   /**
@@ -26,6 +26,6 @@ export class SignUpPage {
    */
   hide() {
     this.section.style.display = 'none';
-    this.signUpForm.hide();
+    this.signupForm.hide();
   }
 }
