@@ -7,6 +7,7 @@ branches:
   - nightly
   - master
   - sandbox
+before_deploy: "npm run build"
 deploy:
   provider: heroku
   api_key:
@@ -20,3 +21,4 @@ deploy:
     master: master-42
     sandbox: sand42box
     nightly: nightly-42
+  skip_cleanup: true
