@@ -1,0 +1,152 @@
+@import "../../../../css/main.css";
+
+/*section id*/
+#login-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+}
+
+form.login {
+    font-family: "KGSecondChancesSketch", serif;
+    color: #f4f4f0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+h2.login-header {
+    font-size: 7vh;
+    font-family: "KGSecondChancesSketch", serif;
+}
+
+form.login input[type=text], form.login input[type=password] {
+    font-family: inherit;
+    color: inherit;
+    font-size: 2rem;
+    background: none;
+    padding: 5px;
+    height: 7vh;
+    max-height: 50px;
+    width: 24vw;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-height: 768px) {
+    form * {
+        margin-bottom: 10px;
+    }
+
+    form.login input[type=text], form.login input[type=password] {
+        font-size: 20px;
+    }
+
+    form.login input[type="button"] {
+        font-size: 30px;
+    }
+}
+
+form.login input:focus {
+    outline: none;
+}
+
+form.login input::placeholder {
+    color: rgba(244, 244, 240, 0.75);
+    background-color: transparent;
+}
+
+form.login input[type=submit], form.login input[type=button] {
+    width: 26vw;
+    font-family: "KGSecondChancesSketch", serif;
+    font-weight: 900;
+    font-size: 7vh;
+    max-font-size: 30px;
+    color: #ffffff;
+    border: none;
+    background: url("../../../../img/chalk-background-filled.png");
+    border-radius: 15px;
+    opacity: 0.5;
+    height: 9vh;
+}
+
+form.login input[type=submit]:hover, form.login input[type=button]:hover {
+    opacity: 1;
+}
+
+form.login .social-login, p.sign-up {
+    font-family: "KGSecondChancesSketch", cursive;
+    color: #f4f4f0;
+    font-size: 2vmax;
+}
+
+form.login .social .social-login-vk {
+    background: url("../../../../icons/vkontakte-draw.svg") no-repeat;
+}
+
+form.login .social .social-login-fb {
+    background: url("../../../../icons/facebook-logo.svg") no-repeat;
+}
+
+form.login .social {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+    min-height: 70px;
+    max-height: 70px;
+}
+
+.social li a {
+    display: block;
+    width: 70px;
+    color: transparent;
+    height: 70px;
+}
+
+.social li a:hover {
+    animation: shake 0.5s linear both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes blink {
+    0%, 25% {
+        opacity: 1;
+    }
+    25%, 50% {
+        opacity: 0;
+    }
+    50%, 75% {
+        opacity: 0.5;
+    }
+    75%, 100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(0, -1px, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(0, 2px, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(0, -4px, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(0, 4px, 0);
+    }
+}
+

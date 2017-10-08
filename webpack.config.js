@@ -10,58 +10,67 @@ module.exports = {
     main: './static/js/main.js',
   },
   output: {
-    filename: './bundle.js',
+    filename: './[name].js',
     path: __dirname + '/public'
   },
   module: {
     rules: [
+      // {
+      //   enforce: 'pre',
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: {
+      //     failOnWarning: true,
+      //     failOnError: true
+      //   }
+      // },
       {
-        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
+        loader: 'babel-loader',
         options: {
-          failOnWarning: true,
-          failOnError: true
-        }
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
+          presets: [
+            ['env', {
+              modules: false,
+              useBuiltIns: true,
+              targets: {
+                browsers: [
+                  'Chrome >= 60',
+                  'Safari >= 10.1',
+                  'iOS >= 10.3',
+                  'Firefox >= 54',
+                  'Edge >= 15',
+                ],
+              },
+            }],
+          ],
+        },
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          // fallback: 'style-loader',
           use: ['css-loader']
         })
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif|jpeg)$/,
         use: [
           'file-loader'
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif|jpeg)$/,
-        use: [
-          'file-loader'
-        ]
-      },
-      {
-        test: /\.html$/,
-
-        use: [
-          'html-loader'
-        ]
+        test: /\.pug$/,
+        loader: 'pug-loader'
       }
     ]
+  },
+  node: {
+    fs: 'empty'
   },
   plugins: [
     new ExtractTextPlugin('./bundle.css'),
     new HtmlWebpackPlugin({
-      inject: true,
       template: './static/index.html'
     }),
   ],
