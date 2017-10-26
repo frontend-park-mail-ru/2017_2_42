@@ -1,12 +1,12 @@
 'use strict';
-import {PATHS} from '../tools/paths';
+import PATHS from '../config/paths';
 
 const serverPath = PATHS.BACKEND_SERVER;
 
 /**
  * Http class for making requests
  */
-export class http {
+export default class http {
   /**
    * Promisified post request
    * @param {string} path
@@ -57,7 +57,7 @@ export class http {
         try {
           response = JSON.parse(xhr.responseText);
         } catch (e) {
-          //error
+          // error
         }
 
         resovle(response);

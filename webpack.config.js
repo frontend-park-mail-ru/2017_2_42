@@ -11,20 +11,31 @@ module.exports = {
   },
   output: {
     filename: './[name].js',
-    path: __dirname + '/public'
+    path: __dirname + '/public',
+  },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
-    rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      //   options: {
-      //     failOnWarning: true,
-      //     failOnError: true
-      //   }
-      // },
+    rules: [{
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader',
+      options: {
+        failOnWarning: true,
+        failOnError: true,
+      },
+    },
+      {
+        test: /\.pug$/,
+        loader: 'pug-loader',
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -50,33 +61,30 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader']
-        })
+          use: ['css-loader'],
+        }),
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif|jpeg)$/,
         use: [
-          'file-loader'
-        ]
+          'file-loader',
+        ],
       },
-      {
-        test: /\.pug$/,
-        loader: 'pug-loader'
-      }
-    ]
+
+    ],
   },
   node: {
-    fs: 'empty'
+    fs: 'empty',
   },
   plugins: [
     new ExtractTextPlugin('./bundle.css'),
     new HtmlWebpackPlugin({
-      template: './static/index.html'
+      template: './static/index.html',
     }),
   ],
   devServer: {
     contentBase: __dirname + '/public',
     inline: true,
-    port: 1234
+    port: 1234,
   },
 };

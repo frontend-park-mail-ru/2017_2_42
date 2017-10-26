@@ -1,9 +1,17 @@
 import Block from './block';
 
+/**
+ *
+ *
+ * @export
+ * @class Form
+ * @extends {Block}
+ */
 export default class Form extends Block {
   /**
    *
-   * @param {Function} callback
+   * @param {Function} callback adds callback on submit
+   * @return {f} remover
    */
   onSubmit(callback) {
     return this.on('submit', callback);
@@ -92,11 +100,14 @@ export default class Form extends Block {
   };
 
   /**
-   * Method that handles errors in errorsArr
-   * @param {Array} errorsArr array with an errors
+   *
+   *
+   * @param {any} errorsArr array with an errors
+   *
+   * @memberof Form
    */
   _handle(errorsArr) {
-    errorsArr.forEach(error => {
+    errorsArr.forEach((error) => {
       switch (error) {
         case errors.USERNAME_FIELD_EMPTY:
           this.usernameField.setError('enter username');

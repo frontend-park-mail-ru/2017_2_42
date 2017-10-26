@@ -7,11 +7,23 @@ const emailPos = 1;
 const passwordPos = 2;
 const confirmationPos = 3;
 
+/**
+ *
+ *
+ * @export
+ * @class SignUpForm
+ * @extends {Form}
+ */
 export default class SignUpForm extends Form {
+  /**
+   * Creates an instance of SignUpForm.
+   * @param {any} elem
+   * @memberof SignUpForm
+   */
   constructor(elem) {
     super(elem);
 
-    const fields = this.elem.getElementsByClassName('container');
+    const fields = this.element.getElementsByClassName('container');
 
     this.usernameField = new Input(fields[usernamePos]);
     this.emailField = new Input(fields[emailPos]);
@@ -22,15 +34,21 @@ export default class SignUpForm extends Form {
       document.getElementById('sign-up__sign-up-button'));
   }
 
+  /**
+   *
+   *
+   * @return {Promise}
+   * @memberof SignUpForm
+   */
   validate() {
     return new Promise((resolve, reject) => {
       let errCodes = [
         this._validateUsername(),
         this._validateEmail(),
-        this._validatePassAndConf()
+        this._validatePassAndConf(),
       ];
 
-      errCodes = errCodes.filter(err => err !== null);
+      errCodes = errCodes.filter((err) => err !== null);
       console.log(errCodes);
 
       if (errCodes.length === 0) {
@@ -42,14 +60,25 @@ export default class SignUpForm extends Form {
     });
   }
 
+  /**
+   *
+   *
+   * @return {Promise}
+   * @memberof SignUpForm
+   */
   getData() {
     return {
       username: this.usernameField.getValue(),
       password: this.passwordField.getValue(),
-      email: this.emailField.getValue()
-    }
+      email: this.emailField.getValue(),
+    };
   }
 
+  /**
+   *
+   *
+   * @memberof SignUpForm
+   */
   clearListeners() {
     super.clearListeners();
     this.usernameField.clearListeners();

@@ -1,7 +1,7 @@
 // import '../css/main.css';
 import 'html-loader!../index.html';
 
-import Application from './app';
+import Application from './application';
 
 const app = new Application();
-app.run();
+app.start();

@@ -5,11 +5,23 @@ import Button from './button';
 const usernamePos = 0;
 const passwordPos = 1;
 
+/**
+ *
+ *
+ * @export
+ * @class LoginForm
+ * @extends {Form}
+ */
 export default class LoginForm extends Form {
+  /**
+   * Creates an instance of LoginForm.
+   * @param {any} elem
+   * @memberof LoginForm
+   */
   constructor(elem) {
     super(elem);
 
-    const fields = this.elem.getElementsByClassName('container');
+    const fields = this.element.getElementsByClassName('container');
 
     this.usernameField = new Input(fields[usernamePos]);
     this.passwordField = new Input(fields[passwordPos]);
@@ -18,14 +30,20 @@ export default class LoginForm extends Form {
       document.getElementById('login__login-button'));
   }
 
+  /**
+   *
+   *
+   * @return {Promise}
+   * @memberof LoginForm
+   */
   validate() {
     return new Promise((resolve, reject) => {
       let errCodes = [
         this._validateUsername(),
-        this._validatePassword()
+        this._validatePassword(),
       ];
 
-      errCodes = errCodes.filter(err => err !== null);
+      errCodes = errCodes.filter((err) => err !== null);
 
       if (errCodes.length === 0) {
         resolve(this.getData());
@@ -35,6 +53,11 @@ export default class LoginForm extends Form {
     });
   }
 
+  /**
+   *
+   *
+   * @memberof LoginForm
+   */
   clearListeners() {
     super.clearListeners();
     this.usernameField.clearListeners();
@@ -42,10 +65,16 @@ export default class LoginForm extends Form {
     this.submitButton.clearListeners();
   }
 
+  /**
+   *
+   *
+   * @return {Promise}
+   * @memberof LoginForm
+   */
   getData() {
     return {
       login: this.usernameField.getValue(),
       password: this.passwordField.getValue(),
-    }
+    };
   }
 }
