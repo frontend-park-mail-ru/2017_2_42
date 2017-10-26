@@ -1,7 +1,7 @@
 import eventBus, {EventBus, EventsEnum, ScopesEnum} from './modules/eventBus';
 import router, {Router} from './modules/router';
-import Offline from './offline/offline';
-import Online from './online/online';
+import Offline from './Offline/offline';
+import Online from './Online/online';
 
 import AboutView from './views/aboutView/aboutView';
 import StartView from './views/startView/startView';
