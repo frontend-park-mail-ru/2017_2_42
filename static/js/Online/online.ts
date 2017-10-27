@@ -6,6 +6,7 @@ import userService, {UserService} from '../services/userService';
 import LoginView from './views/loginView/loginView';
 import SignUpView from './views/signUpView/signUpView';
 import GameView from '../views/gameView/gameView';
+import LobbyView from './views/lobbyView/lobbyView';
 
 /**
  * Class implements multiplayer logic of application
@@ -35,6 +36,7 @@ export default class Online implements App {
     this.router.register(`${this.urlRoot}/login`, LoginView);
     this.router.register(`${this.urlRoot}/sign_up`, SignUpView);
     this.router.register(`${this.urlRoot}/game`, GameView);
+    this.router.register(`${this.urlRoot}/lobby`, LobbyView);
 
     this.bus.on(ScopesEnum.auth, EventsEnum.user_signed_up, () => {
       // todo First visit advices

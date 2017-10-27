@@ -2,8 +2,8 @@
     .lobby-online__container__header
         button.lobby-online__container__settings-button
     .lobby-online__container__mapsList
-        each map in #{mapMeta}
+        each map in self.mapMeta
             .lobby-online__container__map
-                p.Title #{map.name}
-                p.Rating #{map.rating}
+                p.Title= map.name
+                p.Rating=map.rating
                 p.

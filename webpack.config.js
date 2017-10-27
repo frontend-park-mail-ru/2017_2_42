@@ -35,6 +35,11 @@ module.exports = {
       {
         test: /\.pug$/,
         loader: 'pug-loader',
+        options: {
+          // Use `self` namespace to hold the locals
+          // Not really necessary
+          self: true,
+        },
       },
       {
         test: /\.ts?$/,

@@ -1,4 +1,4 @@
-@import "../../../css/main.css";
+@import "../../../../css/main.css";
 
 /*section id*/
 #sign_up-page {
@@ -56,7 +56,7 @@ form.sign-up input[type=submit] {
     font-size: 3rem;
     color: #ffffff;
     border: none;
-    background: url("../../../img/chalk-background-filled.png");
+    background: url("../../../../img/chalk-background-filled.png");
     border-radius: 15px;
     opacity: 0.5;
     height: 10vh;

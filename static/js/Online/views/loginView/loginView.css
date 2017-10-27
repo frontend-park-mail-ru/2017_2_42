@@ -1,4 +1,4 @@
-@import "../../../css/main.css";
+@import "../../../../css/main.css";
 
 /*section id*/
 #login-page {
@@ -68,7 +68,7 @@ form.login input[type=submit], form.login input[type=button] {
     max-font-size: 30px;
     color: #ffffff;
     border: none;
-    background: url("../../../img/chalk-background-filled.png");
+    background: url("../../../../img/chalk-background-filled.png");
     border-radius: 15px;
     opacity: 0.5;
     height: 9vh;
@@ -85,11 +85,11 @@ form.login .social-login, p.sign-up {
 }
 
 form.login .social .social-login-vk {
-    background: url("../../../icons/vkontakte-draw.svg") no-repeat;
+    background: url("../../../../icons/vkontakte-draw.svg") no-repeat;
 }
 
 form.login .social .social-login-fb {
-    background: url("../../../icons/facebook-logo.svg") no-repeat;
+    background: url("../../../../icons/facebook-logo.svg") no-repeat;
 }
 
 form.login .social {
