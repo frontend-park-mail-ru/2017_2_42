@@ -18,7 +18,7 @@ export default class GameView extends BaseView {
 
             this.game = new Game(
                 this.mapMeta);
-            this.game.load( this.pageSection as HTMLCanvasElement);
+            this.game.load( this.pageSection.firstChild.firstChild as HTMLCanvasElement);
 
             document.addEventListener('keypress', function callback(event) {
                 this.game.start();

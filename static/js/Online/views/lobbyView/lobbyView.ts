@@ -33,7 +33,8 @@ export default class LobbyView extends BaseView {
             button.onClick(() => {
                 console.log(1);
                 this.router.go('/online/game');
-                this.bus.emit(ScopesEnum.online, EventsEnum.map_chosen, this.maps[i]);
+                const func = () => this.bus.emit(ScopesEnum.online, EventsEnum.map_chosen, this.maps[i]);
+                setTimeout(func, 500);
             });
 
             this.mapTiles.push(button);
