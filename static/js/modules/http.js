@@ -1,12 +1,12 @@
 'use strict';
-import {PATHS} from '../tools/paths';
+import PATHS from '../config/paths';
 
-const _serverPath = PATHS.BACKEND_SERVER;
+const serverPath = PATHS.BACKEND_SERVER;
 
 /**
  * Http class for making requests
  */
-export class http {
+export default class http {
   /**
    * Promisified post request
    * @param {string} path
@@ -35,10 +35,10 @@ export class http {
    * @private
    */
   static _prRequest(method, path, body) {
-    return new Promise(function(resovle, reject) {
+    return new Promise((resovle, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, _serverPath + path, true);
+      xhr.open(method, `${serverPath}${path}`, true);
       xhr.withCredentials = true;
       xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 
@@ -52,7 +52,14 @@ export class http {
           return;
         }
 
-        const response = JSON.parse(xhr.responseText);
+        let response;
+
+        try {
+          response = JSON.parse(xhr.responseText);
+        } catch (e) {
+          // error
+        }
+
         resovle(response);
       };
 

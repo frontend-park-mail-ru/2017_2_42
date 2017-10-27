@@ -1,0 +1,69 @@
+@import "../../../../css/main.css";
+
+/*section id*/
+#sign_up-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+}
+
+form.sign-up {
+    font-family: 'KGSecondChancesSketch', serif;
+    color: #f4f4f0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+h2.sign-up-header {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+form.sign-up input[type=text],
+form.sign-up input[type=password],
+form.sign-up input[type=email] {
+    font-family: inherit;
+    color: inherit;
+    font-size: 1.5rem;
+    max-font-size: 10px;
+    background: none;
+    padding: 5px;
+    height: 7vh;
+    max-height: 50px;
+    width: 24vw;
+    margin-bottom: 10px;
+}
+
+form.sign-up input:focus {
+    outline: none;
+}
+
+form.sign-up input::placeholder {
+    color: rgba(244, 244, 244, 0.5);
+    background-color: transparent;
+}
+
+form.sign-up input[type=submit] {
+    width: 26vw;
+    font-family: "KGSecondChancesSketch", serif;
+    font-weight: 900;
+    font-size: 3rem;
+    color: #ffffff;
+    border: none;
+    background: url("../../../../img/chalk-background-filled.png");
+    border-radius: 15px;
+    opacity: 0.5;
+    height: 10vh;
+    max-height: 70px;
+}
+
+form.sign-up input[type=submit]:hover {
+    animation-play-state: initial;
+    opacity: 1;
+}
