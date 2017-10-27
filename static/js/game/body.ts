@@ -85,9 +85,6 @@ export abstract class Body {
   }
 
   setPrepOptions() {
-    // if (this.body) {
-    //     this.bodyDef.position = this.
-    // }
     this.bodyDef.position = this._initOptions.position;
     this.bodyDef.angle = this._initOptions.angle;
     this.shapes.selectable = this._initOptions.selectable;

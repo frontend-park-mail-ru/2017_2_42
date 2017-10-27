@@ -49,6 +49,7 @@ export default class GameView extends BaseView {
         this.hide();
     }
 
+
     private game: Game;
     private mapMeta: MapMeta;
 }

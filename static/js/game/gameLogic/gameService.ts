@@ -10,7 +10,7 @@ export class GameService {
 
   static loadBoards(canvases: HTMLCanvasElement | string) {
 
-    let canvas = new fabric.Canvas(canvases[0]);
+    let canvas = new fabric.Canvas(canvases);
 
     let groundDown = new RectBody(
       new b2Vec2(canvas.getWidth() / 2, canvas.getHeight() - 5),
