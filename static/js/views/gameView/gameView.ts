@@ -16,7 +16,7 @@ export default class GameView extends BaseView {
         this.bus.on(ScopesEnum.online, EventsEnum.map_chosen, (data: any) => {
             console.log('MAP LOADED');
             this.mapMeta = data;
-
+            console.log('map meta to cst', this.mapMeta);
             this.game = new Game(
                 this.mapMeta);
             this.game.load( this.pageSection.firstChild.firstChild as HTMLCanvasElement);
