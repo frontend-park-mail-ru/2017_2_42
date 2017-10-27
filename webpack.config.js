@@ -2,6 +2,7 @@
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+let path = require('path');
 
 module.exports = {
   context: __dirname,
@@ -16,6 +17,9 @@ module.exports = {
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      easytimer$: path.resolve(__dirname, 'node_modules/easytimer.js/dist/easytimer.min.js')
+    }
   },
   module: {
     rules: [{
@@ -33,8 +37,8 @@ module.exports = {
         loader: 'pug-loader',
       },
       {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        test: /\.ts?$/,
+        loader: 'ts-loader',
       },
       {
         test: /\.js$/,

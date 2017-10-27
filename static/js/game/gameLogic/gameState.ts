@@ -131,7 +131,7 @@ export class RunningState extends GameState {
     // this.game.changeState(new RunningState(this.game));
     eventBus.on('game', 'finish', () => {
       this.game.timer.stop();
-      eventBus.emit('game', 'win', {time: this.game.timer.getTimeValues().toString(['minutes', 'seconds', 'secondTenths'])});
+      eventBus.emit('game', 'win', {time: this.game.timer.getTimeValues().toString(<any>['minutes', 'seconds', 'secondTenths'])});
     });
 
     this.game.boards.forEach((board) => {
@@ -147,10 +147,10 @@ export class RunningState extends GameState {
       });
 
     this.game.timer.addEventListener('secondTenthsUpdated', () => {
-      console.log(this.game.timer.getTimeValues().toString(['minutes', 'seconds', 'secondTenths']) + '\n');
+      console.log(this.game.timer.getTimeValues().toString(<any>['minutes', 'seconds', 'secondTenths']) + '\n');
     });
 
-    this.game.timer.addEventListener('targetAchieved', () => {
+    this.game.timer.addEventListener(<any>'targetAchieved', () => {
       eventBus.emit('game', 'lose', {});
       this.game.prepare();
     });

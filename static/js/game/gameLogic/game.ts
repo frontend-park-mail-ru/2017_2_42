@@ -1,4 +1,4 @@
-import Timer from '../easytimer.js';
+import * as easytimer from 'easytimer';
 import {b2Vec2} from '../Box2D/Common/b2Math';
 import {b2World} from '../Box2D/Dynamics/b2World';
 import {Board} from '../board';
@@ -26,13 +26,13 @@ export class Game {
   public boards: Board[];
   public info: MapMeta;
   public _world: b2World;
-  public timer: Timer;
+  public timer: easytimer.Timer;
   public gameService: GameService;
   private state: GameState;
   private canvas: HTMLElement;
 
   constructor(mapMeta: MapMeta) {
-    this.timer = new Timer;
+    this.timer = new easytimer.Timer;
     this.info = mapMeta;
     this._world = new b2World(new b2Vec2(0, 10));
     this.gameService = new GameService();
