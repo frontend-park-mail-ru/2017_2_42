@@ -49,7 +49,6 @@ export default class SignUpForm extends Form {
       ];
 
       errCodes = errCodes.filter((err) => err !== null);
-      console.log(errCodes);
 
       if (errCodes.length === 0) {
         resolve(this.getData());

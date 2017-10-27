@@ -11,6 +11,8 @@ app.use(morgan('dev'));
 
 app.use('/', express.static(staticPath));
 
+app.post('/');
+
 app.use('*', (req, res) => {
   res.status(404).send('Not found')
 });

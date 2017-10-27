@@ -14,7 +14,6 @@ export class UserService {
   constructor() {
     this.user = this.getUser(true);
     this.bus = eventBus;
-
   }
 
   getUser(force: boolean = false): User | null {

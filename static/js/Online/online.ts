@@ -49,6 +49,7 @@ export default class Online implements App {
   }
 
   start(): void {
+    console.log(this.userService.getUser());
     if (this.userService.getUser()) {
       return this.bus.emit(ScopesEnum.auth, EventsEnum.user_logged_in);
     }
