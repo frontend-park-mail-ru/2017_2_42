@@ -32,7 +32,7 @@ export class Game {
   private canvas: HTMLElement;
 
   constructor(mapMeta: MapMeta) {
-    this.timer = new easytimer.Timer;
+    this.timer = new easytimer.Timer();
     this.info = mapMeta;
     this._world = new b2World(new b2Vec2(0, 10));
     this.gameService = new GameService();
