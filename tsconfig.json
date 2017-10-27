@@ -10,11 +10,6 @@
       "./js/typings"
     ],
     "baseUrl": "./",
-    "paths": {
-      "easytimer": [
-        "node_modules/easytimer.js/index"
-      ]
-    },
     "allowJs": true,
     "lib": [
       "es5",

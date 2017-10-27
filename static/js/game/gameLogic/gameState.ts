@@ -130,8 +130,7 @@ export class RunningState extends GameState {
   onRun(): void {
     // this.game.changeState(new RunningState(this.game));
     eventBus.on('game', 'finish', () => {
-      this.game.timer.stop();
-      eventBus.emit('game', 'win', {time: this.game.timer.getTimeValues().toString(<any>['minutes', 'seconds', 'secondTenths'])});
+      eventBus.emit('game', 'win', {});
     });
 
     this.game.boards.forEach((board) => {
@@ -140,20 +139,12 @@ export class RunningState extends GameState {
 
     this.game._world.SetContactListener(MyListener);
 
-    this.game.timer.start(
-      {
-        startValues: {seconds: 5, precision: 'secondTenths'},
-        countdown: true,
-      });
+    setTimeout(()=>{eventBus.emit('game', 'lose', {})}, this.game.info.timer);
 
-    this.game.timer.addEventListener('secondTenthsUpdated', () => {
-      console.log(this.game.timer.getTimeValues().toString(<any>['minutes', 'seconds', 'secondTenths']) + '\n');
-    });
-
-    this.game.timer.addEventListener(<any>'targetAchieved', () => {
-      eventBus.emit('game', 'lose', {});
-      this.game.prepare();
-    });
+    // this.game.timer.addEventListener(<any>'targetAchieved', () => {
+    //   eventBus.emit('game', 'lose', {});
+    //   this.game.prepare();
+    // });
 
     this.game.run();
   }
