@@ -1,4 +1,4 @@
-import Timer from '../easytimer.js/index';
+import Timer from '../easytimer.js';
 import {b2Vec2} from '../Box2D/Common/b2Math';
 import {b2World} from '../Box2D/Dynamics/b2World';
 import {Board} from '../board';
