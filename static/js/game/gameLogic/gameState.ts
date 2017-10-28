@@ -139,7 +139,7 @@ export class RunningState extends GameState {
 
     this.game._world.SetContactListener(MyListener);
 
-    setTimeout(()=>{eventBus.emit('game', 'lose', {})}, this.game.info.timer);
+    // setTimeout(()=>{eventBus.emit('game', 'lose', {})}, this.game.info.timer);
 
     // this.game.timer.addEventListener(<any>'targetAchieved', () => {
     //   eventBus.emit('game', 'lose', {});

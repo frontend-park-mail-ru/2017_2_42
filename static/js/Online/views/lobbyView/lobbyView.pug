@@ -2,6 +2,7 @@
     .lobby-online__container__header
         button.lobby-online__container__settings-button
     .lobby-online__container__mapsList
+     each map in map_tiles
         .lobby-online__container__map
-            p.Title 1
-            p.Rating 2/5
+            p.Title #{map.id}
+            p.Rating #{map.name}
