@@ -24,13 +24,12 @@ export default class LobbyView extends BaseView {
         mapService.getMaps(true).then((maps) => {
             this.maps = maps;
 
-            this.pageSection.innerHTML = this.renderFunc();
+            this.pageSection.innerHTML = this.renderFunc({mapTiles: maps});
             this.rootElement.appendChild(this.pageSection);
 
             const mapTileElements = this.rootElement.getElementsByClassName('lobby-online__container__map');
             console.log(mapTileElements);
             console.log(this.maps);
-
             for (let i = 0; i < mapTileElements.length; i++) {
                 const button = new Button(mapTileElements[i] as HTMLElement);
                 button.onClick(() => {

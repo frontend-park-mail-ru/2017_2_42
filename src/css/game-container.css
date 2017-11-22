@@ -1,0 +1,97 @@
+@import "main.css";
+
+.main-game-container-section {
+    /*display: none;*/
+}
+
+.main-game-container {
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    color: #f4f4f0;
+    display: flex;
+    height: 92%;
+    padding: 2%;
+    /*display: none;*/
+}
+
+.left-panel {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    border-image-source: url("../img/chalk_border_big.png");
+    align-self: flex-start;
+    width: 10%;
+    height: 70%;
+}
+
+.main-game-space {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    align-self: flex-start;
+    flex-grow: 1;
+    min-width: 500px;
+    height: 98%;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    -webkit-backface-visibility: hidden;
+    image-rendering: pixelated;
+    align-self: flex-start;
+    width: 10%;
+    height: 98%;
+}
+
+.right-panel::-webkit-scrollbar {
+    width: 0;
+}
+
+.down-panel {
+    border: 15px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/chalk_border_big.png") 40;
+    position: fixed;
+    width: 82%;
+    margin-left: 2%;
+    height: 20%;
+    bottom: 2%;
+    animation: fade ease-in-out 0.5s;
+    z-index: 1;
+}
+
+@-webkit-keyframes fade {
+    from { bottom: -100%; }
+    to { bottom: 2%}
+}
+
+@-webkit-keyframes fade-main {
+    from { height: 98%;}
+    to {height: 70%}
+}
+
+.items {
+    list-style: none;
+}
+
+.item {
+    margin: 5%;
+    border: 10px solid rgba(255, 255, 255, .8);
+    border-image: url("../img/border-chalk.png") 20;
+    max-height: 100px;
+    min-height: 100px;
+}
+
+.list > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+}
+
+.list > ul::-webkit-scrollbar {
+    width: 0;
+}

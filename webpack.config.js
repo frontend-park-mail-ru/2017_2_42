@@ -1,96 +1,72 @@
 'use strict';
 
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-module.exports = {
-  context: __dirname,
-  devtool: 'source-map',
-  entry: {
-    main: './static/js/main.js',
-  },
-  output: {
-    filename: './[name].js',
-    path: __dirname + '/public',
-  },
-  resolve: {
-    // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['.ts', '.tsx', '.js'],
-  },
-  module: {
-    rules: [{
-      enforce: 'pre',
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'eslint-loader',
-      options: {
-        failOnWarning: true,
-        failOnError: true,
-      },
+const wpMerge = require('webpack-merge');
+
+const sourceMap = require('./webpack/source-map');
+const pugLoader = require('./webpack/pug');
+const lint = require('./webpack/lint');
+const tsLoader = require('./webpack/tsloader');
+const extractCss = require('./webpack/css.extract');
+const uglify = require('./webpack/js.uglify');
+const babel = require('./webpack/babel');
+const fileLoader = require('./webpack/fileloader');
+const devServer = require('./webpack/devServer');
+
+const PATHS = {
+  src: path.join(__dirname, 'src'),
+  public: path.join(__dirname, 'public'),
+  game: path.join(__dirname, 'src/js/game'),
+};
+
+const common = wpMerge([{
+    context: __dirname,
+    entry: {
+      main: path.join(PATHS.src, 'js/main.js'),
+      // game: path.join(PATHS.game, 'game.js'),
     },
-      {
-        test: /\.pug$/,
-        loader: 'pug-loader',
-        options: {
-          // Use `self` namespace to hold the locals
-          // Not really necessary
-          self: true,
-        },
-      },
-      {
-        test: /\.ts?$/,
-        loader: 'ts-loader',
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['env', {
-              modules: false,
-              useBuiltIns: true,
-              targets: {
-                browsers: [
-                  'Chrome >= 60',
-                  'Safari >= 10.1',
-                  'iOS >= 10.3',
-                  'Firefox >= 54',
-                  'Edge >= 15',
-                ],
-              },
-            }],
-          ],
-        },
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader'],
-        }),
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif|jpeg)$/,
-        use: [
-          'file-loader',
-        ],
-      },
-
+    output: {
+      filename: '[name].js',
+      path: PATHS.public,
+      publicPath: '/static/',
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.json'],
+    },
+    node: {
+      fs: 'empty',
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+      }),
     ],
   },
-  node: {
-    fs: 'empty',
-  },
-  plugins: [
-    new ExtractTextPlugin('./bundle.css'),
-    new HtmlWebpackPlugin({
-      template: './static/index.html',
-    }),
-  ],
-  devServer: {
-    contentBase: __dirname + '/public',
-    inline: true,
-    port: 1234,
-  },
+  lint(),
+  pugLoader(),
+  tsLoader(),
+  babel(),
+  fileLoader(),
+  extractCss(),
+]);
+
+
+module.exports = (env) => {
+  switch (env) {
+    case 'development':
+      return wpMerge([
+        common,
+        sourceMap(),
+        devServer(),
+      ]);
+      break;
+    case 'production':
+      return wpMerge([
+        common,
+        // uglify(),
+      ]);
+      break;
+  }
 };
