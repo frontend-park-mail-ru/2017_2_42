@@ -1,5 +1,5 @@
 import { Game } from './game';
-import { b2Vec2 } from '../Box2D/Common/b2Math';
+import { b2Vec2 } from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import { RunningState } from './gameState';
 import { PIXEL_TO_METERS } from '../body';
 /**

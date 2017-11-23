@@ -1,6 +1,6 @@
 import 'fabric';
-import {b2Vec2} from '../Box2D/Box2D';
-import {b2BodyType} from '../Box2D/Dynamics/b2Body';
+import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Box2D';
+import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {Board} from '../board';
 import {
     Body, BucketBody, BucketConfig, CircleBody, CircleBucketBody, KeyBodies, METERS_TO_PIXEL, Options, PIXEL_TO_METERS,
@@ -166,11 +166,14 @@ export class GameService {
 
         let body = {meta: meta, data: obj};
 
+        const header = new Headers();
+        header.append('Content-Type', 'application/json');
+
         fetch('http://194.87.110.17/backend/api/game/map/kekkek/create', {
             body: JSON.stringify(body),
-            headers: {'Content-Type': 'application/json'},
+            headers: header,
             method: 'POST',
-        }).then(resp => {
+        } as RequestInit).then(resp => {
             console.log(resp.json().then(resp => console.log(resp)));
         });
         console.log(JSON.stringify(body, null, 2));
@@ -186,10 +189,13 @@ export class GameService {
         let bodies: Map<number, Body> = new Map<number, Body>();
         let json;
         let resp;
+
+        const header = new Headers();
+        header.append('Content-Type', 'application/json');
         try {
             resp = await fetch('http://194.87.110.17/backend/api/game/map/18', {
                 method: 'GET',
-                headers: {'Content-Type': 'application/json'},
+                headers: header,
             });
         }
         catch (e) {

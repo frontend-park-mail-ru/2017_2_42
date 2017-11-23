@@ -6,10 +6,10 @@
 
 import  {BucketBody, CircleBody, PIXEL_TO_METERS, RectBody} from './body';
 
-import {b2World} from './Box2D/Dynamics/b2World';
+import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 
-import {b2AABB} from './Box2D/Collision/b2Collision';
-import {b2_pi} from './Box2D/Common/b2Settings';
+import {b2AABB} from 'box2d.ts/Box2D/Box2D/Collision/b2Collision';
+import {b2_pi} from 'box2d.ts/Box2D/Box2D/Common/b2Settings';
 import {StartMessage} from './gameLogic/Message';
 import {Game} from './gameLogic/game';
 

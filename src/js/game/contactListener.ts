@@ -1,8 +1,8 @@
-import {b2ContactImpulse, b2ContactListener} from './Box2D/Dynamics/b2WorldCallbacks';
+import {b2ContactImpulse, b2ContactListener} from 'box2d.ts/Box2D/Box2D/Dynamics/b2WorldCallbacks';
 import eventBus from './eventBus';
 import {BucketBody, CircleBody, KeyBodies} from './body';
-import {b2Contact} from './Box2D/Dynamics/Contacts/b2Contact';
-import {b2Manifold} from './Box2D/Collision/b2Collision';
+import {b2Contact} from 'box2d.ts/Box2D/Box2D/Dynamics/Contacts/b2Contact';
+import {b2Manifold} from 'box2d.ts/Box2D/Box2D/Collision/b2Collision';
 import {Game} from './gameLogic/game';
 import {InitState} from './gameLogic/gameState';
 

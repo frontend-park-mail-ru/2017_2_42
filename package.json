@@ -43,7 +43,8 @@
     "ts-loader": "^3.1.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "^2.5.3",
+    "box2d.ts": "flyover/box2d.ts"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",

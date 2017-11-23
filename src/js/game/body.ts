@@ -1,15 +1,15 @@
 import 'fabric';
-import {} from './Box2D/*';
-import {b2CircleShape} from './Box2D/Collision/Shapes/b2CircleShape';
-import {b2Vec2} from './Box2D/Common/b2Math';
-import {b2_pi} from './Box2D/Common/b2Settings';
-import {b2Body, b2BodyDef, b2BodyType} from './Box2D/Dynamics/b2Body';
-import {b2FixtureDef} from './Box2D/Dynamics/b2Fixture';
-import {b2World} from './Box2D/Dynamics/b2World';
+import {} from 'box2d.ts/Box2D/Box2D/*';
+import {b2CircleShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2CircleShape';
+import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {b2_pi} from 'box2d.ts/Box2D/Box2D/Common/b2Settings';
+import {b2Body, b2BodyDef, b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
+import {b2FixtureDef} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Fixture';
+import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 
-import {b2PolygonShape} from './Box2D/Collision/Shapes/b2PolygonShape';
-import {b2Transform} from './Box2D/Common/b2Math';
-import {b2ContactListener} from './Box2D/Dynamics/b2WorldCallbacks';
+import {b2PolygonShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2PolygonShape';
+import {b2Transform} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {b2ContactListener} from 'box2d.ts/Box2D/Box2D/Dynamics/b2WorldCallbacks';
 
 declare const fabric: any;
 
