@@ -1,6 +1,7 @@
 import {Body} from './body';
 import 'fabric';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
+import './img/chalk_texture.png'
 
 declare const fabric: any;
 
@@ -12,8 +13,7 @@ export class Board {
     constructor(bodies: Map<number, Body>, canvasElem: fabric.Canvas) {
         this.bodies = bodies;
         this.canvas = canvasElem;
-        this.canvas.setBackgroundImage('./img/chalkboard.jpg', this.canvas.renderAll.bind(this.canvas));
-        fabric.util.loadImage('./img/chalk_texture.png', (img) => {
+        fabric.util.loadImage('/img/chalk_texture.png', (img) => {
             if (img === null) {
                 console.log('Failed to load image!');
                 return;
