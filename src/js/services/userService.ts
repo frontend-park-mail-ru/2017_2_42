@@ -4,7 +4,6 @@ import User from '../models/user';
 import eventBus, { EventBus } from '../modules/eventBus';
 import Http from '../modules/http';
 import Utils from '../modules/utils/utils';
-import default from '../config/paths';
 
 
 export class UserService {
