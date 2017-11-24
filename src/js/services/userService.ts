@@ -4,6 +4,7 @@ import User from '../models/user';
 import eventBus, { EventBus } from '../modules/eventBus';
 import Http from '../modules/http';
 import Utils from '../modules/utils/utils';
+import default from '../config/paths';
 
 
 export class UserService {
@@ -138,6 +139,28 @@ export class UserService {
         break;
     }
     return this.user;
+  }
+
+  public async logout(): Promise<void> {
+    let response: HttpNS.Response;
+
+    try {
+      response = await Http.Delete(PATHS.LOGOUT_PATH);
+    } catch (err) {
+      throw err.errorType;
+    }
+
+    switch (response.statusCode) {
+      case 200: {
+        return;
+      }
+      case 401: {
+        throw UNEXPECTED_ERR;
+      }
+      default: {
+        Utils.debugError('Unexpected error here');
+      }
+    }
   }
 }
 
