@@ -16,6 +16,7 @@ export default class OnlineLobbyView extends BaseView {
 
     private backButton: Button;
     private settingsButton: Button;
+    private logoutButton: Button;
 
     constructor(parentElement) {
         super(parentElement);
@@ -34,6 +35,7 @@ export default class OnlineLobbyView extends BaseView {
 
         this.backButton = new Button(document.querySelector('.main-frame__header__back-button') as HTMLElement);
         this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
+        this.logoutButton = new Button(document.querySelector('.main-frame__header__logout-button') as HTMLElement);
 
         const mapPlaceholder = document.querySelector('.main-frame__lobby-content__maps') as HTMLElement;
 
@@ -54,6 +56,16 @@ export default class OnlineLobbyView extends BaseView {
 
         this.settingsButton.onClick(() => {
             console.log('settings overlay');
+        });
+
+        this.logoutButton.onClick(() => {
+            userService.logout()
+            .then(() => {
+                this.router.go(ViewPaths.login);
+            })
+            .catch(() => {
+                this.router.go(ViewPaths.start);
+            });
         });
     }
 

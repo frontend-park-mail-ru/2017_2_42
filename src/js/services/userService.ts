@@ -139,6 +139,28 @@ export class UserService {
     }
     return this.user;
   }
+
+  public async logout(): Promise<void> {
+    let response: HttpNS.Response;
+
+    try {
+      response = await Http.Delete(PATHS.LOGOUT_PATH);
+    } catch (err) {
+      throw err.errorType;
+    }
+
+    switch (response.statusCode) {
+      case 200: {
+        return;
+      }
+      case 401: {
+        throw UNEXPECTED_ERR;
+      }
+      default: {
+        Utils.debugError('Unexpected error here');
+      }
+    }
+  }
 }
 
 const userService = new UserService();
