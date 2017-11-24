@@ -17,7 +17,6 @@ const gameType = {
 /**
  * Main class for web application.
  *
- * @class Application
  */
 export default class Application implements Application.App {
   private gameType: string;

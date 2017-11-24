@@ -1,9 +1,9 @@
 ///<reference path="../../../../node_modules/@types/fabric/index.d.ts"/>
 import Button from '../../blocks/button';
 
-import { b2AABB } from '../../game/Box2D/Collision/b2Collision';
-import { b2_pi } from '../../game/Box2D/Common/b2Settings';
-import { b2World } from '../../game/Box2D/Dynamics/b2World';
+import { b2AABB } from 'box2d.ts/Box2D/Box2D/Collision/b2Collision';
+import { b2_pi } from 'box2d.ts/Box2D/Box2D/Common/b2Settings';
+import { b2World } from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import { BucketBody, CircleBody, PIXEL_TO_METERS, RectBody } from '../../game/body';
 import { StartMessage } from '../../game/gameLogic/Message';
 import { Game } from '../../game/gameLogic/game';
@@ -31,11 +31,15 @@ export default class GameView extends BaseView {
 
         const game = new Game({});
 
-        await game.load(document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement);
+        const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        await game.load(canvas);
 
         game.gameService.sendSocketMessage(`{"class": "SubscribeMessage", "board": ${mapMeta.id}}`);
 
-        document.querySelector('main-frame__header__ready-button__not-ready')
+        document.querySelector('.main-frame__header__ready-button__not-ready')
             .addEventListener('click', () => {
                 let startMsg = new StartMessage(game);
                 startMsg.HandleRequest();

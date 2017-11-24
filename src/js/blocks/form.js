@@ -3,8 +3,6 @@ import Block from './block';
 /**
  *
  *
- * @export
- * @class Form
  * @extends {Block}
  */
 export default class Form extends Block {

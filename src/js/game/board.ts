@@ -1,7 +1,7 @@
 import { Body } from './body';
 import 'fabric';
-import { b2World } from './Box2D/Dynamics/b2World';
-import { b2Vec2 } from './Box2D/Common/b2Math';
+import { b2World } from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
+import { b2Vec2 } from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 
 declare const fabric: any;
 

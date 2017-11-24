@@ -3,7 +3,7 @@ module.exports = () => {
     module: {
       rules: [{
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /Box2D/],
         loader: 'babel-loader',
         options: {
           presets: [

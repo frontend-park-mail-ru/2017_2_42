@@ -3,8 +3,6 @@ import Block from './block';
 /**
  *
  *
- * @export
- * @class Button
  * @extends {Block}
  */
 export default class Button extends Block {

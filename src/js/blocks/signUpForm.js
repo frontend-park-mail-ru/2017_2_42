@@ -5,8 +5,6 @@ import Button from './button';
 /**
  *
  *
- * @export
- * @class SignUpForm
  * @extends {Form}
  */
 export default class SignUpForm extends Form {

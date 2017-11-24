@@ -10,7 +10,8 @@ const pugLoader = require('./webpack/pug');
 const lint = require('./webpack/lint');
 const tsLoader = require('./webpack/tsloader');
 const extractCss = require('./webpack/css.extract');
-const uglify = require('./webpack/js.uglify');
+// const uglify = require('./webpack/js.uglify');
+const consoleLogRemover = require('./webpack/clearConsole');
 const babel = require('./webpack/babel');
 const fileLoader = require('./webpack/fileloader');
 const devServer = require('./webpack/devServer');
@@ -30,7 +31,7 @@ const common = wpMerge([{
     output: {
       filename: '[name].js',
       path: PATHS.public,
-      publicPath: '/static/',
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -65,6 +66,7 @@ module.exports = (env) => {
     case 'production':
       return wpMerge([
         common,
+        consoleLogRemover(),
         // uglify(),
       ]);
       break;
