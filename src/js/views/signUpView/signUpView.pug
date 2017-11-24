@@ -1,0 +1,34 @@
+.main-frame
+    .main-frame__header
+        button.main-frame__header__back-button
+        .main-frame__header__stub
+        button.main-frame__header__sound-button
+        button.main-frame__header__settings-button
+
+    .main-frame__content
+        .main-frame__content__choice-column
+            .main-frame__content__choice-column__stub
+
+            a.main-frame__content__choice-column__login-button LOGIN
+            a.main-frame__content__choice-column__sign-up-button(id='disabled') SIGN UP
+            a.main-frame__content__choice-column__go-offline-button GO OFFLINE
+
+            .main-frame__content__choice-column__stub
+
+        .main-frame__content__content-column
+            .stub
+            form.main-frame__content__content-column__form
+                input.main-frame__content__content-column__form__username(type='text', name='username', placeholder='username', value='')
+                input.main-frame__content__content-column__form__email(type='text', name='email', placeholder='email', value='')
+                input.main-frame__content__content-column__form__password(type='password', name='password', placeholder='password', value='')
+                input.main-frame__content__content-column__form__confirmation(type='password', name='confirmation', placeholder='confirm password', value='')
+
+                input.main-frame__content__content-column__form__submit(type='submit', name='submit', value='GO!')
+                
+                .main-frame__content__content-column__form__socials 
+                    button.main-frame__content__content-column__form__socials__vk-button
+                    button.main-frame__content__content-column__form__socials__facebook-button
+            .stub
+
+    .main-frame__footer
+        button.main-frame__footer__about-button
