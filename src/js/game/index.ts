@@ -20,7 +20,7 @@ function init() {
 
 
     document.getElementById('btn-sbscr').addEventListener('click', () => {
-        game.gameService.sendSocketMessage('{"class": "SubscribeMessage", "board": 18}');
+        game.gameService.sendSocketMessage('{"class": "SubscribeMessage", "board": 24}');
     });
 
     document.getElementById('btn-start').addEventListener('click', () => {
