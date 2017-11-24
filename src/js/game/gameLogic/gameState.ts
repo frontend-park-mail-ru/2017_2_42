@@ -4,6 +4,7 @@ import MyListener from '../contactListener';
 import eventBus from '../eventBus';
 import {Game} from './game';
 import {GameService} from './gameService';
+import {SnapMessage, MovingMessage} from './Message';
 
 
 export abstract class GameState {
@@ -21,7 +22,7 @@ export abstract class GameState {
         throw Error('method not implemented');
     }
 
-    onLoad(canvases: HTMLCanvasElement | string): Promise<any> {
+    onLoad(canvases: HTMLCanvasElement | string) {
         throw Error('method not implemented');
     }
 
@@ -52,8 +53,8 @@ export class PrepareState extends GameState {
         this.game.board.prepare();
     }
 
-    onLoad(canvases: HTMLCanvasElement | string): Promise<any> {
-        return Promise.reject('Method not implemented.');
+    onLoad(canvases: HTMLCanvasElement | string) {
+        throw new Error('Method not implemented.');
     }
 
     onRun(): Promise<any> {
@@ -74,7 +75,42 @@ export class PrepareState extends GameState {
     }
 }
 
+export class InitState extends GameState {
+    onInit(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    onPrepare(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    onLoad(canvas: HTMLCanvasElement | string) {
+        this.game.changeState(new LoadState(this.game));
+        this.game.load(canvas, this.game.info.id);
+    }
+
+    onRun(): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+
+    onPause(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    onSuccessFinish(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    onFailedFinish(): void {
+        throw new Error('Method not implemented.');
+    }
+}
+
 export class LoadState extends GameState {
+
+    onFailedFinish(): void {
+        throw new Error('Method not implemented.');
+    }
 
     onInit(): void {
 
@@ -84,22 +120,28 @@ export class LoadState extends GameState {
         throw new Error('Method not implemented.');
     }
 
-    onLoad(canvas: HTMLCanvasElement | string): Promise<any> {
-        return GameService.loadBoard(canvas)
+    onLoad(canvas: HTMLCanvasElement | string) {
+        return GameService.loadBoard(canvas, this.game.info.id)
             .then(board => {
                 this.game.board = board as Board;
-                this.game.board._canvas.on('object:moving', (option) => {
+                this.game.board.canvas.on('object:moving', (option) => {
                     let data: any = {};
-                    data.class = 'MovingMessage';
                     data.snap = {};
                     data.snap.id = option.target.toObject().id;
-                    data.snap.position = {x: option.target.left, y: option.target.top};
+                    data.snap.position = {
+                        x: option.target.left,
+                        y: option.target.top,
+                    };
                     data.snap.angle = option.target.angle;
-                    this.game.gameService.sendSocketMessage(data);
+                    let msg: MovingMessage = new MovingMessage(this.game, data);
+                    msg.HandleRequest();
                 });
                 this.game.changeState(new PrepareState(this.game));
-                eventBus.emit('game', 'endLoadBoards', {});
+                eventBus.emit('game', 'loadSuccess', {});
                 this.game.prepare();
+            })
+            .catch(res => {
+                eventBus.emit('game', 'loadFailed', {});
             });
     }
 
@@ -115,13 +157,12 @@ export class LoadState extends GameState {
         throw new Error('Method not implemented.');
     }
 
-    onFailedFinish(): void {
-        throw new Error('Method not implemented.');
-    }
-
 }
 
 export class RunningState extends GameState {
+    onFailedFinish(): void {
+    }
+
     onInit(): void {
     }
 
@@ -130,8 +171,8 @@ export class RunningState extends GameState {
         this.game.prepare();
     }
 
-    onLoad(): Promise<any> {
-        return Promise.reject('');
+    onLoad() {
+        throw new Error('method not implemented');
     }
 
     onRun(): Promise<any> {
@@ -142,16 +183,6 @@ export class RunningState extends GameState {
 
         return Promise.resolve();
 
-        // fetch('http://194.87.110.17/backend/api/game/map/15/init', {
-        //     method: 'GET',
-        //     mode: 'cors',
-        //     credentials: 'include',
-        //     headers: {'Content-Type': 'application/json'},
-        //     // body: JSON.stringify({login: 'sss', password: '123456'}),
-        // }).then(resp => {
-        //     setTimeout(() => {
-        //     }, 1000);
-        // });
     }
 
     onPause(): void {
@@ -160,43 +191,38 @@ export class RunningState extends GameState {
 
     onSuccessFinish(): void {
 
-    }
-
-    onFailedFinish(): void {
     }
 
 }
 
-export class InitState extends GameState {
+export class FinishState extends GameState {
+    public success: boolean;
+
     onInit(): void {
-        throw new Error('Method not implemented.');
+        throw Error('method not implemented');
     }
 
     onPrepare(): void {
-        throw new Error('Method not implemented.');
+        throw Error('method not implemented');
     }
 
-    onLoad(canvas: HTMLCanvasElement | string): Promise<any> {
-        this.game.changeState(new LoadState(this.game));
-        return this.game.load(canvas);
-        // throw new Error('Method not implemented.');
+    onLoad(canvases: HTMLCanvasElement | string) {
+        throw Error('method not implemented');
     }
 
     onRun(): Promise<any> {
-        throw new Error('Method not implemented.');
+        throw Error('method not implemented');
     }
 
     onPause(): void {
-        throw new Error('Method not implemented.');
+        throw Error('method not implemented');
     }
 
     onSuccessFinish(): void {
-        throw new Error('Method not implemented.');
+        console.log('SUCCESS FINISH!');
     }
 
     onFailedFinish(): void {
-        throw new Error('Method not implemented.');
+        throw Error('method not implemented');
     }
-
-
 }

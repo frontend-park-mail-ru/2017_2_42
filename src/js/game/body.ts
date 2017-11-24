@@ -1,15 +1,11 @@
 import 'fabric';
-import {} from 'box2d.ts/Box2D/Box2D/*';
 import {b2CircleShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2CircleShape';
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
-import {b2_pi} from 'box2d.ts/Box2D/Box2D/Common/b2Settings';
 import {b2Body, b2BodyDef, b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2FixtureDef} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Fixture';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 
 import {b2PolygonShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2PolygonShape';
-import {b2Transform} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
-import {b2ContactListener} from 'box2d.ts/Box2D/Box2D/Dynamics/b2WorldCallbacks';
 
 declare const fabric: any;
 
@@ -53,25 +49,18 @@ interface InitOptions extends Options {
 
 
 export abstract class Body {
-    get owner(): number {
-        return this._owner;
-    }
-
-    set owner(value: number) {
-        this._owner = value;
-    }
     private static counter = 0;
 
-    protected _ID: number;
+    public ID: number;
+
     protected _owner: number;
     public bodyDef: b2BodyDef;
     public fixDefs: b2FixtureDef[];
     public body: b2Body;
+    public shapes: fabric.Object;
 
-    private _shapes: fabric.Object;
-    private _isDeleted: boolean = false;
+    public isDeleted: boolean = false;
     private _initOptions: InitOptions;
-
     constructor(bD: b2BodyDef, fixDefs: b2FixtureDef[], shape: fabric.Object, option: Options) {
         this.bodyDef = bD;
         this.bodyDef.type = option.bodyType || b2BodyType.b2_staticBody;
@@ -94,11 +83,10 @@ export abstract class Body {
             key: option.key,
         };
         shape.lockScalingX = shape.lockScalingY = option.lockScale || true;
-        this._shapes = shape;
-        this._shapes.set('objectCaching', false);
-        this._shapes.toObject = () => {
+        this.shapes = shape;
+        this.shapes.toObject = () => {
             return {
-                id: this._ID,
+                id: this.ID,
             };
         };
         this.fixDefs.forEach(function (fixDef, index, array) {
@@ -107,50 +95,31 @@ export abstract class Body {
             fixDef.restitution = option.restitution || 0.1;
         });
         this._owner = 1;
-        this._ID = Body.counter++;
+        this.ID = Body.counter++;
     }
 
-    get shapes(): fabric.Object {
-        return this._shapes;
+    get owner(): number {
+        return this._owner;
+    }
+
+    set owner(value: number) {
+        this._owner = value;
     }
 
     get angle(): number {
         return this.bodyDef.angle;
     }
 
-    set shapes(value: fabric.Object) {
-        this._shapes = value;
-    }
-
-    get isDeleted(): boolean {
-        return this._isDeleted;
-    }
-
-    set isDeleted(value: boolean) {
-        this._isDeleted = value;
-    }
-
     get initOptions(): InitOptions {
         return this._initOptions;
-    }
-
-    get ID(): number {
-        return this._ID;
-    }
-
-    set ID(value: number) {
-        if (value < 0) {
-            throw Error('id must be greater 0');
-        }
-        this._ID = value;
     }
 
     public Create(world: b2World) {
         this.body = world.CreateBody(this.bodyDef);
         this.fixDefs.forEach(this.body.CreateFixture, this.body);
         this.body.SetUserData(this);
-        this.body.SetPosition(new b2Vec2(this._shapes.getLeft() * PIXEL_TO_METERS, this._shapes.getTop() * PIXEL_TO_METERS));
-        this.body.SetAngle(fabric.util.degreesToRadians(this._shapes.getAngle()));
+        this.body.SetPosition(new b2Vec2(this.shapes.getLeft() * PIXEL_TO_METERS, this.shapes.getTop() * PIXEL_TO_METERS));
+        this.body.SetAngle(fabric.util.degreesToRadians(this.shapes.getAngle()));
     }
 
     get position(): b2Vec2 {
@@ -159,42 +128,43 @@ export abstract class Body {
         return out;
     }
 
+    get pos_in_pixels(): b2Vec2 {
+        return new b2Vec2(this.shapes.left * PIXEL_TO_METERS, this.shapes.top * PIXEL_TO_METERS);
+    }
+
     set position(position: b2Vec2) {
         this.bodyDef.position = position.SelfMul(PIXEL_TO_METERS);
     }
 
-    setPrepOptions() {
-        // if (this.body) {
-        //     this.bodyDef.position = this.
-        // }
+    public setPrepOptions() {
         this.bodyDef.position = this._initOptions.position;
         this.bodyDef.angle = this._initOptions.angle;
-        this._shapes.selectable = this._initOptions.selectable;
-        this._shapes.left = this.bodyDef.position.x * METERS_TO_PIXEL;
-        this._shapes.top = this.bodyDef.position.y * METERS_TO_PIXEL;
-        this._shapes.angle = fabric.util.radiansToDegrees(this.bodyDef.angle);
+        this.shapes.selectable = this._initOptions.selectable;
+        this.shapes.left = this.bodyDef.position.x * METERS_TO_PIXEL;
+        this.shapes.top = this.bodyDef.position.y * METERS_TO_PIXEL;
+        this.shapes.angle = fabric.util.radiansToDegrees(this.bodyDef.angle);
     }
 
-    setRunOptions() {
-        // this._shapes.selectable = false;
+    public setRunOptions(): void {
+        this.shapes.selectable = false;
     }
 
     setSelectable(is: boolean = true) {
-        this._shapes.set('selectable', is);
+        this.shapes.set('selectable', is);
     }
 
-    step(): void {
-        this._shapes.set('left', this.body.GetPosition().x * METERS_TO_PIXEL);
-        this._shapes.set('top', this.body.GetPosition().y * METERS_TO_PIXEL);
-        this._shapes.setAngle(fabric.util.radiansToDegrees(this.body.GetAngle()));
-        this._shapes.setCoords();
+    public update(): void {
+        this.shapes.set('left', this.body.GetPosition().x * METERS_TO_PIXEL);
+        this.shapes.set('top', this.body.GetPosition().y * METERS_TO_PIXEL);
+        this.shapes.setAngle(fabric.util.radiansToDegrees(this.body.GetAngle()));
+        this.shapes.setCoords();
     }
 
-    getKind(): string {
+    public getKind(): string {
         return 'abstract body';
     }
 
-    toJSON(): Object {
+    public toJSON(): Object {
         throw Error('Method not implemented');
     }
 
@@ -236,18 +206,14 @@ export class RectBody extends Body {
 
     toJSON(): Object {
         let json: any = {};
-        // json.playerID = this._owner;
-        // let data: any = json.data;
         json.position = {
             x: this.bodyDef.position.x,
             y: this.bodyDef.position.y,
         };
         json.angle = this.bodyDef.angle;
-        // console.log(this.size);
         json.size = this.size;
         json.size.x = json.size.x * PIXEL_TO_METERS;
         json.size.y = json.size.y * PIXEL_TO_METERS;
-        // console.log(data.size);
         json.options = {
             density: this.fixture.density,
             restitution: this.fixture.restitution,
@@ -369,6 +335,7 @@ export class BucketBody extends Body {
                 bottomLength / 2,
                 (height - wallThickness) / 2,
                 new b2Vec2(0, -wallThickness / 2),
+                0,
             );
 
         let bodyDef = new b2BodyDef();
@@ -383,6 +350,7 @@ export class BucketBody extends Body {
             originX: 'center',
             originY: 'center',
             stroke: null,
+            selectable: true,
         });
 
         let down = new fabric.Rect({
@@ -417,7 +385,7 @@ export class BucketBody extends Body {
             left: config.wallThickness + config.bottomLength / 2,
             top: config.height / 2 - config.wallThickness / 2,
             fill: 'blue',
-            // opacity: 0.0,
+            opacity: 0.0,
         });
 
         fixDefSensor.isSensor = option.sensor || false;
@@ -428,8 +396,6 @@ export class BucketBody extends Body {
 
         let group = new fabric.Group([left, down, right, sensor], {
             originX: 'center',
-            width: wallThickness * 2 + bottomLength,
-            height: height,
             originY: 'center',
             left: position.x,
             top: position.y,
@@ -450,7 +416,6 @@ export class BucketBody extends Body {
 
     toJSON(): Object {
         let json: any = {};
-        // json.playerID = this._owner;
         json.position = {
             x: this.bodyDef.position.x,
             y: this.bodyDef.position.y,
@@ -510,13 +475,10 @@ export class CircleBucketBody extends Body {
         let bodyDef: b2BodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
         let group = new fabric.Group(shapes, {
-            // originX: 'center',
-            // originY: 'center',
             left: position.x,
             top: position.y,
             stroke: null,
             subTargetCheck: true,
-            // selectable: true,
         });
         super(bodyDef, fixDefs, group, option);
     }

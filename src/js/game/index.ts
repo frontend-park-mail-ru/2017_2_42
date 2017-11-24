@@ -16,7 +16,7 @@ import {Game} from './gameLogic/game';
 function init() {
     let game = new Game({});
 
-    game.load('c').then();
+    game.load('c', 24);
 
 
     document.getElementById('btn-sbscr').addEventListener('click', () => {

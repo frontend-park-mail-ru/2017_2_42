@@ -1,6 +1,5 @@
 const PATHS = {
   BACKEND_SERVER: 'http://194.87.110.17/backend',
-
   SIGNUP_PATH: '/api/auth/signup',
   LOGIN_PATH: '/api/auth/login',
   ME_PATH: '/api/auth/me',

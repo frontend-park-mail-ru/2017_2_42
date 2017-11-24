@@ -4,16 +4,15 @@ import {BucketBody, CircleBody, KeyBodies} from './body';
 import {b2Contact} from 'box2d.ts/Box2D/Box2D/Dynamics/Contacts/b2Contact';
 import {b2Manifold} from 'box2d.ts/Box2D/Box2D/Collision/b2Collision';
 import {Game} from './gameLogic/game';
-import {InitState} from './gameLogic/gameState';
-
-// let MyListener = new b2ContactListener();
+import {FinishState, InitState} from './gameLogic/gameState';
+import {FinishMessage} from './gameLogic/Message';
 
 export class MyListener extends b2ContactListener {
-    public _game: Game;
+    public game: Game;
 
     constructor(game: Game) {
         super();
-        this._game = game;
+        this.game = game;
     }
 
     BeginContact(contact: b2Contact) {
@@ -27,13 +26,19 @@ export class MyListener extends b2ContactListener {
                 bodyA.isDeleted = true;
                 // bodyA.body.SetActive(false);
                 // bodyA.body.GetWorld().DestroyBody(bodyA);
-                // this._game.changeState(new InitState(this._game));
+                this.game.changeState(new InitState(this.game));
             } else {
                 bodyB.isDeleted = true;
                 // bodyB.body.SetActive(false);
                 // bodyB.body.GetWorld().DestroyBody(bodyB);
-                // this._game.changeState(new InitState(this._game));
+                this.game.changeState(new InitState(this.game));
             }
+            // this.game.changeState(new FinishState(this.game));
+            let message = {
+                frames: this.game.frame,
+            };
+            let finMessage = new FinishMessage(this.game, message);
+            finMessage.HandleRequest();
             eventBus.emit('game', 'finish', {});
         }
     }
@@ -50,55 +55,5 @@ export class MyListener extends b2ContactListener {
 
     }
 }
-
-
-// MyListener.PreSolve = (contact: b2Contact, oldManifold: b2Manifold) => {
-    // let bodyA = contact.GetFixtureA().GetBody().GetUserData();
-    // let bodyB = contact.GetFixtureB().GetBody().GetUserData();
-    // let A = contact.GetFixtureA().GetFilterData().categoryBits;
-    // let B = contact.GetFixtureB().GetFilterData().categoryBits;
-    // if (A === KeyBodies.KEY_BODY_1 && B === KeyBodies.KEY_BODY_1) {
-    //     console.log('HELLO');
-    //     if (contact.GetFixtureA().GetBody().GetUserData() instanceof CircleBody) {
-    //         bodyA.isDeleted = true;
-    //         bodyA.body.SetActive(false);
-    //         bodyA.body.GetWorld().DestroyBody(bodyA);
-    //     } else {
-    //         bodyB.isDeleted = true;
-    //         bodyB.body.SetActive(false);
-    //         bodyB.body.GetWorld().DestroyBody(bodyB);
-    //     }
-    //     // eventBus.emit('game', 'finish', {});
-    // }
-// };
-
-// MyListener.BeginContact = (contact) => {
-//     let bodyA = contact.GetFixtureA().GetBody().GetUserData();
-//     let bodyB = contact.GetFixtureB().GetBody().GetUserData();
-//     let A = contact.GetFixtureA().GetFilterData().categoryBits;
-//     let B = contact.GetFixtureB().GetFilterData().categoryBits;
-//     if (A === KeyBodies.KEY_BODY_1 && B === KeyBodies.KEY_BODY_1) {
-//         console.log('HELLO');
-//         if (contact.GetFixtureA().GetBody().GetUserData() instanceof CircleBody) {
-//             bodyA.isDeleted = true;
-//             bodyA.body.SetActive(false);
-//             bodyA.body.GetWorld().DestroyBody(bodyA);
-//         } else {
-//             bodyB.isDeleted = true;
-//             bodyB.body.SetActive(false);
-//             bodyB.body.GetWorld().DestroyBody(bodyB);
-//         }
-//         eventBus.emit('game', 'finish', {});
-//     }
-// };
-//
-// MyListener.EndContact = contact => {
-//     // let A = contact.GetFixtureA().GetFilterData().categoryBits;
-//     // let B = contact.GetFixtureB().GetFilterData().categoryBits;
-//     // if (A == 0x0004 && B == 0x0002 || A == 0x0002 && B == 0x0004) {
-//     //     console.log("GOODBYE");
-//     // }
-//
-// };
 
 export default MyListener;
