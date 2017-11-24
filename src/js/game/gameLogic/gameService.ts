@@ -67,10 +67,13 @@ export class GameService {
 
         let json;
         let resp;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
         try {
             resp = await fetch(PATH_GET_MAP + id, {
                 method: 'GET',
-                headers: {'Content-Type': 'application/json'},
+                headers: headers,
             });
         }
         catch (e) {
