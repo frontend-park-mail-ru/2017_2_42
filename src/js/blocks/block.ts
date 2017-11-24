@@ -1,8 +1,6 @@
 /**
  * Base class for block implementations
  *
- * @export
- * @class Block
  */
 export default class Block {
   private element: HTMLElement;
