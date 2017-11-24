@@ -35,7 +35,7 @@ export default class GameView extends BaseView {
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
 
-        await game.load(canvas);
+        await game.load(canvas, mapMeta.id);
 
         game.gameService.sendSocketMessage(`{"class": "SubscribeMessage", "board": ${mapMeta.id}}`);
 
