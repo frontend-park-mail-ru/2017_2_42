@@ -30,7 +30,7 @@ const common = wpMerge([{
     output: {
       filename: '[name].js',
       path: PATHS.public,
-      publicPath: '/static/',
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.json'],
