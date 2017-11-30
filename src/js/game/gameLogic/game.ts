@@ -1,3 +1,4 @@
+///<reference path="../../../../node_modules/@types/fabric/index.d.ts"/>
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import {Board} from '../board';
