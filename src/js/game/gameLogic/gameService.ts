@@ -11,8 +11,8 @@ import eventBus from '../eventBus';
 
 declare const fabric: any;
 
-const PATH_GET_MAP = 'https://194.87.110.17/backend/api/game/map/';
-const PATH_WEBSOCKET = 'wss://194.87.110.17/backend/handler';
+const PATH_GET_MAP = 'https://physicsio.tech/backend/api/game/map/';
+const PATH_WEBSOCKET = 'wss://physicsio.tech/backend/handler';
 
 export class GameService {
     private socket: WebSocket;
