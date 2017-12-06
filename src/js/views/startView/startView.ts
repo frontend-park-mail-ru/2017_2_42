@@ -8,6 +8,7 @@ import BaseView from '../../modules/baseView';
 import { EventsEnum, ScopesEnum } from '../../modules/eventBus';
 
 const StartPageTmpl = (require('./startView.pug') as TemplateRenderFunc);
+
 export default class StartView extends BaseView {
   constructor(parentElement: HTMLElement) {
     super(parentElement);

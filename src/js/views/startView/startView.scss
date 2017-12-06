@@ -13,6 +13,7 @@
         flex-direction: row;
         align-items: flex-end;
         height: $buttonSize;
+        padding-top: 2em;
 
         button{
             padding: 0;
@@ -35,7 +36,8 @@
             height: $buttonSize;
             background: $sound_button_img 100% 100% no-repeat;
             background-size: contain;
-            align-self: flex-start;
+            //align-self: flex-start;
+            margin: 1em;
         }
 
         &__settings_button {
@@ -45,6 +47,7 @@
             background: $settings_button_img 100% 100% no-repeat;
             background-size: contain;
             align-self: flex-end;
+            margin: 1em;
         }
     }
 
@@ -54,10 +57,12 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding-top: 4em;
 
         &__title {
             flex-grow: 2;
             user-select: none;
+            //margin: 1em 0 0 0;
             margin: 0;
             font-size: 7rem;
             font-weight: normal;
@@ -71,7 +76,7 @@
         &__play_button{
             flex-grow: 2;
             user-select: none;            
-            font-size: 5rem;
+            font-size: 3rem;//5
             color: rgba($color: #ffffff, $alpha: 0.7);
 
             &:hover {
@@ -86,7 +91,7 @@
         flex-direction: column;
         align-items: stretch;
         align-content: stretch;
-        height: $buttonSize;
+        height: $buttonSize + 40px;
 
         button{
             padding: 0;
@@ -104,6 +109,8 @@
             background: $about_button_img 100% 100% no-repeat;
             background-size: contain;            
             align-self: flex-end;
+            margin: 1em;
+            padding: 1em;
         }
     }
 }
