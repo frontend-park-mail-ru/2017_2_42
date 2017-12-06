@@ -1,12 +1,13 @@
 $background_img: url("../../../img/chalkboard.jpg");
-$back_button_img: url("../../../img/back_btn.png");
-$about_button_img: url("../../../img/about_btn.png");
-$settings_button_img: url("../../../img/settings.svg");
-$sound_button_img: url("../../../img/sound_btn.png");
+$back_button_img: url("../../../img/back.svg");
+$about_button_img: url("../../../img/exclamation.svg");
+$settings_button_img: url("../../../img/configuration.svg");
+$sound_button_img: url("../../../img/speaker.svg");
+$mute_button_img: url("../../../img/mute-speaker.svg");
 $background_filled: url("../../../img/chalk-background-filled.png");
 $vk_button: url("../../../icons/facebook-logo.svg");
 $facebook_button: url("../../../icons/vkontakte-draw.svg");
-$logout_button_img: url("../../../img/logout.png");
+$logout_button_img: url("../../../img/logout.svg");
 
 $font_name: 'KGSecondChancesSketch';
 
@@ -19,8 +20,8 @@ $buttonSize: 70px;
 }
 
 html, body {
-    min-width: 1280px;
-    min-height: 720px;
+    min-width: 880px; //1280
+    min-height: 220px; //720
     height: 100%;
     font-size: 24px;
     font-family: $font_name;
