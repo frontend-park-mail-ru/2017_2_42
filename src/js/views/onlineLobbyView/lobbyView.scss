@@ -55,6 +55,15 @@
             background-size: contain;
             align-self: flex-end;
         }
+
+        &__logout-button {
+            display: flex;
+            width: $buttonSize;
+            height: $buttonSize;
+            background: $logout_button_img 100% 100% no-repeat;
+            background-size: contain;
+            align-self: flex-end;
+        }
     }
 
     &__lobby-content {
@@ -83,6 +92,7 @@
             display: flex;
             flex-grow: 1;
             flex-direction: row;
+            flex-wrap: wrap;
             align-content: flex-start;
             align-items: flex-start;
             justify-content: flex-start;

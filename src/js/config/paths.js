@@ -5,6 +5,7 @@ const PATHS = {
   ME_PATH: '/api/auth/me',
   GET_MAPS_PATH: '/api/game/maps',
   GET_MAP: '/api/maps',
+  LOGOUT_PATH: '/api/auth/logout',
 };
 
 export default PATHS;
