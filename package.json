@@ -23,6 +23,7 @@
   "homepage": "https://github.com/frontend-park-mail-ru/2017_2_42#readme",
   "dependencies": {
     "@types/fabric": "^1.5.27",
+    "box2d.ts": "flyover/box2d.ts",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.28.7",
     "eslint": "^4.7.2",
@@ -39,12 +40,12 @@
     "normalize.css": "^7.0.0",
     "pug": "^2.0.0-rc.4",
     "pug-loader": "^2.3.0",
+    "serviceworker-webpack-plugin": "^0.2.3",
     "style-loader": "^0.18.2",
     "ts-loader": "^3.1.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3",
-    "box2d.ts": "flyover/box2d.ts"
+    "typescript": "^2.5.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
@@ -63,7 +64,7 @@
     "tslint-loader": "^3.5.3",
     "webpack": "^3.5.6",
     "webpack-clear-console": "^1.0.3",
-    "webpack-dev-server": "^2.7.1",
+    "webpack-dev-server": "^2.9.7",
     "webpack-merge": "^4.1.1"
   }
 }

@@ -2,6 +2,8 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+
 
 const wpMerge = require('webpack-merge');
 
@@ -26,6 +28,7 @@ const common = wpMerge([{
     context: __dirname,
     entry: {
       main: path.join(PATHS.src, 'js/main.js'),
+      worker: path.join(PATHS.src, 'js/sw-test.js')
       // game: path.join(PATHS.game, 'game.js'),
     },
     output: {
@@ -45,7 +48,7 @@ const common = wpMerge([{
       }),
     ],
   },
-  lint(),
+  // lint(),
   pugLoader(),
   tsLoader(),
   babel(),
