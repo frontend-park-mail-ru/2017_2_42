@@ -1,0 +1,86 @@
+@import '../../../css/main.scss';
+
+.main-frame{
+  &__content{
+    &__choice-column{
+      a{
+        //user-select: none;
+        //font-size: 2rem;
+        //color: rgba($color: #ffffff, $alpha: 0.5);
+        //margin-bottom: 20px;
+        //padding: 10px;
+        //border-radius: 20px;
+        //
+        //&:hover {
+        //  cursor:pointer;
+        //  color: rgba($color: #ffffff, $alpha: 1);
+        //}
+
+        &#disabled{
+          pointer-events: none;
+          cursor: default;
+          //background: $background_filled 100% 100% no-repeat;
+          //background-color: rgba($color: #000000, $alpha: 0.3);
+
+          color: rgba($color: #ffffff, $alpha: 1) !important;
+
+          &:hover{
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+
+//  &__header {
+//    display: flex;
+//    flex-direction: row;
+//    align-items: flex-end;
+//    height: $buttonSize;
+//    padding-top: 2em;
+//
+//    button {
+//      padding: 0;
+//      border: none;
+//      outline: 0;
+//
+//      &:hover {
+//        cursor: pointer;
+//      }
+//    }
+//
+//    &__stub {
+//      display: flex;
+//      flex-grow: 1;
+//    }
+//
+//    &__sound-button {
+//      display: flex;
+//      width: $buttonSize;
+//      height: $buttonSize;
+//      background: $sound_button_img 100% 100% no-repeat;
+//      background-size: contain;
+//      align-self: flex-end;
+//      margin: 1em;
+//    }
+//
+//    &__settings-button {
+//      display: flex;
+//      width: $buttonSize;
+//      height: $buttonSize;
+//      background: $settings_button_img 100% 100% no-repeat;
+//      background-size: contain;
+//      //align-self: flex-start;
+//      margin: 1em;
+//    }
+//
+//    &__back-button {
+//              display: flex;
+//              width: $buttonSize;
+//              height: $buttonSize;
+//              background: $back_button_img 100% 100% no-repeat;
+//              background-size: contain;
+//              align-self: flex-end;
+//    }
+//  }
+}

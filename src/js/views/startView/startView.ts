@@ -21,9 +21,9 @@ export default class StartView extends BaseView {
     document.body.querySelector('#main-frame').innerHTML = this.renderFunc();
 
     this.playButton = new Button(document.querySelector('.main_frame__content__play_button') as HTMLElement);
-    this.settingsButton = new Button(document.querySelector('.main_frame__header__settings_button') as HTMLElement);
+    this.settingsButton = new Button(document.querySelector('.main_frame__header__settings-button') as HTMLElement);
     this.aboutButton = new Button(document.querySelector('.main_frame__footer__about_button') as HTMLElement);
-    this.muteButton = new Button(document.querySelector('.main_frame__header__sound_button') as HTMLElement);
+    this.muteButton = new Button(document.querySelector('.main_frame__header__sound-button') as HTMLElement);
 
     userService.getUser(true)
       .then((user: User | null) => {

@@ -20,10 +20,11 @@ $buttonSize: 70px;
 }
 
 html, body {
-    min-width: 880px; //1280
+    min-width: 480px; //1280
     min-height: 220px; //720
     height: 100%;
-    font-size: 24px;
+    //font-size: 24px;
+    font-size: 3vh;
     font-family: $font_name;
 }
 

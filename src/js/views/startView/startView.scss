@@ -1,4 +1,6 @@
 @import '../../../css/main.scss';
+@import '../../../css/common.scss';
+
 
 .main_frame {
     height: 100%;
@@ -30,20 +32,24 @@
             flex-grow: 1;
         }
 
-        &__sound_button {
+        &__sound-button {
             display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
+            //width: $buttonSize;
+            //height: $buttonSize;
+            width: 3em;
+            height: 3em;
             background: $sound_button_img 100% 100% no-repeat;
             background-size: contain;
             //align-self: flex-start;
             margin: 1em;
         }
 
-        &__settings_button {
+        &__settings-button {
             display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
+            //width: $buttonSize;
+            //height: $buttonSize;
+            width: 3em;
+            height: 3em;
             background: $settings_button_img 100% 100% no-repeat;
             background-size: contain;
             align-self: flex-end;
@@ -104,13 +110,16 @@
         }
 
         &__about_button {
-            width: $buttonSize;
-            height: $buttonSize;
+            //width: $buttonSize;
+            //height: $buttonSize;
+            width: 3em;
+            height: 3em;
             background: $about_button_img 100% 100% no-repeat;
-            background-size: contain;            
+            background-size: cover;
             align-self: flex-end;
-            margin: 1em;
-            padding: 1em;
+            margin-right: 1em;
+            margin-bottom: 1em;
+            //padding: 1em;
         }
     }
 }
