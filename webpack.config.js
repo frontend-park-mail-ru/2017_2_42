@@ -2,8 +2,6 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
-
 
 const wpMerge = require('webpack-merge');
 
@@ -12,7 +10,6 @@ const pugLoader = require('./webpack/pug');
 const lint = require('./webpack/lint');
 const tsLoader = require('./webpack/tsloader');
 const extractCss = require('./webpack/css.extract');
-// const uglify = require('./webpack/js.uglify');
 const consoleLogRemover = require('./webpack/clearConsole');
 const babel = require('./webpack/babel');
 const fileLoader = require('./webpack/fileloader');
@@ -48,7 +45,7 @@ const common = wpMerge([{
       }),
     ],
   },
-  // lint(),
+  lint(),
   pugLoader(),
   tsLoader(),
   babel(),
@@ -65,13 +62,11 @@ module.exports = (env) => {
         sourceMap(),
         devServer(),
       ]);
-      break;
     case 'production':
       return wpMerge([
         common,
-        consoleLogRemover(),
+        // consoleLogRemover(),
         // uglify(),
       ]);
-      break;
   }
 };

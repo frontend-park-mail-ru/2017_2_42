@@ -1,9 +1,9 @@
-import 'fabric';
 import {b2CircleShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2CircleShape';
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import {b2Body, b2BodyDef, b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2FixtureDef} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Fixture';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
+import 'fabric';
 
 import {b2PolygonShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2PolygonShape';
 

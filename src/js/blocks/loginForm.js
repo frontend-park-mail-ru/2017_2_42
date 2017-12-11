@@ -1,6 +1,7 @@
 import Form from './form';
 import Input from './input';
 import Button from './button';
+import userService from '../services/userService';
 
 /**
  *
@@ -21,8 +22,28 @@ export default class LoginForm extends Form {
     this.passwordField = new Input(document.querySelector(
       '.main-frame__content__content-column__form__password'));
 
-      this.submitButton = new Button(document.querySelector(
+    this.submitButton = new Button(document.querySelector(
       '.main-frame__content__content-column__form__submit'));
+  }
+
+  /**
+   * On success submit
+   * @param {function} callback
+   * @return {void}
+   */
+  onSuccessSubmit(callback) {
+    this.onSubmit(async (event) => {
+      event.preventDefault();
+
+      try {
+        const validatedData = await this.validate();
+        await userService.login(validatedData);
+
+        callback();
+      } catch (errorArr) {
+        this._handle(errorArr);
+      }
+    });
   }
 
   /**
