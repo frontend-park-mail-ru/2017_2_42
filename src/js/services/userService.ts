@@ -1,168 +1,181 @@
 import PATHS from '../config/paths';
-import { CONNECTION_ERR, JSON_PARSE_ERR, UNEXPECTED_ERR } from '../errors';
 import User from '../models/user';
-import eventBus, { EventBus } from '../modules/eventBus';
-import Http from '../modules/http';
 import Utils from '../modules/utils/utils';
+import FetchService from './FetchService';
 
 
 export class UserService {
   private user: User;
-  private bus: EventBus;
+  private serverResponded: boolean;
+  private errors = {
+    CONNECTION_ERROR: 'CONNECTION_ERROR',
+    JSON_PARSE_ERROR: 'JSON_PARSE_ERR',
+    UNEXPECTED_ERROR: 'UNEXPECTED_ERR',
+  };
 
   constructor() {
-    // this.getUser(true);
-    this.bus = eventBus;
-  }
-
-  public async getUser(force: boolean = false): Promise<User | null> {
-    if (force) {
-      try {
-        this.user = await this.me();
-      }
-      catch (err) {
-        Utils.debugError('Request failed', err);
-        throw err;
-      }
-    }
-
-    if (this.user === undefined) {
-      throw CONNECTION_ERR;
-    }
-
-    return this.user;
+    this.me()
+      .then((user: User | null) => {
+        this.user = user;
+        this.serverResponded = true;
+      })
+      .catch((error) => {
+        Utils.debugError(error);
+        this.serverResponded = false;
+      });
   }
 
   public async login(data: Auth.UserLoginData): Promise<User> {
-    let response: HttpNS.Response;
+    let response: Response;
 
     try {
-      response = await Http.Post(PATHS.LOGIN_PATH, JSON.stringify(data));
+      response = await FetchService.post(PATHS.auth.LOGIN_PATH, JSON.stringify(data));
     } catch (err) {
-      Utils.debugWarn(err.errorType);
-      throw err.errorType;
+      Utils.debugError(err);
+      this.serverResponded = false;
+      throw this.errors.CONNECTION_ERROR;
     }
 
-    if (response.errorType) {
-      Utils.debugError(response.errorType);
-      throw response.errorType;
-    }
-
-    switch (response.statusCode) {
+    switch (response.status) {
       case 200:
-        if (response.body) {
-          this.user = response.body;
-          return response.body;
+        try {
+          this.user = await response.json();
+          return this.user;
+        } catch (error) {
+          Utils.debugError(error);
+          throw this.errors.JSON_PARSE_ERROR;
         }
-
-        Utils.debugError('User wasn\'t returned from backend', response);
-        throw UNEXPECTED_ERR;
 
       case 400:
-        if (response.body && response.body.message) {
-          throw response.body.message;
+        let errs: string[];
+
+        try {
+          errs = await response.json() as string[];
+        } catch (error) {
+          Utils.debugError(error);
+          throw this.errors.JSON_PARSE_ERROR;
         }
 
-        Utils.debugError('Something strange there', response);
-        throw UNEXPECTED_ERR;
+        throw errs;
 
       default:
-        Utils.debugError('WTF?', response);
-        throw UNEXPECTED_ERR;
+        throw this.errors.UNEXPECTED_ERROR;
     }
   }
 
   public async signUp(data: Auth.UserSignUpData): Promise<User> {
-    let response: HttpNS.Response;
+    let response: Response;
 
     try {
-      response = await Http.Post(PATHS.SIGNUP_PATH, JSON.stringify(data));
+      response = await FetchService.post(PATHS.auth.SIGN_UP_PATH, JSON.stringify(data));
     } catch (err) {
-      Utils.debugWarn('Request failed', err);
-      throw err.errorType;
+      Utils.debugWarn(err);
+      this.serverResponded = false;
+      throw this.errors.CONNECTION_ERROR;
     }
 
-    if (response.errorType) {
-      Utils.debugError(response.errorType);
-      throw response.errorType;
-    }
-
-    switch (response.statusCode) {
+    switch (response.status) {
       case 200:
-        if (response.body) {
-          this.user = response.body;
-          return response.body;
+        try {
+          this.user = await response.json();
+          return this.user;
+        } catch (error) {
+          Utils.debugError(error);
+          throw this.errors.JSON_PARSE_ERROR;
         }
-
-        Utils.debugError('User wasn\'t return from backend');
-        throw UNEXPECTED_ERR;
 
       case 400:
-        if (response.body && response.body.message) {
-          throw response.body.message;
+        let errs: string[];
+
+        try {
+          errs = await response.json() as string[];
+        } catch (error) {
+          Utils.debugError(error);
+          throw this.errors.JSON_PARSE_ERROR;
         }
 
-        Utils.debugError('Something strange here');
-        throw UNEXPECTED_ERR;
+        throw errs;
 
       default:
-        Utils.debugError('WTF?', response);
-        throw UNEXPECTED_ERR;
+        throw this.errors.UNEXPECTED_ERROR;
     }
-  }
-
-  private async me(): Promise<User> {
-    let response: HttpNS.Response;
-
-    try {
-      response = await Http.Get(PATHS.ME_PATH);
-    } catch (err) {
-      throw err.errorType;
-    }
-
-    switch (response.statusCode) {
-      case 200:
-        if (response.errorType) {
-          throw response.errorType;
-        }
-
-        this.user = response.body;
-        break;
-
-      case 401:
-        this.user = null;
-        break;
-
-      default:
-        Utils.debugError('Something unexpected there: ', response);
-        break;
-    }
-    return this.user;
   }
 
   public async logout(): Promise<void> {
-    let response: HttpNS.Response;
+    let response: Response;
 
     try {
-      response = await Http.Delete(PATHS.LOGOUT_PATH);
+      response = await FetchService.delete(PATHS.auth.LOGOUT_PATH);
     } catch (err) {
-      throw err.errorType;
+      this.serverResponded = false;
+      throw this.errors.CONNECTION_ERROR;
     }
 
-    switch (response.statusCode) {
+    switch (response.status) {
       case 200: {
+        this.user = null;
         return;
       }
       case 401: {
-        throw UNEXPECTED_ERR;
+        throw this.errors.UNEXPECTED_ERROR;
       }
       default: {
         Utils.debugError('Unexpected error here');
       }
     }
   }
+
+  public async getUser(force: boolean = false): Promise<User | null> {
+    if (force) {
+      this.serverResponded = undefined;
+
+      try {
+        this.user = await this.me();
+        this.serverResponded = true;
+        return this.user;
+      }
+      catch (error) {
+        Utils.debugError(error);
+        this.serverResponded = false;
+        throw error;
+      }
+    }
+
+    while (this.serverResponded === undefined) {
+    }
+
+    if (this.serverResponded === false) {
+      throw this.errors.CONNECTION_ERROR;
+    }
+
+    return this.user;
+  }
+
+  private async me(): Promise<User | null> {
+    let response: Response;
+
+    try {
+      response = await FetchService.get(PATHS.auth.ME_PATH);
+    } catch (err) {
+      throw this.errors.CONNECTION_ERROR;
+    }
+
+    if (response.ok && response.status === 200) {
+      try {
+        return await response.json() as User;
+      } catch {
+        throw this.errors.JSON_PARSE_ERROR;
+      }
+    }
+
+    if (response.status === 401) {
+      return null;
+    }
+
+    throw this.errors.UNEXPECTED_ERROR;
+  }
 }
 
 const userService = new UserService();
 
-export default userService;
+export default userService as UserService;

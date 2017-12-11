@@ -1,53 +1,90 @@
-$background_img: url("../../../img/chalkboard.jpg");
-$back_button_img: url("../../../img/back.svg");
-$about_button_img: url("../../../img/exclamation.svg");
-$settings_button_img: url("../../../img/configuration.svg");
-$sound_button_img: url("../../../img/speaker.svg");
-$mute_button_img: url("../../../img/mute-speaker.svg");
-$background_filled: url("../../../img/chalk-background-filled.png");
-$vk_button: url("../../../icons/facebook-logo.svg");
-$facebook_button: url("../../../icons/vkontakte-draw.svg");
-$logout_button_img: url("../../../img/logout.svg");
-
 $font_name: 'KGSecondChancesSketch';
 
-$buttonSize: 70px;
-
-.stub {
-    display: flex;
-    flex-grow: 1;
-    flex-shrink: 16;
+html, body {
+  min-width: 480px; //1280
+  min-height: 220px; //720
+  height: 100%;
+  font-size: 3vh;
+  font-family: $font_name;
 }
 
-html, body {
-    min-width: 880px; //1280
-    min-height: 220px; //720
-    height: 100%;
-    font-size: 24px;
-    font-family: $font_name;
+$background_blue_4096: url("../img/chalkboard_blue_4096.jpg");
+$background_blue_3840: url("../img/chalkboard_blue_3840.jpg");
+$background_blue_2560: url("../img/chalkboard_blue_2560.jpg");
+$background_blue_2048: url("../img/chalkboard_blue_2048.jpg");
+$background_blue_1920: url("../img/chalkboard_blue_1920.jpg");
+$background_blue_1600: url("../img/chalkboard_blue_1600.jpg");
+$background_blue_1280: url("../img/chalkboard_blue_1280.jpg");
+
+$background_green_4096: url("../img/chalkboard_green_4096.jpg");
+$background_green_3840: url("../img/chalkboard_green_3840.jpg");
+$background_green_2560: url("../img/chalkboard_green_2560.jpg");
+$background_green_2048: url("../img/chalkboard_green_2048.jpg");
+$background_green_1920: url("../img/chalkboard_green_1920.jpg");
+$background_green_1600: url("../img/chalkboard_green_1600.jpg");
+$background_green_1280: url("../img/chalkboard_green_1280.jpg");
+
+/* @1x Images (Pixel Ratio 1.0) */
+body {
+  background: $background_green_1920 100% 100% no-repeat;
+}
+
+/* @2x Images (Pixel Ratio of 1.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 5/4),
+only screen and (-webkit-min-device-pixel-ratio: 1.25),
+only screen and (min-device-pixel-ratio: 1.25),
+only screen and (min-resolution: 1.25dppx) {
+  body {
+    background: $background_green_2048 100% 100% no-repeat;
+  }
+}
+
+/* @3x Images (Pixel Ratio of 2.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 9/4),
+only screen and (-webkit-min-device-pixel-ratio: 2.25),
+only screen and (min-device-pixel-ratio: 2.25),
+only screen and (min-resolution: 2.25dppx) {
+  body {
+    background: $background_green_2560 100% 100% no-repeat;
+  }
+}
+
+/* @4x Images (Pixel Ratio of 3.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 13/4),
+only screen and (-webkit-min-device-pixel-ratio: 3.25),
+only screen and (min-device-pixel-ratio: 3.25),
+only screen and (min-resolution: 3.25dppx) {
+  body {
+    background-image: $background_green_4096 100% 100% no-repeat;
+  }
 }
 
 body {
-    background: $background_img 100% 100% no-repeat;
-    background-size: 100% 100%;
-    flex-basis: 1024px;
+  background-size: 100% 100%;
+  flex-basis: 1024px;
 
-    #main-frame {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-    }
-    
-    #overlay {
-        height: 100%;    
-        display: none;
-    }
+  #main-frame {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  #overlays {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    height: 100%;
+    width: 100%;
+
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+  }
 }
 
-
-@font-face{
-    font-family: $font_name;
-    src: url(../../../fonts/KGSecondChancesSketch.ttf) format('truetype');
+@font-face {
+  font-family: $font_name;
+  src: url(../fonts/KGSecondChancesSketch.ttf) format('truetype');
 }

@@ -1,42 +1,42 @@
-@font-face {
-    font-family: 'KGSecondChancesSketch';
-    src: url(../fonts/KGSecondChancesSketch.ttf) format('truetype');
-}
+/*@font-face {*/
+    /*font-family: 'KGSecondChancesSketch';*/
+    /*src: url(../../../fonts/KGSecondChancesSketch.ttf) format('truetype');*/
+/*}*/
 
 
-body, html {
-    background: url("../img/chalkboard.jpg");
-    background-size: 100% 100%;
-    height: 100%;
-}
+/*body, html {*/
+    /*background: url("../../../img/chalkboard.jpg");*/
+    /*background-size: 100% 100%;*/
+    /*height: 100%;*/
+/*}*/
 
-form * {
-    margin-bottom: 20px;
-}
+/*form * {*/
+    /*margin-bottom: 20px;*/
+/*}*/
 
-.input-ok {
-    border: 15px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/chalk_input_border.png") 15;
-}
+/*.input-ok {*/
+    /*border: 15px solid rgba(255, 255, 255, .8);*/
+    /*border-image: url("../../../img/chalk_input_border.png") 15;*/
+/*}*/
 
-.input-error {
-    border: 15px solid rgba(255, 255, 255, .8);
-    border-image: url("../img/chalk_input_border_error.png") 15;
-}
+/*.input-error {*/
+    /*border: 15px solid rgba(255, 255, 255, .8);*/
+    /*border-image: url("../../../img/chalk_input_border_error.png") 15;*/
+/*}*/
 
-.container {
-    position: relative;
-    margin: 0;
-}
+/*.container {*/
+    /*position: relative;*/
+    /*margin: 0;*/
+/*}*/
 
-.error-message {
-    position: absolute;
-    font-size: 2.5vh;
-    max-font-size: 5em;
-    left: 102%;
-    top: 2rem;
-    color: firebrick;
-    white-space: nowrap;
-    display: none;
-    transition: display 3s;
-}
+/*.error-message {*/
+    /*position: absolute;*/
+    /*font-size: 2.5vh;*/
+    /*max-font-size: 5em;*/
+    /*left: 102%;*/
+    /*top: 2rem;*/
+    /*color: firebrick;*/
+    /*white-space: nowrap;*/
+    /*display: none;*/
+    /*transition: display 3s;*/
+/*}*/

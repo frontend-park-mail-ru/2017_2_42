@@ -1,6 +1,7 @@
 import Form from './form';
 import Input from './input';
 import Button from './button';
+import userService from '../services/userService';
 
 /**
  *
@@ -27,6 +28,25 @@ export default class SignUpForm extends Form {
 
     this.submitButton = new Button(document.querySelector(
       '.main-frame__content__content-column__form__submit'));
+  }
+
+  /**
+   * On success submit
+   * @param {function} callback cb
+   */
+  onSuccessSubmit(callback) {
+    this.onSubmit(async (event) => {
+      event.preventDefault();
+
+      try {
+        const validatedData = await this.validate();
+        await userService.signUp(validatedData);
+
+        callback();
+      } catch (errorsArr) {
+        this._handle(errorsArr);
+      }
+    });
   }
 
   /**

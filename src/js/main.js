@@ -1,12 +1,5 @@
-// import '../css/main.css';
-// import 'html-loader!../index.html';
-import './views/aboutView/aboutView.css';
-import './views/gameView/gameView.css';
-import './views/startView/startView.css';
-import './views/offlineLobbyView/lobbyView.css';
-import './views/loginView/loginView.css';
-import './views/signUpView/signUpView.css';
 import 'normalize.css';
+import '../css/main.scss';
 
 import Application from './application';
 
@@ -21,4 +14,20 @@ if ('serviceWorker' in navigator) {
 }
 
 const app = new Application();
-app.start();
+
+const preGameCss = document.querySelector('#cssWhileLoading');
+const preGameDiv = document.querySelector('#loading');
+
+const preGameRemover = () => {
+  document.body.removeChild(preGameDiv);
+  document.head.removeChild(preGameCss);
+};
+
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    preGameDiv.innerHTML = '';
+    preGameDiv.classList.add('loaded');
+    app.start();
+    setTimeout(preGameRemover, 2000);
+  }
+};

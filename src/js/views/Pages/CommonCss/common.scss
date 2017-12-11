@@ -1,0 +1,43 @@
+$background_img: url("../../../../img/chalkboard.jpg");
+$back_button_img: url("../../../../img/back.svg");
+$about_button_img: url("../../../../img/exclamation.svg");
+$settings_button_img: url("../../../../img/configuration.svg");
+$sound_button_img: url("../../../../img/speaker.svg");
+$mute_button_img: url("../../../../img/mute-speaker.svg");
+$background_filled: url("../../../../img/chalk-background-filled.png");
+$vk_button: url("../../../../icons/facebook-logo.svg");
+$facebook_button: url("../../../../icons/vkontakte-draw.svg");
+$logout_button_img: url("../../../../img/logout.svg");
+$border_img: url("../../../../img/chalk_input_border.png");
+$border_error_img: url("../../../../img/chalk_input_border_error.png");
+
+$buttonSize: 3em;
+
+
+.stub {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 16;
+}
+
+
+.main-frame{
+    &__content{
+        &__choice-column{
+            a{
+                &#disabled{
+                  pointer-events: none;
+                  cursor: default;
+                  //background: $background_filled 100% 100% no-repeat;
+                  //background-color: rgba($color: #000000, $alpha: 0.3);
+
+                  color: rgba($color: #ffffff, $alpha: 1) !important;
+          
+                    &:hover{
+                      cursor: default;
+                    }
+                }
+            }
+        }
+    }
+}

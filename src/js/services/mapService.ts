@@ -1,5 +1,5 @@
 import PATHS from '../config/paths';
-import http from '../modules/http';
+import http from './HttpService';
 import Utils from '../modules/utils/utils';
 
 class MapService {
