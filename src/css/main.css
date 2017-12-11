@@ -15,12 +15,12 @@ form * {
 }
 
 .input-ok {
-    border: 15px solid rgba(255, 255, 255, .8);
+    border: 0.5em solid rgba(255, 255, 255, .8);
     border-image: url("../img/chalk_input_border.png") 15;
 }
 
 .input-error {
-    border: 15px solid rgba(255, 255, 255, .8);
+    border: 0.5em solid rgba(255, 255, 255, .8);
     border-image: url("../img/chalk_input_border_error.png") 15;
 }
 

@@ -8,10 +8,11 @@ $background_filled: url("../../../img/chalk-background-filled.png");
 $vk_button: url("../../../icons/facebook-logo.svg");
 $facebook_button: url("../../../icons/vkontakte-draw.svg");
 $logout_button_img: url("../../../img/logout.svg");
+$border_img: url("../../../img/chalk_input_border.png");
 
 $font_name: 'KGSecondChancesSketch';
 
-$buttonSize: 70px;
+$buttonSize: 3em;
 
 .stub {
     display: flex;
@@ -23,7 +24,6 @@ html, body {
     min-width: 480px; //1280
     min-height: 220px; //720
     height: 100%;
-    //font-size: 24px;
     font-size: 3vh;
     font-family: $font_name;
 }

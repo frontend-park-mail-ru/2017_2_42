@@ -18,8 +18,10 @@
         .main-frame__content__content-column
             .stub
             form.main-frame__content__content-column__form
-                input.main-frame__content__content-column__form__username(type='text', name='username', placeholder='username', value='')
-                input.main-frame__content__content-column__form__password(type='password', name='password', placeholder='password', value='')
+                div.main-frame__content__content-column__form__input
+                    input.main-frame__content__content-column__form__username.input-ok(type='text', name='username', placeholder='username', value='')
+                div.main-frame__content__content-column__form__input
+                    input.main-frame__content__content-column__form__password.input-ok(type='password', name='password', placeholder='password', value='')
 
                 input.main-frame__content__content-column__form__submit(type='submit', name='submit', value='GO!')
                 .main-frame__content__content-column__form__socials 

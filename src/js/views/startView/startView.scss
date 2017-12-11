@@ -1,7 +1,6 @@
 @import '../../../css/main.scss';
 @import '../../../css/common.scss';
 
-
 .main_frame {
     height: 100%;
     width: 100%;
@@ -13,9 +12,7 @@
     &__header {
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
-        height: $buttonSize;
-        padding-top: 2em;
+        justify-content: flex-end;
 
         button{
             padding: 0;
@@ -34,26 +31,33 @@
 
         &__sound-button {
             display: flex;
-            //width: $buttonSize;
-            //height: $buttonSize;
-            width: 3em;
-            height: 3em;
+            width: $buttonSize;
+            height: $buttonSize;
             background: $sound_button_img 100% 100% no-repeat;
             background-size: contain;
-            //align-self: flex-start;
             margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
 
         &__settings-button {
             display: flex;
-            //width: $buttonSize;
-            //height: $buttonSize;
-            width: 3em;
-            height: 3em;
+            width: $buttonSize;
+            height: $buttonSize;
             background: $settings_button_img 100% 100% no-repeat;
             background-size: contain;
             align-self: flex-end;
             margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
     }
 
@@ -67,8 +71,7 @@
 
         &__title {
             flex-grow: 2;
-            user-select: none;
-            //margin: 1em 0 0 0;
+            //user-select: none;
             margin: 0;
             font-size: 7rem;
             font-weight: normal;
@@ -82,8 +85,8 @@
         &__play_button{
             flex-grow: 2;
             user-select: none;            
-            font-size: 3rem;//5
-            color: rgba($color: #ffffff, $alpha: 0.7);
+            font-size: 3rem;
+            color: rgba($color: #ffffff, $alpha: 0.5);
 
             &:hover {
                 cursor:pointer;
@@ -94,10 +97,8 @@
 
     &__footer {
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        align-content: stretch;
-        height: $buttonSize + 40px;
+        flex-direction: row;
+        justify-content: flex-end;
 
         button{
             padding: 0;
@@ -110,16 +111,19 @@
         }
 
         &__about_button {
-            //width: $buttonSize;
-            //height: $buttonSize;
-            width: 3em;
-            height: 3em;
+            width: $buttonSize;
+            height: $buttonSize;
             background: $about_button_img 100% 100% no-repeat;
             background-size: cover;
             align-self: flex-end;
             margin-right: 1em;
             margin-bottom: 1em;
-            //padding: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
     }
 }
