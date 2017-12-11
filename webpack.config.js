@@ -65,7 +65,7 @@ module.exports = (env) => {
     case 'production':
       return wpMerge([
         common,
-        consoleLogRemover(),
+        // consoleLogRemover(),
         // uglify(),
       ]);
   }
