@@ -21,15 +21,7 @@ self.addEventListener('install', function(event) {
 });
 
 
-// self.addEventListener('fetch', (event) =>
-//   event.respondWith(
-//     caches.match(event.request)
-//       .then((resp) => resp || fetch(event.request))
-//       .then((response) => caches.open('v1'))
-//       .then((cache) => cache.put(event.request, response.clone()))
-//       .then((resp) => response)
-//       .catch((data) => console.log(data))
-// ));
+
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(fromNetwork(event.request, 1000).catch(() => fromCache(event.request)));
@@ -40,6 +32,7 @@ function fromNetwork(request, timeout) {
   return new Promise((fulfill, reject) => {
     let timeoutId = setTimeout(reject, timeout);
     return fetch(request).then((response) => {
+      console.log(response);
       clearTimeout(timeoutId);
       fulfill(response);
     }, reject);
@@ -49,12 +42,7 @@ function fromNetwork(request, timeout) {
 
 function fromCache(request) {
   console.log('The service worker is serving the asset.');
-  caches.open('v1')
+  return caches.open('v1')
     .then((cache) => cache.match(request))
     .then((matching) => matching || Promise.reject('no-match'));
 }
-
-// self.addEventListener('fetch', function(evt) {
-//   console.log('The service worker is serving the asset.');
-//   evt.respondWith(fromCache(evt.request));
-// });

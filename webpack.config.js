@@ -28,7 +28,7 @@ const common = wpMerge([{
     context: __dirname,
     entry: {
       main: path.join(PATHS.src, 'js/main.js'),
-      worker: path.join(PATHS.src, 'js/sw-test.js')
+      worker: path.join(PATHS.src, 'js/workers.js')
       // game: path.join(PATHS.game, 'game.js'),
     },
     output: {

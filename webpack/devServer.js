@@ -4,7 +4,7 @@ module.exports = () => {
             contentBase: __dirname + '/public/',
             stats: 'errors-only',
             inline: true,
-            port: '8080',
+            port: '8082',
         },
     };
 };
