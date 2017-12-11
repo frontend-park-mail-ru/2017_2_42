@@ -2,9 +2,9 @@ import {Board} from '../board';
 // import b2Listener, {default as MyListener} from "../contactListener";
 import MyListener from '../contactListener';
 import eventBus from '../eventBus';
+import {MovingMessage, SnapMessage} from './Message';
 import {Game} from './game';
 import {GameService} from './gameService';
-import {SnapMessage, MovingMessage} from './Message';
 
 
 export abstract class GameState {
@@ -122,7 +122,7 @@ export class LoadState extends GameState {
 
     onLoad(canvas: HTMLCanvasElement | string) {
         return GameService.loadBoard(canvas, this.game.info.id)
-            .then(board => {
+            .then((board) => {
                 this.game.board = board as Board;
                 this.game.board.canvas.on('object:moving', (option) => {
                     let data: any = {};
@@ -140,7 +140,7 @@ export class LoadState extends GameState {
                 eventBus.emit('game', 'loadSuccess', {});
                 this.game.prepare();
             })
-            .catch(res => {
+            .catch((res) => {
                 eventBus.emit('game', 'loadFailed', {});
             });
     }

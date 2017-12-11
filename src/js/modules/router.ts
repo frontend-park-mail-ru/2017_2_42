@@ -1,14 +1,14 @@
-import NotFoundView from '../views/notFoundView/notFound';
-import BaseView from './baseView';
+import BaseOverlay, {BaseOverlayCtor} from './BaseOverlay';
+import BaseView, {BaseViewCtor} from './BaseView';
 import Utils from './utils/utils';
 
 /**
  * View node in route map
  *
- * @interface ViewInfo
+ * @interface ViewPageInfo
  */
 interface ViewInfo {
-  ViewClass: new (parentElement: HTMLElement) => BaseView;
+  ViewClass: BaseViewCtor;
   view: BaseView;
 }
 
@@ -20,41 +20,66 @@ interface ViewInfo {
  */
 export class Router {
   private routes: Map<string, ViewInfo>;
+  private overlays: Map<string, BaseOverlayCtor>;
+
   private rootElement: HTMLElement;
+  private mainFrameSection: HTMLElement;
+  private overlaySection: HTMLElement;
   private currentView: BaseView;
+
+  private openedOverlayList: BaseOverlay[];
 
   /**
    * Creates an instance of Router.
    * @param {HTMLElement} [rootElement]
-   * @memberof Router
    */
   constructor(rootElement?: HTMLElement) {
     this.routes = new Map();
+    this.overlays = new Map();
     this.rootElement = rootElement || document.body;
-    this.notFoundView = new NotFoundView(this.rootElement);
+
+    this.mainFrameSection = document.createElement('section');
+    this.overlaySection = document.createElement('section');
+
+    this.mainFrameSection.id = 'main-frame';
+    this.overlaySection.id = 'overlays';
+
+    this.rootElement.appendChild(this.mainFrameSection);
+    this.rootElement.appendChild(this.overlaySection);
+
+    this.openedOverlayList = [];
   }
 
-  register(path: string, view: new (parentElement: HTMLElement) => BaseView): void {
-    this.routes[path] = { ViewClass: view };
+  public setRootElement(rootElement: HTMLElement) {
+    this.rootElement = rootElement;
+  }
+
+  register(path: string, view: BaseViewCtor): void {
+    this.routes[path] = {ViewClass: view};
+  }
+
+  registerOverlay(name: string, overlay: BaseOverlayCtor): void {
+    this.overlays[name] = overlay;
+  }
+
+  registerNotFoundView(view: BaseViewCtor): void {
+    this.notFoundView = new view(this.mainFrameSection as HTMLElement, 'Not found');
   }
 
   /**
-   * Inits the router.
-   *
-   * @memberof Router
+   * Initializes the router.
    */
   start(): void {
-    window.onpopstate = (event) => this.go(window.location.pathname);
+    window.onpopstate = () => this.go(window.location.pathname);
   }
 
   /**
-   * Method for changing view.
-   *
-   * @param {string} path url to go
-   * @returns {void}
-   * @memberof Router
+   * Method for changing the view
+   * @param {string} path
+   * @param data
    */
   go(path: string, data?: any): void {
+    this.HideAllOverlays();
     const info = this.routes[path];
     if (!info) {
       Utils.debugWarn(`There is no view on path ${path}`);
@@ -73,13 +98,62 @@ export class Router {
     if (info.view) {
       info.view.resume(data);
     } else {
-      this.routes[path].view = new info.ViewClass(this.rootElement);
+      this.routes[path].view = new info.ViewClass(this.mainFrameSection);
       info.view.start(data);
     }
 
     this.currentView = info.view;
   }
 
+  public showOverlay(name: string, data?: any): void {
+    const overlayCtor = this.overlays[name];
+    if (!overlayCtor) {
+      Utils.debugWarn('no overlay found');
+      return;
+    }
+
+    const newOverlaySection = document.createElement('section');
+    this.overlaySection.appendChild(newOverlaySection);
+    if (this.openedOverlayList.length !== 0) {
+      this.openedOverlayList[this.openedOverlayList.length - 1].hide();
+    }
+
+    const ol: BaseOverlay = new overlayCtor(newOverlaySection);
+    this.openedOverlayList.push(ol);
+    ol.start(data);
+
+    if (this.openedOverlayList.length === 1) {
+      this.overlaySection.style.display = 'flex';
+    }
+  }
+
+  public HideOverlay(): void {
+    const overlay = this.openedOverlayList.pop();
+
+    if (overlay) {
+      overlay.stop();
+      this.overlaySection
+        .removeChild(
+          this.overlaySection.children[this.overlaySection.children.length - 1]);
+    }
+
+    if (this.openedOverlayList.length !== 0) {
+      this.openedOverlayList[this.openedOverlayList.length - 1].show();
+    } else {
+      this.overlaySection.style.display = 'none';
+    }
+  }
+
+  public HideAllOverlays(): void {
+    this.openedOverlayList.forEach((ol) => ol.stop());
+    this.openedOverlayList = [];
+    this.overlaySection.innerHTML = '';
+    this.overlaySection.style.display = 'none';
+  }
+
+  /**
+   * Goes to not found page
+   */
   private goNotFound() {
     window.history.pushState({}, '', window.location.pathname);
 
@@ -92,11 +166,11 @@ export class Router {
 
       this.notFoundView.start();
     } else {
-      document.body.innerHTML = '404 not found';
+      document.body.innerText = '404 not found';
     }
   }
 
   private notFoundView: BaseView;
 }
 
-export default new Router();
+export default new Router(document.body);

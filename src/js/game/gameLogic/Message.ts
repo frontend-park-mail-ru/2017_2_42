@@ -1,7 +1,7 @@
-import {Game} from './game';
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
-import {FinishState, RunningState} from './gameState';
 import eventBus from '../eventBus';
+import {Game} from './game';
+import {FinishState, RunningState} from './gameState';
 /**
  * Created by zwirec on 20.11.17.
  */
