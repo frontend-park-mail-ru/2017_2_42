@@ -3,11 +3,11 @@
  */
 
 interface eventHandlerFunc {
-    (data?: object): void
+    (data?: object): void;
 }
 
 interface eventHandlerRemover {
-    (): void
+    (): void;
 }
 
 /**
@@ -75,7 +75,7 @@ class EventBus {
      * @returns
      * @memberof EventBus
      */
-    emit(scope: string, event: string, data? : object) {
+    emit(scope: string, event: string, data?: object) {
         if (!this.bus[scope] || !this.bus[scope][event]) {
             return Promise.reject(`No functions for event ${event} in scope ${scope}`);
         }
@@ -94,7 +94,7 @@ class EventBus {
             throw `Scope ${scope} doesn't exist`;
         }
 
-        return this.bus.delete(scope)
+        return this.bus.delete(scope);
     }
 
     private bus: Map<string, Map<string, eventHandlerFunc>>;
@@ -102,4 +102,4 @@ class EventBus {
 
 const eventBus = new EventBus();
 
-export default eventBus
+export default eventBus;

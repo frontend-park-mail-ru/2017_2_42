@@ -1,11 +1,11 @@
-import {b2ContactImpulse, b2ContactListener} from 'box2d.ts/Box2D/Box2D/Dynamics/b2WorldCallbacks';
-import eventBus from './eventBus';
-import {BucketBody, CircleBody, KeyBodies} from './body';
-import {b2Contact} from 'box2d.ts/Box2D/Box2D/Dynamics/Contacts/b2Contact';
 import {b2Manifold} from 'box2d.ts/Box2D/Box2D/Collision/b2Collision';
+import {b2Contact} from 'box2d.ts/Box2D/Box2D/Dynamics/Contacts/b2Contact';
+import {b2ContactImpulse, b2ContactListener} from 'box2d.ts/Box2D/Box2D/Dynamics/b2WorldCallbacks';
+import {BucketBody, CircleBody, KeyBodies} from './body';
+import eventBus from './eventBus';
+import {FinishMessage} from './gameLogic/Message';
 import {Game} from './gameLogic/game';
 import {FinishState, InitState} from './gameLogic/gameState';
-import {FinishMessage} from './gameLogic/Message';
 
 export class MyListener extends b2ContactListener {
     public game: Game;

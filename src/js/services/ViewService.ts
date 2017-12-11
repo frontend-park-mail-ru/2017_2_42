@@ -1,7 +1,14 @@
 import {BaseOverlayCtor} from '../modules/BaseOverlay';
 import {ExtendedViewCtor} from '../modules/BaseView';
 import router from '../modules/router';
+import Loading from '../views/Overlays/Loading/Loading';
+import Lose from '../views/Overlays/Lose/Lose';
+import MapLoading from '../views/Overlays/MapLoading/MapLoading';
 import NoInternet from '../views/Overlays/NoInternet/NoInternet';
+import Settings from '../views/Overlays/Settings/Settings';
+import UserProfile from '../views/Overlays/UserProfile/UserProfile';
+import WaitingTeammates from '../views/Overlays/WaitingTeammates/WaitingTeammates';
+import WinOverlay from '../views/Overlays/Win/Win';
 import AboutView from '../views/Pages/aboutView/aboutView';
 import GameView from '../views/Pages/gameView/gameView';
 import LoginView from '../views/Pages/loginView/loginView';
@@ -10,13 +17,6 @@ import OfflineLobbyView from '../views/Pages/offlineLobbyView/lobbyView';
 import OnlineLobbyView from '../views/Pages/onlineLobbyView/lobbyView';
 import SignUpView from '../views/Pages/signUpView/signUpView';
 import StartView from '../views/Pages/startView/startView';
-import MapLoading from '../views/Overlays/MapLoading/MapLoading';
-import WaitingTeammates from '../views/Overlays/WaitingTeammates/WaitingTeammates';
-import WinOverlay from '../views/Overlays/Win/Win';
-import Lose from '../views/Overlays/Lose/Lose';
-import UserProfile from '../views/Overlays/UserProfile/UserProfile';
-import Settings from '../views/Overlays/Settings/Settings';
-import Loading from '../views/Overlays/Loading/Loading';
 
 interface ViewPageInfo {
   name: string;

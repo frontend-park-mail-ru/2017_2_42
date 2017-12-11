@@ -18,6 +18,7 @@ module.exports = () => {
           exclude: [/node_modules/, /Box2D/],
           loader: 'tslint-loader',
           options: {
+            fix: true,
             failOnWarning: true,
             failOnError: true,
           },

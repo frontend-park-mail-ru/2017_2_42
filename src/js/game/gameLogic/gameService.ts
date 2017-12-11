@@ -1,13 +1,13 @@
-import 'fabric';
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Box2D';
+import 'fabric';
 import {Board} from '../board';
 import {
     Body, BucketBody, BucketConfig, CircleBody, CircleBucketBody, KeyBodies, METERS_TO_PIXEL, Options, PIXEL_TO_METERS,
     RectBody,
 } from '../body';
+import eventBus from '../eventBus';
 import {Message} from './Message';
 import {Game} from './game';
-import eventBus from '../eventBus';
 
 declare const fabric: any;
 
@@ -25,10 +25,10 @@ export class GameService {
     }
 
     private _initWebSocket(): void {
-        this.socket.onmessage = ev => {
+        this.socket.onmessage = (ev) => {
             this.handleSocketResponse(ev);
         };
-        this.socket.onclose = event => {
+        this.socket.onclose = (event) => {
             if (event.wasClean) {
                 console.log('Соединение закрыто чисто');
             } else {
@@ -47,7 +47,7 @@ export class GameService {
             }
         } else {
             this.socket = new WebSocket(PATH_WEBSOCKET);
-            this.socket.onopen = ev => {
+            this.socket.onopen = (ev) => {
                 this._initWebSocket();
                 this.sendSocketMessage(message);
             };

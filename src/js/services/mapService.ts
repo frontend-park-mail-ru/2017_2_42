@@ -1,6 +1,6 @@
 import PATHS from '../config/paths';
-import http from './HttpService';
 import Utils from '../modules/utils/utils';
+import http from './HttpService';
 
 class MapService {
     private mapMetaArr: Map.Meta[];

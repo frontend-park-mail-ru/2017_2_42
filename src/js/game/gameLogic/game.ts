@@ -1,13 +1,13 @@
 ///<reference path="../../../../node_modules/@types/fabric/index.d.ts"/>
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import {Board} from '../board';
 import {Body} from '../body';
+import {Message, SnapMessage} from './Message';
 // import EventBus, {default as eventBus} from "./eventBus";
 import {GameService} from './gameService';
 import {GameState, InitState, LoadState, PrepareState, RunningState} from './gameState';
-import {Message, SnapMessage} from './Message';
-import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 
 declare const fabric: any;
 

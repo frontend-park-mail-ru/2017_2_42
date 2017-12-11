@@ -34,8 +34,15 @@ export default class Application {
    * @return {Promise<void>}
    */
   private static async pathDispatcher(location: string): Promise<void> {
-    if (location === 'vk_ok') {
-      return router.go(ViewService.ViewPaths.online.lobbyPage);
+    if (location === '/vk_ok') {
+      console.log('Vk_auth');
+      const user = await userService.getUser(true);
+
+      if (user) {
+        return router.go(ViewService.ViewPaths.online.lobbyPage);
+      } else {
+        return router.go(ViewService.ViewPaths.online.loginPage);
+      }
     }
 
     if (location.startsWith(ViewService.OnlinePath)) {
