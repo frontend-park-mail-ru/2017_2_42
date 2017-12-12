@@ -7,7 +7,7 @@ branches:
   - nightly
   - master
   - sandbox
-before_deploy: "npm run build"
+before_deploy: npm run build
 deploy:
   provider: heroku
   api_key:
@@ -22,3 +22,6 @@ deploy:
     sandbox: sand42box
     nightly: nightly-42
   skip_cleanup: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_4f2cef819b27_key -iv $encrypted_4f2cef819b27_iv
+  -in technopark.pub.enc -out ~\/.ssh/technopark.pub -d
