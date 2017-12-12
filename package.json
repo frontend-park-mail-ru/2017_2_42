@@ -4,7 +4,7 @@
   "description": "Empty",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --env production",
+    "build": "rm -rf public && webpack --env production",
     "build-dev": "webpack --env development",
     "dev-server": "webpack-dev-server --env development",
     "build-run": "webpack --env production && node server",
