@@ -30,6 +30,7 @@ const fromNetwork = (request, timeout) => {
   return new Promise((fulfill, reject) => {
     let timeoutId = setTimeout(reject, timeout);
     return fetch(request).then((response) => {
+      console.log(response);
       clearTimeout(timeoutId);
       fulfill(response);
     }, reject);
@@ -38,7 +39,7 @@ const fromNetwork = (request, timeout) => {
 
 const fromCache = (request) => {
   console.log('The service worker is serving the asset.');
-  caches.open('v1')
+  return caches.open('v1')
     .then((cache) => cache.match(request))
     .then((matching) => matching || Promise.reject('no-match'));
 };
