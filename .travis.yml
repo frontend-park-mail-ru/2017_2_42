@@ -9,8 +9,8 @@ branches:
   - sandbox
 script:
 - eval "$(ssh-agent -s)"
-- ssh-keyscan -H https://physicsio.tech >> ~/.ssh/known_hosts
-- chmod 600 $HOME/.ssh/technopark
+- ssh-keyscan -H 194.87.110.17 >> ~/.ssh/known_hosts
+- chmod 600 $HOME/.ssh/technopark.pub
 - npm run build
 - scp -r ./public fourtytwo@physicsio.tech:/home/fourtytwo/frontend
 before_install:
