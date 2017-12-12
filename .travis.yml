@@ -12,7 +12,8 @@ script:
 - ssh-keyscan -H 194.87.110.17 >> ~/.ssh/known_hosts
 - chmod 600 $HOME/.ssh/technopark.pub
 - npm run build
-- yes | scp -r ./public fourtytwo@physicsio.tech:/home/fourtytwo/frontend
+- yes | scp -r ./public -o StrictHostKeyChecking=no fourtytwo@physicsio.tech:/home/fourtytwo/frontend
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_4f2cef819b27_key -iv $encrypted_4f2cef819b27_iv
   -in technopark.pub.enc -out $HOME/.ssh/technopark.pub -d
