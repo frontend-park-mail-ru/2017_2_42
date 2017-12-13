@@ -47,6 +47,7 @@ export default class LoginForm extends Form {
         callback();
       } catch (errorArr) {
         this._handle(errorArr);
+        this.element.addEventListener('submit', func);
       }
     };
 

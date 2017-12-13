@@ -51,6 +51,7 @@ export default class SignUpForm extends Form {
       } catch (errorsArr) {
         this.submitButton.unlock();
         this._handle(errorsArr);
+        this.element.addEventListener('submit', func);
       }
     };
 
