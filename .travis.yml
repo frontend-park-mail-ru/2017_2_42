@@ -15,4 +15,4 @@ before_install:
 
 
 - openssl aes-256-cbc -K $encrypted_4f2cef819b27_key -iv $encrypted_4f2cef819b27_iv
-  -in technopark.pub.enc -out $HOME/.ssh/technopark.pub -d
+  -in technopark.enc -out $HOME/.ssh/technopark -d
