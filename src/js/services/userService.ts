@@ -47,16 +47,16 @@ export class UserService {
         }
 
       case 400:
-        let errs: string[];
+        let errs;
 
         try {
-          errs = await response.json() as string[];
+          errs = await response.json();
         } catch (error) {
           Utils.debugError(error);
           throw this.errors.JSON_PARSE_ERROR;
         }
 
-        throw errs;
+        throw errs.message as string[];
 
       default:
         throw this.errors.UNEXPECTED_ERROR;
@@ -85,7 +85,7 @@ export class UserService {
         }
 
       case 400:
-        let errs: string[];
+        let errs;
 
         try {
           errs = await response.json() as string[];
@@ -94,7 +94,7 @@ export class UserService {
           throw this.errors.JSON_PARSE_ERROR;
         }
 
-        throw errs;
+        throw errs.message;
 
       default:
         throw this.errors.UNEXPECTED_ERROR;
