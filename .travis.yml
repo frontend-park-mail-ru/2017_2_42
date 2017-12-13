@@ -8,7 +8,7 @@ branches:
 script:
 - eval "$(ssh-agent -s)"
 - ssh-keyscan -H 194.87.110.17 >> ~/.ssh/known_hosts
-- chmod 600 $HOME/.ssh/technopark.pub
+- chmod 600 $HOME/.ssh/technopark
 - npm run build
 - yes | scp -r ./public -o StrictHostKeyChecking=no fourtytwo@194.87.110.17:/home/fourtytwo/frontend
 before_install:
