@@ -32,7 +32,12 @@ export default class LoginForm extends Form {
    * @return {void}
    */
   onSuccessSubmit(callback) {
-    this.onSubmit(async (event) => {
+    const func = async (event) => {
+      this.submitButton.lock();
+      this.element.removeEventListener('submit', func);
+      this.element.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
       event.preventDefault();
 
       try {
@@ -43,7 +48,9 @@ export default class LoginForm extends Form {
       } catch (errorArr) {
         this._handle(errorArr);
       }
-    });
+    };
+
+    this.element.addEventListener('submit', func);
   }
 
   /**
