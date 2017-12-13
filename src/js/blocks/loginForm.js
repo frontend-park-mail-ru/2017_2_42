@@ -1,7 +1,7 @@
 import Form from './form';
 import Input from './input';
-import Button from './button';
 import userService from '../services/userService';
+import LockableButton from './Buttons/LockableButton';
 
 /**
  *
@@ -22,7 +22,7 @@ export default class LoginForm extends Form {
     this.passwordField = new Input(document.querySelector(
       '.main-frame__content__content-column__form__password'));
 
-    this.submitButton = new Button(document.querySelector(
+    this.submitButton = new LockableButton(document.querySelector(
       '.main-frame__content__content-column__form__submit'));
   }
 
