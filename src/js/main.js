@@ -4,14 +4,14 @@ import '../css/main.scss';
 import Application from './application';
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('worker.js').then(function(reg) {
+  navigator.serviceWorker.register('worker.js', {
+    scope: '/',
+  }).then(function(reg) {
     console.log('Registration succeeded. Scope is ' + reg.scope);
   }).catch(function(error) {
     console.log('Registration failed with ' + error);
   });
 }
-
-console.log(location.search);
 
 const app = new Application();
 

@@ -3,17 +3,9 @@ const STATICS = [
   '/main.js',
   '/css/bundle.css',
   '/font/KGSecondChancesSketch.ttf',
-  '/img/chalkboard.jpg',
   '/img/configuration.svg',
   '/img/exclamation.svg',
   '/img/speaker.svg',
-  '/img/chalkboard_green_1280.jpg',
-  '/img/chalkboard_green_1600.jpg',
-  '/img/chalkboard_green_1920.jpg',
-  '/img/chalkboard_green_2048.jpg',
-  '/img/chalkboard_green_2560.jpg',
-  '/img/chalkboard_green_3840.jpg',
-  '/img/chalkboard_green_4096.jpg',
   '/img/vkontakte-draw.svg',
   '/img/chalk_input_border.png',
   '/img/chalk-background-filled.png',
@@ -25,7 +17,7 @@ self.addEventListener('install', function(event) {
     caches.open('v1').then(function(cache) {
       return cache.addAll(STATICS)
         .catch((resp) => {
-        console.log(resp);
+        console.log('Hello', resp);
       });
     })
   );
@@ -33,8 +25,8 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    fromNetwork(event.request, 1000)
-      .catch(() => fromCache(event.request)));
+    fromNetwork(event.request.clone(), 5000)
+      .catch(() => fromCache(event.request.clone())));
 });
 
 const fromNetwork = (request, timeout) => {
@@ -43,7 +35,7 @@ const fromNetwork = (request, timeout) => {
     return fetch(request).then((response) => {
       clearTimeout(timeoutId);
       fulfill(response);
-    }, reject);
+    });
   });
 };
 
