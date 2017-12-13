@@ -11,7 +11,8 @@ script:
 - chmod 600 $HOME/.ssh/technopark.pub
 - npm run build
 - yes | scp -r ./public -o StrictHostKeyChecking=no fourtytwo@194.87.110.17:/home/fourtytwo/frontend
-
 before_install:
+
+
 - openssl aes-256-cbc -K $encrypted_4f2cef819b27_key -iv $encrypted_4f2cef819b27_iv
   -in technopark.pub.enc -out $HOME/.ssh/technopark.pub -d
