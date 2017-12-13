@@ -28,6 +28,8 @@ export default class OnlineLobbyView extends BaseView {
     this.RenderPage(lobbyTmpl);
 
     this.backButton = new Button(document.querySelector('.main-frame__header__back-button') as HTMLElement);
+    //////!!!!!!
+    // this.soundButton = new Button(document.querySelector('.main-frame__header__sound-button') as HTMLElement);
     this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
     this.logoutButton = new Button(document.querySelector('.main-frame__header__logout-button') as HTMLElement);
 

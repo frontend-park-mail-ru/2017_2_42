@@ -26,4 +26,7 @@ export default abstract class BaseOverlay {
   public hide(): void {
     this.rootElement.style.display = 'none';
   }
+  protected RenderOverlay(renderer: (data?: any) => string) {
+        this.rootElement.innerHTML = renderer();
+    }
 }

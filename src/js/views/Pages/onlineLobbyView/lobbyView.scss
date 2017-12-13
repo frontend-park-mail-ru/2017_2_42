@@ -12,7 +12,7 @@
         display: flex;
         flex-direction: row;
         align-items: flex-end;
-        height: $buttonSize;
+        min-height: $buttonSize + 1em*2;
 
         button{
             padding: 0;
@@ -29,14 +29,20 @@
             flex-grow: 1;
         }
 
-        &__sound-button {
-            display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
-            background: $sound_button_img 100% 100% no-repeat;
-            background-size: contain;
-            align-self: flex-start;
-        }
+        //&__sound-button {
+        //    display: flex;
+        //    width: $buttonSize;
+        //    height: $buttonSize;
+        //    background: $sound_button_img 100% 100% no-repeat;
+        //    background-size: contain;
+        //    margin: 1em;
+        //    opacity: 0.5;
+        //
+        //    &:hover {
+        //        cursor:pointer;
+        //        opacity: 1;
+        //    }
+        //}
 
         &__back-button {
             display: flex;
@@ -44,7 +50,13 @@
             height: $buttonSize;
             background: $back_button_img 100% 100% no-repeat;
             background-size: contain;
-            align-self: flex-start;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
 
         &__settings-button {
@@ -54,6 +66,13 @@
             background: $settings_button_img 100% 100% no-repeat;
             background-size: contain;
             align-self: flex-end;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
 
         &__logout-button {
@@ -62,7 +81,14 @@
             height: $buttonSize;
             background: $logout_button_img 100% 100% no-repeat;
             background-size: contain;
-            align-self: flex-end;
+            align-self: flex-start;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
         }
     }
 
@@ -72,42 +98,61 @@
         flex-grow: 1;
 
         &__filter {
-            margin-top: 20px;
             display: flex;
-            height: 80px;
-            background: $background_filled 100%;
+            min-height: 2em;
+            //background: $background_filled 100%;
             flex-direction: row;
+            justify-content: flex-start;
+            padding-left: 5vw;
+            border-bottom: 1px solid #f4f4f0;
+            border-top: 1px solid #f4f4f0;
 
             &__sort {
-
+                margin-right: 14vw;
+                background: none;
+                font-size: 1.5em;
+                border: none;
+                color: #f4f4f0;
+                font-family: "KGSecondChancesSketch", serif;
             }
 
             &__filter {
-
+                margin-right: 14vw;
+                background: none;
+                font-size: 1.5em;
+                border: none;
+                color: #f4f4f0;
+                font-family: "KGSecondChancesSketch", serif;
             }
 
         }
 
         &__maps {
             display: flex;
-            flex-grow: 1;
+            margin: 1em auto;
+            width: 90%;
+            //flex-grow: 1;
             flex-direction: row;
             flex-wrap: wrap;
-            align-content: flex-start;
+            //align-content: flex-start;
             align-items: flex-start;
             justify-content: flex-start;
+            overflow: auto;
 
             &__map-tile{
-                background: rgba(255,255,255,0.3);
+                background: rgba(255,255,255,0.3) $button_play no-repeat;
+                background-size: 50%;
+                background-position: 50% 30%;
+                opacity: 0.7;
                 display: flex;
-                flex-basis: 300px;
-                max-width: 15rem; 
-                max-height: 20rem;           
+                //flex-basis: 20vw;
+                width: 14.5vw;
+                max-height: 14.5vw;
                 padding: 15px;
                 border: 2px solid white;
                 margin: 5px;
-                flex-grow: 1;
                 flex-direction: column;
+                color: #ffffff;
 
                 p {
                     display: flex;
