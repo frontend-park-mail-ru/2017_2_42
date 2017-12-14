@@ -4,14 +4,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const wpMerge = require('webpack-merge');
-
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const sourceMap = require('./webpack/source-map');
 const pugLoader = require('./webpack/pug');
 const lint = require('./webpack/lint');
 const tsLoader = require('./webpack/tsloader');
 const extractCss = require('./webpack/css.extract');
-const consoleLogRemover = require('./webpack/clearConsole');
+// const consoleLogRemover = require('./webpack/clearConsole');
 const babel = require('./webpack/babel');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 const fileLoader = require('./webpack/fileloader');
 const devServer = require('./webpack/devServer');
 
@@ -25,7 +26,7 @@ const common = wpMerge([{
     context: __dirname,
     entry: {
       main: path.join(PATHS.src, 'js/main.js'),
-      worker: path.join(PATHS.src, 'js/workers.js')
+      worker: path.join(PATHS.src, 'js/workers.js'),
       // game: path.join(PATHS.game, 'game.js'),
     },
     output: {
@@ -43,6 +44,8 @@ const common = wpMerge([{
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
+      // new MinifyPlugin(),
+      new ProgressBarPlugin(),
     ],
   },
   lint(),

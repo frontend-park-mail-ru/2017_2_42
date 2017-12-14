@@ -38,7 +38,7 @@ export default class StartView extends BaseView {
     this.aboutButton = new Button(document
       .querySelector('.main_frame__footer__about_button') as HTMLElement);
     this.aboutButton.onClick(
-      () => this.router.go(ViewService.ViewPaths.aboutPage));
+      () => this.router.showOverlay(ViewService.OverlayNames.application.info));
 
     this.muteButton = new SoundButton(document
       .querySelector('.main_frame__header__sound-button') as HTMLElement);

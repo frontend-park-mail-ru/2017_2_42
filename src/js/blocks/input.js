@@ -40,7 +40,8 @@ export default class Input extends Block {
     this.errorField.style.position = 'absolute';
     this.errorField.style.width = '20vw';
     this.errorField.style.right = '-21vw';
-    this.errorField.style.top = '0';
+    this.errorField.style.top = '0.2vw';
+    this.errorField.style.fontSize = '0.7em';
     this.errorField.innerText = message;
 
     this.disposableOn('focus', () => this._setOKInputState());

@@ -65,11 +65,11 @@ export default class GameView extends BaseView {
     const x = canvas.offsetWidth;
     const y = canvas.offsetHeight;
 
-    const new_x = y * 4 / 3;
+    const new_x = y * 16 / 9;
     if (x > new_x) {
       return {height: y, width: new_x};
     } else {
-      return {height: x * 3 / 4, width: x};
+      return {height: x * 9 / 16, width: x};
     }
   }
 }
