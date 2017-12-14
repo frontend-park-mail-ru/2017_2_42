@@ -15,4 +15,5 @@ script:
 - scp -r ./public fourtytwo@194.87.110.17:~/frontend
 before_install:
 - openssl aes-256-cbc -K $encrypted_a9ffcaf94a53_key -iv $encrypted_a9ffcaf94a53_iv
-  -in plsdontaskpass.enc -out $HOME/.ssh/plsdontaskpass -d
+  -in github_deploy_key.enc -out $HOME/.ssh/github_deploy_key -d
+
