@@ -45,7 +45,7 @@ export default class OnlineLobbyView extends BaseView {
     });
 
     this.backButton.onClick(() => this.router.go(ViewPaths.start));
-    this.settingsButton.onClick(() => console.log('settings overlay'));
+    this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
 
     this.logoutButton.onClick(async () => {
       try {
