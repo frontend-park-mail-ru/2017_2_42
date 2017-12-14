@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const wpMerge = require('webpack-merge');
-
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const sourceMap = require('./webpack/source-map');
 const pugLoader = require('./webpack/pug');
 const lint = require('./webpack/lint');
@@ -45,6 +45,7 @@ const common = wpMerge([{
         template: './src/index.html',
       }),
       new MinifyPlugin(),
+      new ProgressBarPlugin(),
     ],
   },
   lint(),
