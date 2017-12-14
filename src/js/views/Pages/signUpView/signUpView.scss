@@ -135,7 +135,7 @@
                 flex-direction: column;
                 align-items: center;
                 height: 100%;
-                padding: 5em 0 0 5em;
+                padding: 4em 0 0 5em;
                 flex-wrap: nowrap;
 
                 div {
@@ -147,7 +147,7 @@
                         background: none;
                         width: 24vw;
                         height: 3vh;
-                        margin-bottom: 0;
+                        margin-bottom: 1em;
                         padding: 5px;
 
                         &:focus {
