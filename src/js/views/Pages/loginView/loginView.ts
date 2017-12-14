@@ -1,3 +1,4 @@
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import LoginForm from '../../../blocks/loginForm';
 import BaseView from '../../../modules/BaseView';
@@ -34,7 +35,7 @@ export default class LoginView extends BaseView {
     this.backButton.onClick(
       () => this.router.go(ViewService.ViewPaths.startPage));
 
-    this.soundButton = new Button(document
+    this.soundButton = new SoundButton(document
       .querySelector('.main-frame__header__sound-button') as HTMLElement);
     this.soundButton.onClick(() => console.log('sound muted'));
 

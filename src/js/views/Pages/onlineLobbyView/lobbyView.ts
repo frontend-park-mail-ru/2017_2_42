@@ -2,6 +2,7 @@ import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import User from '../../../models/user';
 import BaseView from '../../../modules/BaseView';
+import ViewService from '../../../services/ViewService';
 import mapService from '../../../services/mapService';
 import userService from '../../../services/userService';
 import ViewPaths from '../../pagePaths';
@@ -49,7 +50,7 @@ export default class OnlineLobbyView extends BaseView {
     this.logoutButton.onClick(async () => {
       try {
         await userService.logout();
-        this.router.go(ViewPaths.login);
+        this.router.go(ViewService.ViewPaths.online.loginPage);
       } catch (error) {
         this.router.go(ViewPaths.start);
       }

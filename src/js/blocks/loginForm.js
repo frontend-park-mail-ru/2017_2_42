@@ -1,7 +1,7 @@
 import Form from './form';
 import Input from './input';
-import Button from './button';
 import userService from '../services/userService';
+import LockableButton from './Buttons/LockableButton';
 
 /**
  *
@@ -22,7 +22,7 @@ export default class LoginForm extends Form {
     this.passwordField = new Input(document.querySelector(
       '.main-frame__content__content-column__form__password'));
 
-    this.submitButton = new Button(document.querySelector(
+    this.submitButton = new LockableButton(document.querySelector(
       '.main-frame__content__content-column__form__submit'));
   }
 
@@ -32,7 +32,12 @@ export default class LoginForm extends Form {
    * @return {void}
    */
   onSuccessSubmit(callback) {
-    this.onSubmit(async (event) => {
+    const func = async (event) => {
+      this.submitButton.lock();
+      this.element.removeEventListener('submit', func);
+      this.element.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
       event.preventDefault();
 
       try {
@@ -41,9 +46,13 @@ export default class LoginForm extends Form {
 
         callback();
       } catch (errorArr) {
+        this.submitButton.unlock();
         this._handle(errorArr);
+        this.element.addEventListener('submit', func);
       }
-    });
+    };
+
+    this.element.addEventListener('submit', func);
   }
 
   /**

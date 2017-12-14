@@ -1,6 +1,7 @@
 import userService, {UserService} from '../../../services/userService';
 import './startView.scss';
 
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import BaseView from '../../../modules/BaseView';
 import Utils from '../../../modules/utils/utils';
@@ -39,7 +40,7 @@ export default class StartView extends BaseView {
     this.aboutButton.onClick(
       () => this.router.showOverlay(ViewService.OverlayNames.application.info));
 
-    this.muteButton = new Button(document
+    this.muteButton = new SoundButton(document
       .querySelector('.main_frame__header__sound-button') as HTMLElement);
     this.muteButton.onClick(
       () => console.log('soundMuted') /*TODO MediaService mute*/);
