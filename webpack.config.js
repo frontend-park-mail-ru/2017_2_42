@@ -44,7 +44,7 @@ const common = wpMerge([{
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
-      new MinifyPlugin(),
+      // new MinifyPlugin(),
       new ProgressBarPlugin(),
     ],
   },

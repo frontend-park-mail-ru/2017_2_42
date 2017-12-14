@@ -8,7 +8,7 @@ module.exports = () => {
                     name: 'font/[name].[ext]',
                 },
             }, {
-                test: /\.(png|svg|jpg|gif|jpeg)$/,
+                test: /\.(png|svg|jpg|gif|jpeg|ico)$/,
                 loader: 'file-loader',
                 options: {
                     name: 'img/[name].[ext]',
