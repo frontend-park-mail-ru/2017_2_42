@@ -28,7 +28,6 @@ module.exports = () => {
       host: '0.0.0.0',
       compress: true,
       historyApiFallback: false,
-      https: true,
     },
   };
 };

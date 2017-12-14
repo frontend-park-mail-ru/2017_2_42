@@ -137,7 +137,7 @@
             //align-content: flex-start;
             align-items: flex-start;
             justify-content: flex-start;
-            overflow: auto;
+            overflow: scroll;
 
             &__map-tile{
                 background: rgba(255,255,255,0.3) $button_play no-repeat;
