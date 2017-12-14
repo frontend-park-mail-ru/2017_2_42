@@ -1,9 +1,11 @@
-import {Board} from '../board';
+import eventBus from '../../modules/eventBus';
+import {Board} from '../board/board';
 // import b2Listener, {default as MyListener} from "../contactListener";
-import MyListener from '../contactListener';
-import eventBus from '../eventBus';
+import {ListenerOffline, ListenerOnline} from '../contactListener';
 import {MovingMessage, SnapMessage} from './Message';
-import {Game} from './game';
+import {GameOffline} from './gameOffline';
+import {Game, GameOnline} from './gameOnline';
+import {GameEvents} from './gameOnline';
 import {GameService} from './gameService';
 
 
@@ -22,11 +24,11 @@ export abstract class GameState {
         throw Error('method not implemented');
     }
 
-    onLoad(canvases: HTMLCanvasElement | string) {
+    onLoad(canvases: HTMLCanvasElement | string): void {
         throw Error('method not implemented');
     }
 
-    onRun(): Promise<any> {
+    onRun(): void {
         throw Error('method not implemented');
     }
 
@@ -53,13 +55,13 @@ export class PrepareState extends GameState {
         this.game.board.prepare();
     }
 
-    onLoad(canvases: HTMLCanvasElement | string) {
-        throw new Error('Method not implemented.');
+    onLoad(canvases: HTMLCanvasElement | string): void {
+        throw Error('method not implemented');
     }
 
-    onRun(): Promise<any> {
-        this.game.changeState(new RunningState(this.game));
-        return this.game.getState().onRun();
+    onRun(): void {
+        this.game.state = new RunningState(this.game);
+        return this.game.state.onRun();
     }
 
     onPause(): void {
@@ -84,12 +86,12 @@ export class InitState extends GameState {
         throw new Error('Method not implemented.');
     }
 
-    onLoad(canvas: HTMLCanvasElement | string) {
-        this.game.changeState(new LoadState(this.game));
-        this.game.load(canvas, this.game.info.id);
+    onLoad(canvas: HTMLCanvasElement | string): void {
+        this.game.state = new LoadState(this.game);
+        this.game.load(canvas);
     }
 
-    onRun(): Promise<any> {
+    onRun(): void {
         throw new Error('Method not implemented.');
     }
 
@@ -120,32 +122,21 @@ export class LoadState extends GameState {
         throw new Error('Method not implemented.');
     }
 
-    onLoad(canvas: HTMLCanvasElement | string) {
-        return GameService.loadBoard(canvas, this.game.info.id)
-            .then((board) => {
-                this.game.board = board as Board;
-                this.game.board.canvas.on('object:moving', (option) => {
-                    let data: any = {};
-                    data.snap = {};
-                    data.snap.id = option.target.toObject().id;
-                    data.snap.position = {
-                        x: option.target.left,
-                        y: option.target.top,
-                    };
-                    data.snap.angle = option.target.angle;
-                    let msg: MovingMessage = new MovingMessage(this.game, data);
-                    msg.HandleRequest();
-                });
-                this.game.changeState(new PrepareState(this.game));
-                eventBus.emit('game', 'loadSuccess', {});
+    onLoad(canvas: HTMLCanvasElement | string): void {
+        this.game.gameService.loadBoard(canvas, this.game.meta.id)
+            .then((board: Board) => {
+                eventBus.emit('game', <string>GameEvents.loadSuccess, {});
+                this.game.board = board;
+                this.game.state = new PrepareState(this.game);
                 this.game.prepare();
             })
             .catch((res) => {
-                eventBus.emit('game', 'loadFailed', {});
+                console.log(res);
+                eventBus.emit('game', <string>GameEvents.loadFailed, {});
             });
     }
 
-    onRun(): Promise<any> {
+    onRun(): void {
         throw new Error('Method not implemented.');
     }
 
@@ -167,22 +158,21 @@ export class RunningState extends GameState {
     }
 
     onPrepare(): void {
-        this.game.changeState(new PrepareState(this.game));
+        this.game.state = new PrepareState(this.game);
         this.game.prepare();
     }
 
-    onLoad() {
+    onLoad(): void {
         throw new Error('method not implemented');
     }
 
-    onRun(): Promise<any> {
-
+    onRun(): void {
         this.game.board.create(this.game._world);
-
-        this.game._world.SetContactListener(new MyListener(this.game));
-
-        return Promise.resolve();
-
+        if (this.game instanceof GameOnline) {
+            this.game._world.SetContactListener(new ListenerOnline(this.game));
+        } else {
+            this.game._world.SetContactListener(new ListenerOffline(this.game));
+        }
     }
 
     onPause(): void {
@@ -206,11 +196,11 @@ export class FinishState extends GameState {
         throw Error('method not implemented');
     }
 
-    onLoad(canvases: HTMLCanvasElement | string) {
+    onLoad(canvases: HTMLCanvasElement | string): Promise<any> {
         throw Error('method not implemented');
     }
 
-    onRun(): Promise<any> {
+    onRun(): void {
         throw Error('method not implemented');
     }
 

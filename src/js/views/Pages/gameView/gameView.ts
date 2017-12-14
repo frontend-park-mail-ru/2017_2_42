@@ -2,7 +2,7 @@
 import Button from '../../../blocks/button';
 
 import {StartMessage} from '../../../game/gameLogic/Message';
-import {Game} from '../../../game/gameLogic/game';
+import {GameOnline} from '../../../game/gameLogic/gameOnline';
 
 import BaseView from '../../../modules/BaseView';
 
@@ -26,16 +26,14 @@ export default class GameView extends BaseView {
   public async start(mapMeta: Map.Meta): Promise<void> {
     this.RenderPage(GameViewTmpl);
 
-    const game = new Game({});
+    const game = new GameOnline(mapMeta);
 
     const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
     const canvasSize = this.chooseCanvasSize(canvas);
     canvas.width = canvasSize.width;
     canvas.height = canvasSize.height;
 
-    await game.load(canvas, mapMeta.id);
-
-    game.gameService.sendSocketMessage(`{"class": "SubscribeMessage", "board": ${mapMeta.id}}`);
+    game.load(canvas);
 
     document.querySelector('.main-frame__header__ready-button__not-ready')
       .addEventListener('click', () => {
@@ -44,7 +42,6 @@ export default class GameView extends BaseView {
       });
 
     document.ontouchend = (event) => {
-      game.getState().onRun();
     };
 
   }

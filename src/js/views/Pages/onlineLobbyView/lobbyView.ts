@@ -39,7 +39,7 @@ export default class OnlineLobbyView extends BaseView {
 
       mapPlaceholder.appendChild(mapTileElement);
 
-      mapTileElement.onclick = () => this.router.go(ViewPaths.online_game, map);
+      mapTileElement.onclick = () => this.router.go(ViewService.ViewPaths.online.gamePage, map);
     });
 
     this.backButton.onClick(() => this.router.go(ViewPaths.start));
