@@ -1,5 +1,6 @@
 import 'normalize.css';
 import '../css/main.scss';
+import '../icons/favicon.ico';
 
 import Application from './application';
 
