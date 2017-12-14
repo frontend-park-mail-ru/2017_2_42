@@ -9,8 +9,8 @@ branches:
 script:
 - eval "$(ssh-agent -s)"
 - ssh-keyscan -H 194.87.110.17 >> ~/.ssh/known_hosts
-- chmod 600 $HOME/.ssh/id_rsa
-- ssh-add $HOME/.ssh/id_rsa
+- chmod 600 $HOME/.ssh/github_deploy_key
+- ssh-add $HOME/.ssh/github_deploy_key
 - npm run build
 - scp -r ./public fourtytwo@194.87.110.17:~/frontend
 before_install:
