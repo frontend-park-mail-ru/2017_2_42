@@ -12,12 +12,14 @@ interface Size {
 }
 
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
+import ViewService from '../../../services/ViewService';
 import './gameView.scss';
 
 export default class GameView extends BaseView {
   private readyButton: Button;
   private backButton: Button;
   private settingsButton: Button;
+  private game: GameOnline;
 
   constructor(parentElement: HTMLElement) {
     super(parentElement, 'Game #');
@@ -26,24 +28,13 @@ export default class GameView extends BaseView {
   public async start(mapMeta: Map.Meta): Promise<void> {
     this.RenderPage(GameViewTmpl);
 
-    const game = new GameOnline(mapMeta);
+    this.game = new GameOnline(mapMeta);
+    this.game.load(this.initCanvas());
 
-    const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
-    const canvasSize = this.chooseCanvasSize(canvas);
-    canvas.width = canvasSize.width;
-    canvas.height = canvasSize.height;
-
-    game.load(canvas);
-
-    document.querySelector('.main-frame__header__ready-button__not-ready')
-      .addEventListener('click', () => {
-        let startMsg = new StartMessage(game);
-        startMsg.HandleRequest();
-      });
+    this.initButtons();
 
     document.ontouchend = (event) => {
     };
-
   }
 
   public async destroy(): Promise<void> {
@@ -58,7 +49,6 @@ export default class GameView extends BaseView {
     this.destroy();
   }
 
-  // private game: Game;
   private mapMeta: Map.Meta;
 
   private chooseCanvasSize(canvas: HTMLCanvasElement): Size {
@@ -71,5 +61,28 @@ export default class GameView extends BaseView {
     } else {
       return {height: x * 9 / 16, width: x};
     }
+  }
+
+  private initCanvas(): HTMLCanvasElement {
+    const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
+    const canvasSize = this.chooseCanvasSize(canvas);
+    canvas.width = canvasSize.width;
+    canvas.height = canvasSize.height;
+    return canvas;
+  }
+
+  private initButtons() {
+    this.backButton = new Button(document
+      .querySelector('.main-frame__header__back-button') as HTMLElement);
+    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.online.lobbyPage));
+
+    this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
+    this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
+
+    this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+    this.readyButton.onClick(() => {
+      let startMsg = new StartMessage(this.game);
+      startMsg.HandleRequest();
+    });
   }
 }
