@@ -148,7 +148,7 @@ export class Board {
         let promises = [];
         patterns_path.forEach((pattern_name, key, map) => {
             promises.push(new Promise((resolve) => {
-                fabric.util.loadImage('./img/' + pattern_name, (img) => {
+                fabric.util.loadImage('/img/' + pattern_name, (img) => {
                     if (img === null) {
                         console.log('Failed to load image!');
                         eventBus.emit('game', 'patternLoadFailed');
