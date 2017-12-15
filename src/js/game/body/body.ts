@@ -1,135 +1,115 @@
 import {b2CircleShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2CircleShape';
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {b2_pi} from 'box2d.ts/Box2D/Box2D/Common/b2Settings';
 import {b2Body, b2BodyDef, b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2FixtureDef} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Fixture';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import 'fabric';
 
 import {b2PolygonShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2PolygonShape';
-
+import {
+    BucketConfig, CircleBucketConfig, InitOptions, JSONBody, KeyBodies, METERS_TO_PIXEL, Options,
+    PIXEL_TO_METERS,
+} from './config';
+import {Colors} from './config';
 declare const fabric: any;
-
-export const PIXEL_TO_METERS = 1 / 30;
-export const METERS_TO_PIXEL = 30;
-
-
-export enum KeyBodies {
-    NOT_KEY_BODY = 0x0001,
-    KEY_BODY_1 = 0x0002,
-    KEY_BODY_2 = 0x0004,
-    KEY_BODY_3 = 0x0008,
-    KEY_BODY_4 = 0x0010,
-}
-
-interface DrawOptions {
-    opacity?: number;
-    color?: string | number;
-    lockScale?: boolean;
-    selectable?: boolean;
-}
-
-
-interface PhysicsOptions {
-    density?: number;
-    restitution?: number;
-    friction?: number;
-    bodyType?: b2BodyType;
-    sensor?: boolean;
-    collision?: boolean;
-}
-
-export interface Options extends DrawOptions, PhysicsOptions {
-    key?: KeyBodies;
-}
-
-interface InitOptions extends Options {
-    position: b2Vec2;
-    angle: number;
-}
-
 
 export abstract class Body {
     private static counter = 0;
 
     public ID: number;
 
-    protected _owner: number;
+    public owned: boolean;
     public bodyDef: b2BodyDef;
     public fixDefs: b2FixtureDef[];
     public body: b2Body;
-    public shapes: fabric.Object;
+    public shape: fabric.Object;
+    public pattern: fabric.Image;
 
     public isDeleted: boolean = false;
-    private _initOptions: InitOptions;
-    constructor(bD: b2BodyDef, fixDefs: b2FixtureDef[], shape: fabric.Object, option: Options) {
-        this.bodyDef = bD;
-        this.bodyDef.type = option.bodyType || b2BodyType.b2_staticBody;
+    public initOptions: InitOptions;
+
+    constructor(bodyDef: b2BodyDef, fixDefs: b2FixtureDef[], shape: fabric.Object, options: Options) {
+        this.bodyDef = bodyDef;
+        this.bodyDef.type = options.bodyType || b2BodyType.b2_staticBody;
         this.bodyDef.userData = this;
         this.fixDefs = fixDefs;
-        shape.originX = 'center';
-        shape.originY = 'center';
-        shape.hasBorders = false;
-        shape.padding = 0;
-        shape.strokeWidth = 0;
-        shape.stroke = null;
-        shape.cornerSize = 5;
-        shape.cornerColor = 'black';
-        shape['cornerStyle'] = 'circle';
-        shape['objectCaching'] = false;
-        this._initOptions = {
-            position: new b2Vec2(bD.position.x, bD.position.y),
-            angle: bD.angle,
-            selectable: shape.selectable,
-            key: option.key,
+        this.initOptions = {
+            position: bodyDef.position,
+            angle: bodyDef.angle,
+            selectable: options.isOwner || false,
+            keyBodyID: options.keyBodyID,
+            playerID: options.playerID,
         };
-        shape.lockScalingX = shape.lockScalingY = option.lockScale || true;
-        this.shapes = shape;
-        this.shapes.toObject = () => {
-            return {
-                id: this.ID,
-            };
-        };
-        this.fixDefs.forEach(function (fixDef, index, array) {
-            fixDef.density = option.density || 0.2;
-            fixDef.friction = option.friction || 0.3;
-            fixDef.restitution = option.restitution || 0.1;
+        this.shape = shape;
+        this.initShapes(options);
+        this.fixDefs.forEach((fixDef, index, array) => {
+            fixDef.density = options.density || 0.2;
+            fixDef.friction = options.friction || 0.3;
+            fixDef.restitution = options.restitution || 0.1;
         });
-        this._owner = 1;
         this.ID = Body.counter++;
     }
 
-    get owner(): number {
-        return this._owner;
+    get isKeyBody(): boolean {
+        return this.fixDefs[0].filter.categoryBits === KeyBodies.KEY_BODY_1;
     }
 
-    set owner(value: number) {
-        this._owner = value;
+
+    private initShapes(option: Options): void {
+        this.shape.originX = 'center';
+        this.shape.originY = 'center';
+        this.shape.lockScalingX = this.shape.lockScalingY = option.lockScale || true;
+        // this.shapes.hasBorders = false;
+        this.shape.borderColor = 'white';
+        this.shape.setControlVisible('tl', false);
+        this.shape.setControlVisible('ml', false);
+        this.shape.setControlVisible('bl', false);
+        this.shape.setControlVisible('mb', false);
+        this.shape.setControlVisible('br', false);
+        this.shape.setControlVisible('mr', false);
+        this.shape.setControlVisible('tr', false);
+        this.shape.setControlVisible('mt', false);
+        this.shape.perPixelTargetFind = true;
+        this.shape.padding = -2;
+        this.shape['borderDashArray'] = [5, 5];
+        this.shape.strokeWidth = 5;
+        this.shape.strokeLineCap = 'round';
+        // this.shapes.stroke = 'white';
+        // this.shapes.shadow = new fabric.Shadow('rgba(5,5,5,0.8) 3px 10px 15px');
+        this.shape.cornerSize = 3;
+        this.shape.transparentCorners = true;
+        this.shape.cornerColor = 'white';
+        this.shape['cornerStyle'] = 'circle';
+        // this.shapes['statefulCache'] = true;
+        // this.shapes['objectCaching'] = true;
+        this.shape.toObject = () => {
+            return {
+                body: this,
+            };
+        };
     }
 
     get angle(): number {
         return this.bodyDef.angle;
     }
 
-    get initOptions(): InitOptions {
-        return this._initOptions;
-    }
 
     public Create(world: b2World) {
         this.body = world.CreateBody(this.bodyDef);
         this.fixDefs.forEach(this.body.CreateFixture, this.body);
         this.body.SetUserData(this);
-        this.body.SetPosition(new b2Vec2(this.shapes.getLeft() * PIXEL_TO_METERS, this.shapes.getTop() * PIXEL_TO_METERS));
-        this.body.SetAngle(fabric.util.degreesToRadians(this.shapes.getAngle()));
+        this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS));
+        this.body.SetAngle(fabric.util.degreesToRadians(this.shape.angle));
     }
 
-    get position(): b2Vec2 {
+    public getPosition(inPixel: boolean = false): b2Vec2 {
+        if (inPixel) {
+            return new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS);
+        }
         let out: b2Vec2 = b2Vec2.ZERO;
         b2Vec2.MulSV(METERS_TO_PIXEL, this.bodyDef.position, out);
         return out;
-    }
-
-    get pos_in_pixels(): b2Vec2 {
-        return new b2Vec2(this.shapes.left * PIXEL_TO_METERS, this.shapes.top * PIXEL_TO_METERS);
     }
 
     set position(position: b2Vec2) {
@@ -137,37 +117,86 @@ export abstract class Body {
     }
 
     public setPrepOptions() {
-        this.bodyDef.position = this._initOptions.position;
-        this.bodyDef.angle = this._initOptions.angle;
-        this.shapes.selectable = this._initOptions.selectable;
-        this.shapes.left = this.bodyDef.position.x * METERS_TO_PIXEL;
-        this.shapes.top = this.bodyDef.position.y * METERS_TO_PIXEL;
-        this.shapes.angle = fabric.util.radiansToDegrees(this.bodyDef.angle);
+        // if (this.body) {
+        //     this.bodyDef.position = this.
+        // }
+        this.shape.selectable = false;
+        this.bodyDef.position = this.initOptions.position;
+        this.bodyDef.angle = this.initOptions.angle;
+        this.shape.left = this.bodyDef.position.x * METERS_TO_PIXEL;
+        this.shape.top = this.bodyDef.position.y * METERS_TO_PIXEL;
+        this.shape.angle = fabric.util.radiansToDegrees(this.bodyDef.angle);
+    }
+
+    public setMovingOptions() {
+        this.shape.selectable = this.initOptions.selectable;
     }
 
     public setRunOptions(): void {
-        this.shapes.selectable = false;
+        this.shape.selectable = false;
     }
 
     setSelectable(is: boolean = true) {
-        this.shapes.set('selectable', is);
+        this.shape.set('selectable', is);
     }
 
     public update(): void {
-        this.shapes.set('left', this.body.GetPosition().x * METERS_TO_PIXEL);
-        this.shapes.set('top', this.body.GetPosition().y * METERS_TO_PIXEL);
-        this.shapes.setAngle(fabric.util.radiansToDegrees(this.body.GetAngle()));
-        this.shapes.setCoords();
+        this.shape.set('left', this.body.GetPosition().x * METERS_TO_PIXEL);
+        this.shape.set('top', this.body.GetPosition().y * METERS_TO_PIXEL);
+        this.shape.set('angle', fabric.util.radiansToDegrees(this.body.GetAngle()));
+        this.shape.setCoords();
     }
 
     public getKind(): string {
         return 'abstract body';
     }
 
-    public toJSON(): Object {
+    get type() {
+        return this.bodyDef.type;
+    }
+
+    public toJSON(): JSONBody {
         throw Error('Method not implemented');
     }
 
+    public resetPattern(): void {
+        this.shape.setPatternFill(
+            {
+                source: this.pattern.getElement(),
+                repeat: 'repeat',
+            });
+    }
+
+    public setPattern(img: HTMLImageElement): void {
+        this.pattern = new fabric.Image(img);
+        if (this.shape instanceof fabric.Group) {
+            (<fabric.Group>this.shape).getObjects().forEach((shape, i, j) => {
+                this.pattern.scaleToHeight(shape.height);
+                this.pattern.scaleToWidth(shape.width);
+                shape.setPatternFill({source: this.pattern.getElement()});
+            });
+        } else {
+            this.pattern.scaleToHeight(this.shape.height);
+            this.pattern.scaleToWidth(this.shape.width);
+            this.shape.setPatternFill({source: this.pattern.getElement(), repeat: 'repeat'});
+        }
+        this.shape.opacity = 1;
+        console.log(this.shape);
+    }
+
+    public setColorFilter(color: string): void {
+        this.pattern.filters.pop();
+        this.pattern.filters.push(new fabric.Image.filters.BlendColor(
+            {
+                color: color,
+            }));
+        this.pattern.applyFilters();
+        this.shape.setPatternFill(
+            {
+                source: this.pattern.getElement(),
+                repeat: 'repeat',
+            });
+    }
 }
 
 export class RectBody extends Body {
@@ -182,13 +211,16 @@ export class RectBody extends Body {
                 size.y * PIXEL_TO_METERS / 2);
         let bodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
+        if (option.sensor) {
+            fixDef.filter.categoryBits = option.keyBodyID;
+            fixDef.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
+        }
 
         bodyDef.angle = fabric.util.degreesToRadians(angle);
 
         let shape = new fabric.Rect({
             left: position.x,
             top: position.y,
-            fill: option.color || 'red',
             width: size.x,
             height: size.y,
             angle: angle,
@@ -204,8 +236,9 @@ export class RectBody extends Body {
         return 'rect';
     }
 
-    toJSON(): Object {
+    toJSON(): JSONBody {
         let json: any = {};
+        json.playerID = this.owned;
         json.position = {
             x: this.bodyDef.position.x,
             y: this.bodyDef.position.y,
@@ -219,7 +252,7 @@ export class RectBody extends Body {
             restitution: this.fixture.restitution,
             friction: this.fixture.friction,
             sensor: this.fixture.isSensor,
-            keyBodyID: this.initOptions.key,
+            keyBodyID: this.initOptions.keyBodyID,
         };
         json.type = this.bodyDef.type;
         return json;
@@ -233,9 +266,9 @@ export class CircleBody extends Body {
     constructor(position: b2Vec2 = b2Vec2.ZERO, radius: number = 50, option: Options = {}) {
         let fixDef = new b2FixtureDef();
         fixDef.shape = new b2CircleShape(radius * PIXEL_TO_METERS);
-        if (option.key) {
-            fixDef.filter.categoryBits = option.key;
-            fixDef.filter.maskBits = option.key | KeyBodies.NOT_KEY_BODY;
+        if (option.keyBodyID) {
+            fixDef.filter.categoryBits = option.keyBodyID;
+            fixDef.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
         }
         let bodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
@@ -243,14 +276,11 @@ export class CircleBody extends Body {
         let shape = new fabric.Circle({
             left: position.x,
             top: position.y,
-            fill: option.color || 'red',
             radius: radius,
             angle: 0,
             opacity: option.opacity || 0.7,
-            selectable: option.selectable || true,
+            selectable: option.selectable || false,
         });
-
-
         super(bodyDef, [fixDef], shape, option);
         this.fixture = fixDef;
     }
@@ -267,8 +297,9 @@ export class CircleBody extends Body {
         return 'circle';
     }
 
-    toJSON(): Object {
+    toJSON(): JSONBody {
         let json: any = {};
+        json.playerID = this.owned;
         json.position = {
             x: this.bodyDef.position.x,
             y: this.bodyDef.position.y,
@@ -280,21 +311,13 @@ export class CircleBody extends Body {
             restitution: this.fixture.restitution,
             friction: this.fixture.friction,
             sensor: this.fixture.isSensor,
-            keyBodyID: this.initOptions.key,
+            keyBodyID: this.initOptions.keyBodyID,
         };
         json.type = this.bodyDef.type;
-        // json.playerID = this._owner;
         return json;
     }
 
 }
-
-export interface BucketConfig {
-    wallThickness?: number;
-    bottomLength?: number;
-    height?: number;
-}
-
 
 export class BucketBody extends Body {
     private config: BucketConfig;
@@ -338,8 +361,27 @@ export class BucketBody extends Body {
                 0,
             );
 
+        fixDefSensor.isSensor = option.sensor || false;
+        if (option.keyBodyID) {
+            fixDefSensor.filter.categoryBits = option.keyBodyID;
+            fixDefSensor.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
+        }
+
         let bodyDef = new b2BodyDef();
+
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
+
+        let sensor = new fabric.Rect({
+            width: config.bottomLength,
+            height: config.height - config.wallThickness,
+            originX: 'center',
+            originY: 'center',
+            left: config.wallThickness + config.bottomLength / 2,
+            top: config.height / 2 - config.wallThickness / 2,
+            fill: 'blue',
+            opacity: 0.0,
+        });
+
         let left = new fabric.Rect({
             width: config.wallThickness,
             height: config.height,
@@ -356,7 +398,6 @@ export class BucketBody extends Body {
         let down = new fabric.Rect({
             width: config.bottomLength,
             height: config.wallThickness,
-            fill: option.color || 'red',
             left: config.wallThickness + config.bottomLength / 2,
             top: config.height - config.wallThickness / 2,
             originX: 'center',
@@ -368,7 +409,6 @@ export class BucketBody extends Body {
         let right = new fabric.Rect({
             width: config.wallThickness,
             height: config.height,
-            fill: option.color || 'red',
             left: config.wallThickness + config.bottomLength + config.wallThickness / 2,
             top: config.height / 2,
             originX: 'center',
@@ -377,32 +417,17 @@ export class BucketBody extends Body {
             stroke: null,
         });
 
-        let sensor = new fabric.Rect({
-            width: config.bottomLength,
-            height: config.height - config.wallThickness,
-            originX: 'center',
-            originY: 'center',
-            left: config.wallThickness + config.bottomLength / 2,
-            top: config.height / 2 - config.wallThickness / 2,
-            fill: 'blue',
-            opacity: 0.0,
-        });
-
-        fixDefSensor.isSensor = option.sensor || false;
-        if (option.key) {
-            fixDefSensor.filter.categoryBits = option.key;
-            fixDefSensor.filter.maskBits = option.key | KeyBodies.NOT_KEY_BODY;
-        }
-
         let group = new fabric.Group([left, down, right, sensor], {
             originX: 'center',
             originY: 'center',
             left: position.x,
             top: position.y,
+            // fill: 'red',
             stroke: null,
             subTargetCheck: true,
-            selectable: true,
+            selectable: false,
         });
+
         super(bodyDef, fixDefs, group, option);
         this.config = config;
         this.config.height = height;
@@ -414,8 +439,9 @@ export class BucketBody extends Body {
         return 'bucket';
     }
 
-    toJSON(): Object {
+    toJSON(): JSONBody {
         let json: any = {};
+        json.playerID = this.owned;
         json.position = {
             x: this.bodyDef.position.x,
             y: this.bodyDef.position.y,
@@ -428,17 +454,12 @@ export class BucketBody extends Body {
             density: this.fixDefs[0].density,
             restitution: this.fixDefs[0].restitution,
             friction: this.fixDefs[0].friction,
-            sensor: this.fixDefs[0].isSensor,
-            keyBodyID: this.initOptions.key,
+            sensor: this.fixDefs[3].isSensor,
+            keyBodyID: this.initOptions.keyBodyID,
         };
         json.type = this.bodyDef.type;
         return json;
     }
-}
-
-export interface CircleBucketConfig {
-    radius?: number;
-    wallThickness?: number;
 }
 
 export class CircleBucketBody extends Body {
@@ -475,15 +496,14 @@ export class CircleBucketBody extends Body {
         let bodyDef: b2BodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
         let group = new fabric.Group(shapes, {
+            // originX: 'center',
+            // originY: 'center',
             left: position.x,
             top: position.y,
             stroke: null,
             subTargetCheck: true,
+            // selectable: true,
         });
         super(bodyDef, fixDefs, group, option);
     }
 }
-
-
-
-
