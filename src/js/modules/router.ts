@@ -88,7 +88,7 @@ export class Router {
     }
 
     if (window.location.pathname !== path) {
-      // window.history.pushState({}, '', path);
+      window.history.pushState({}, '', path);
     }
 
     if (this.currentView) {
