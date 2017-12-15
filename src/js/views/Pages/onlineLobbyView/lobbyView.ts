@@ -30,6 +30,16 @@ export default class OnlineLobbyView extends BaseView {
 
     this.RenderPage(lobbyTmpl);
 
+    const mapPlaceholder = document
+      .querySelector('.main-frame__lobby-content__maps') as HTMLElement;
+    this.maps.forEach((map) => {
+      const mapTileElement = new MapTile(map).renderElement();
+
+      mapPlaceholder.appendChild(mapTileElement);
+
+      mapTileElement.onclick = () => this.router.go(ViewService.ViewPaths.online.gamePage, map);
+    });
+
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewPaths.start));
@@ -52,16 +62,6 @@ export default class OnlineLobbyView extends BaseView {
       } catch (error) {
         this.router.go(ViewPaths.start);
       }
-    });
-
-    const mapPlaceholder = document
-      .querySelector('.main-frame__lobby-content__maps') as HTMLElement;
-    this.maps.forEach((map) => {
-      const mapTileElement = new MapTile(map).renderElement();
-
-      mapPlaceholder.appendChild(mapTileElement);
-
-      mapTileElement.onclick = () => this.router.go(ViewService.ViewPaths.online.gamePage, map);
     });
 
 
