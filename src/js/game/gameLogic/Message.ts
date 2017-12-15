@@ -77,7 +77,7 @@ export class BoardMessage extends Message {
         this.game.board.setOwn();
         this.game.board.setPlayersColor();
         this.game.board.setMovingOptions();
-        eventBus.emit('game', GameEvents.subscribed);
+        eventBus.emit('game', <string>GameEvents.subscribed);
     }
 }
 
@@ -88,7 +88,8 @@ export class SubscribeMessage extends Message {
     constructor(game: GameOnline, board: number) {
         super();
         this.game = game;
-        this.class = this.constructor.name;
+        this.class = 'SubscribeMessage';
+        console.log(this.class);
         this.board = board;
         this.message = {class: this.class, board: this.board};
     }
@@ -127,8 +128,8 @@ export class MovingMessage extends Message {
 
     HandleResponse() {
         this.game.playerID = this.playerID;
-        this.game.board.bodies.get(this.snap.id).shape.set('left', this.snap.position.x);
-        this.game.board.bodies.get(this.snap.id).shape.set('top', this.snap.position.y);
+        this.game.board.bodies.get(this.snap.id).shape.set('left', this.snap.position.x * SCALE_COEFF_X);
+        this.game.board.bodies.get(this.snap.id).shape.set('top', this.snap.position.y * SCALE_COEFF_Y);
         this.game.board.bodies.get(this.snap.id).shape.set('angle', this.snap.angle);
         this.game.board.bodies.get(this.snap.id).shape.set('angle', this.snap.angle);
         this.game.board.bodies.get(this.snap.id).shape.setCoords();

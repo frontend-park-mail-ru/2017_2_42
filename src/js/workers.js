@@ -1,5 +1,6 @@
 const STATICS = [
   '/',
+  '/kjhkjhkjh',
   '/main.js',
   '/css/bundle.css',
   '/font/KGSecondChancesSketch.ttf',

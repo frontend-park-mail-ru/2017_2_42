@@ -14,6 +14,10 @@ export default class Button extends Block {
    * @param {f} callback event handler
    */
   onClick(callback) {
-    this.on('click', callback);
+    return this.on('click', callback);
+  }
+
+  setText(text: string) {
+    this.element.innerText = 'START';
   }
 }

@@ -1,7 +1,7 @@
 # Empty
 
 ## Description
-Добавить описание игры.
+Игра-головоломка
 
 
 ## Master Branch [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2017_2_42.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2017_2_42)

@@ -73,7 +73,7 @@ export class GameOnline implements Game {
         this._world.SetContinuousPhysics(false);
         this.gameService = new GameService(this);
         this.state = new InitState(this);
-        eventBus.on('game', GameEvents.subscribe, () => {
+        eventBus.on('game', <string>GameEvents.subscribe, () => {
             let msg = new SubscribeMessage(this, this.meta.id);
             msg.HandleRequest();
         });

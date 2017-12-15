@@ -65,8 +65,8 @@ export class Board {
                 data.snap = {};
                 data.snap.id = option.target.toObject().body.ID;
                 data.snap.position = {
-                    x: option.target.left,
-                    y: option.target.top,
+                    x: option.target.left / SCALE_COEFF_X,
+                    y: option.target.top / SCALE_COEFF_Y,
                 };
                 data.snap.angle = option.target.angle;
                 let msg: MovingMessage = new MovingMessage(this.game, data);
