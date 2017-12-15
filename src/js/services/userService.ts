@@ -141,7 +141,10 @@ export class UserService {
       }
     }
 
+    let i = 0;
     while (this.serverResponded === undefined) {
+      console.log(i);
+      i += 1;
     }
 
     if (this.serverResponded === false) {
