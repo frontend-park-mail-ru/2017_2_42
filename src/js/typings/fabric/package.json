@@ -1,0 +1,55 @@
+{
+  "_from": "@types/fabric@^1.5.27",
+  "_id": "@types/fabric@1.5.27",
+  "_inBundle": false,
+  "_integrity": "sha512-Rh7exJL6FLfwcqqMttZp6zH+FV2nowZMaRxi7q5kvzvczkibcPmQDhrAlFJ4y7y2SHdffUoAybcHHraf7NAEYw==",
+  "_location": "/@types/fabric",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@types/fabric@^1.5.27",
+    "name": "@types/fabric",
+    "escapedName": "@types%2ffabric",
+    "scope": "@types",
+    "rawSpec": "^1.5.27",
+    "saveSpec": null,
+    "fetchSpec": "^1.5.27"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/fabric/-/fabric-1.5.27.tgz",
+  "_shasum": "991c97d44242f6bb24e04300c32ce0bd81f691cd",
+  "_spec": "@types/fabric@^1.5.27",
+  "_where": "/Users/ndr/WebstormProjects/2017_2_42",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Oliver Klemencic",
+      "url": "https://github.com/oklemencic"
+    },
+    {
+      "name": "Joseph Livecchi",
+      "url": "https://github.com/joewashear007"
+    },
+    {
+      "name": "Michael Randolph",
+      "url": "https://github.com/mrand01"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for FabricJS",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/fabric",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "typesPublisherContentHash": "e87bc645dea73f44bacddbbde927d21fea17849be70b7ce962c6119b9105f30a",
+  "version": "1.5.27"
+}

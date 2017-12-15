@@ -1,4 +1,4 @@
-///<reference path="../../../../../node_modules/@types/fabric/index.d.ts"/>
+///<reference path="../../../typings/fabric/index.d.ts"/>
 import Button from '../../../blocks/button';
 
 import {StartMessage} from '../../../game/gameLogic/Message';
