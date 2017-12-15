@@ -29,7 +29,7 @@
         }
 
         &__sound-button {
-            display: flex;
+            //display: flex;
             width: $buttonSize;
             height: $buttonSize;
             background: $sound_button_img 100% 100% no-repeat;
@@ -44,7 +44,7 @@
         }
 
         &__sound-button-muted {
-            display: flex;
+            //display: flex;
             width: $buttonSize;
             height: $buttonSize;
             background: $sound_button_img_muted 100% 100% no-repeat;
@@ -59,7 +59,7 @@
         }
 
         &__settings-button {
-            display: flex;
+            //display: flex;
             width: $buttonSize;
             height: $buttonSize;
             background: $settings_button_img 100% 100% no-repeat;
