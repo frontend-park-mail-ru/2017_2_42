@@ -92,17 +92,22 @@ export class Board {
             body.setPrepOptions();
             this.promise.then(() => this.canvas.add(body.shape));
         }
-        let myfont = new FontFaceObserver('KGTenThousandReasons');
-        myfont.load()
-            .then(() => {
-                this.timerText.set('fontFamily', 'KGTenThousandReasons');
-                this.canvas.add(this.timerText);
-                this.canvas.renderAll();
-            }).catch(function (e) {
-            console.log(e);
-            alert('font loading failed');
-        });
+        // let myfont = new FontFaceObserver('KGTenThousandReasons');
+        // myfont.load()
+        //     .then(() => {
+        //         this.timerText.set('fontFamily', 'KGTenThousandReasons');
+        //         this.canvas.add(this.timerText);
+        //         this.canvas.renderAll();
+        //     }).catch(function (e) {
+        //     console.log(e);
+        //     alert('font loading failed');
+        // });
         this.canvas.add(this.timerText);
+        this.promise.then(() => {
+            this.game.board.setOwn();
+            this.game.board.setPlayersColor();
+            this.game.board.setMovingOptions();
+        });
     }
 
     public setMovingOptions(): void {

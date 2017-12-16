@@ -74,9 +74,6 @@ export class BoardMessage extends Message {
 
     HandleResponse() {
         this.game.playerID = this.playerID;
-        this.game.board.setOwn();
-        this.game.board.setPlayersColor();
-        this.game.board.setMovingOptions();
         eventBus.emit('game', <string>GameEvents.subscribed);
     }
 }

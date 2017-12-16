@@ -1,8 +1,10 @@
 import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
+import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
 import User from '../../../models/user';
 import BaseView from '../../../modules/BaseView';
+import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import mapService from '../../../services/mapService';
 import userService from '../../../services/userService';
@@ -18,7 +20,6 @@ export default class OnlineLobbyView extends BaseView {
   private backButton: Button;
   private settingsButton: Button;
   private logoutButton: Button;
-  private soundButton: SoundButton;
 
   constructor(parentElement) {
     super(parentElement, 'Physics.io | lobby');
@@ -36,8 +37,13 @@ export default class OnlineLobbyView extends BaseView {
       const mapTileElement = new MapTile(map).renderElement();
 
       mapPlaceholder.appendChild(mapTileElement);
-
+      GameOnline.Create(map);
+      eventBus.emit('game', 'subscribe');
       mapTileElement.onclick = () => this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
+      eventBus.on('game', 'subscribed', () => {
+        this.router.HideOverlay();
+        this.router.go(ViewService.ViewPaths.online.gamePage);
+      });
     });
 
     this.backButton = new Button(document

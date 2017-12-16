@@ -2,7 +2,7 @@
 import Button from '../../../blocks/button';
 
 import {StartMessage} from '../../../game/gameLogic/Message';
-import {GameOnline} from '../../../game/gameLogic/gameOnline';
+import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
 
 import BaseView from '../../../modules/BaseView';
 
@@ -21,7 +21,7 @@ export default class GameView extends BaseView {
     private backButton: Button;
     private startButton: Button;
     private settingsButton: Button;
-    private game: GameOnline;
+    // private game: GameOnline;
 
     constructor(parentElement: HTMLElement) {
         super(parentElement, 'Game #');
@@ -30,8 +30,8 @@ export default class GameView extends BaseView {
     public async start(mapMeta: Map.Meta): Promise<void> {
         this.RenderPage(GameViewTmpl);
 
-        this.game = new GameOnline(mapMeta);
-        this.game.load(this.initCanvas());
+        // this.game = new GameOnline(mapMeta);
+        game.load(this.initCanvas());
 
         this.initButtons();
 

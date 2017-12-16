@@ -1,3 +1,4 @@
+import '../../../../img/Ball.svg';
 import BaseOverlay from '../../../modules/BaseOverlay';
 import './WaitingTeammates.scss';
 
