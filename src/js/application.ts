@@ -49,7 +49,7 @@ export default class Application {
       let user: User | null;
 
       try {
-        user = await userService.getUser();
+        user = await userService.getUser(true);
       } catch (error) {
         Utils.debugWarn('No internet');
         return router.showOverlay(ViewService.OverlayNames.errors.noInternet);
