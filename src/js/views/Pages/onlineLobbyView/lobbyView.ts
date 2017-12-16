@@ -44,9 +44,9 @@ export default class OnlineLobbyView extends BaseView {
       .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewPaths.start));
 
-    this.soundButton = new SoundButton(document
-      .querySelector('.main-frame__header__sound-button') as HTMLElement);
-    this.soundButton.onClick(() => console.log('muted'));
+    // this.soundButton = new SoundButton(document
+    //   .querySelector('.main-frame__header__sound-button') as HTMLElement);
+    // this.soundButton.onClick(() => console.log('muted'));
 
     this.settingsButton = new Button(document
       .querySelector('.main-frame__header__settings-button') as HTMLElement);
