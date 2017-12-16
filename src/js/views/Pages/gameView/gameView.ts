@@ -68,6 +68,10 @@ export default class GameView extends BaseView {
     private initCanvas(): HTMLCanvasElement {
         const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
         const canvasSize = this.chooseCanvasSize(canvas);
+        window.onresize = (ev) => {
+            console.log('resize');
+            this.chooseCanvasSize(canvas);
+        };
         canvas.width = canvasSize.width;
         canvas.height = canvasSize.height;
         return canvas;

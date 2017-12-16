@@ -155,7 +155,7 @@ export class Router {
    * Goes to not found page
    */
   private goNotFound() {
-    //window.history.pushState({}, '', window.location.pathname);
+    window.history.pushState({}, '', window.location.pathname);
 
     if (this.currentView) {
       this.currentView.pause();

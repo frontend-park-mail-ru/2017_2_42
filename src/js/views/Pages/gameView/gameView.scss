@@ -1,89 +1,114 @@
 @import '../CommonCss/common.scss';
 
-.main-frame{
+.main-frame {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+
+  &__header {
     display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+    button {
+      padding: 0;
+      border: none;
+      outline: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &__stub {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    &__sound-button {
+      display: flex;
+      width: $buttonSize;
+      height: $buttonSize;
+      background: $sound_button_img 100% 100% no-repeat;
+      background-size: contain;
+      align-self: flex-start;
+    }
+
+    &__back-button {
+      display: flex;
+      width: $buttonSize;
+      height: $buttonSize;
+      background: $back_button_img 100% 100% no-repeat;
+      background-size: contain;
+      align-self: flex-start;
+    }
+
+    &__settings-button {
+      display: flex;
+      width: $buttonSize;
+      height: $buttonSize;
+      background: $settings_button_img 100% 100% no-repeat;
+      background-size: contain;
+      align-self: flex-end;
+    }
+
+    &__ready-button {
+      color: rgba($color: #ffffff, $alpha: 1.0);
+
+      &__not-ready {
+        display: flex;
+        height: $buttonSize;
+        background: none;
+        background-size: contain;
+        align-self: flex-end;
+      }
+
+      &__ready {
+        background: rgba($color: #ffffff, $alpha: 0.4);
+        display: flex;
+        height: $buttonSize;
+        background: none;
+        background-size: contain;
+        align-self: flex-end;
+      }
+
+    }
+  }
+
+  &__wrapper {
+    display: table;
+    padding: 0;
     width: 100%;
     height: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: stretch;
+    position: absolute;
 
-    &__header {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
+    &__container {
+      display: table-cell;
+      vertical-align: middle;
 
-        button{
-            padding: 0;
-            border: none;
-            outline: 0;
-
-            &:hover{
-                cursor:pointer;
-            }
-        }
-
-        &__stub {
-            display: flex;
-            flex-grow: 1;
-        }
-
-        &__sound-button {
-            display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
-            background: $sound_button_img 100% 100% no-repeat;
-            background-size: contain;
-            align-self: flex-start;
-        }
-
-        &__back-button {
-            display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
-            background: $back_button_img 100% 100% no-repeat;
-            background-size: contain;
-            align-self: flex-start;
-        }
-
-        &__settings-button {
-            display: flex;
-            width: $buttonSize;
-            height: $buttonSize;
-            background: $settings_button_img 100% 100% no-repeat;
-            background-size: contain;
-            align-self: flex-end;
-        }
-
-        &__ready-button {
-            color: rgba($color: #ffffff, $alpha: 1.0);
-            
-            &__not-ready{
-                display: flex;
-                height: $buttonSize;
-                background: none;
-                background-size: contain;
-                align-self: flex-end;
-            }
-
-            &__ready {
-                background: rgba($color: #ffffff, $alpha: 0.4);
-                display: flex;
-                height: $buttonSize;
-                background: none;
-                background-size: contain;
-                align-self: flex-end;
-            }
-
-        }
+      &__canvas-container {
+        position: relative;
+        max-width: 1024px;
+        min-width: 320px;
+        margin: 0 auto;
+      }
     }
+  }
+  canvas {
+    //display: flex;
+    //flex-grow: 1;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+  }
 
-    canvas {
-        display: flex;
-        flex-grow: 1;
-    }
+  &__game-canvas {
 
-    &__game-canvas{
-        
-    }
+  }
 }
