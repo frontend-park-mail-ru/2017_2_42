@@ -84,7 +84,7 @@ export class Board {
             this.timerText.text = timer.toString();
         });
         this.timerText.text = this.game.timer.toString();
-        this.timerText.top = 30;
+        this.timerText.top = 30 * SCALE_COEFF_X;
         this.timerText.left = this.canvas.getWidth() - 120;
         this.canvas.add(this.timerText);
         this.canvas.renderAll();
@@ -135,9 +135,6 @@ export class Board {
 
     private tuneCanvas() {
         this.canvas.selection = false;
-        // this.canvas.setBackgroundColor('black', this.canvas.renderAll.bind(this.canvas));
-        // this.canvas.backgroundColor = 'black';
-        // this.canvas.renderAll();
     }
 
     private setPatterns() {

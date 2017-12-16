@@ -116,7 +116,7 @@ export class MovingMessage extends Message {
         super();
         this.game = game;
         this.snap = messageObj.snap;
-        this.class = this.constructor.name;
+        this.class = <string>Messages.MovingMessage;
         this.message = {
             class: this.class,
             snap: messageObj.snap,
@@ -153,7 +153,7 @@ export class StartMessage extends Message {
     constructor(game: GameOnline) {
         super();
         this.game = game;
-        this.class = this.constructor.name;
+        this.class = <string>Messages.StartMessage;
     }
 
     HandleRequest() {
@@ -207,8 +207,7 @@ export class SnapMessage extends Message {
     constructor(game: GameOnline, messageObj: any) {
         super();
         this.game = game;
-        this.class = this.constructor.name;
-        // console.log(messageObj);
+        this.class = <string>Messages.SnapMessage;
         this.message = messageObj;
         this.bodies = messageObj.bodies;
         this.frame = messageObj.frame;
