@@ -1,6 +1,6 @@
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import 'fabric';
-import 'fontfaceobserver';
+import {FontFaceObserver} from 'fontfaceobserver';
 import eventBus from '../../modules/eventBus';
 import {Body} from '../body/body';
 import {MovingMessage} from '../gameLogic/Message';
@@ -65,8 +65,8 @@ export class Board {
                 data.snap = {};
                 data.snap.id = option.target.toObject().body.ID;
                 data.snap.position = {
-                    x: option.target.left,
-                    y: option.target.top,
+                    x: option.target.left / SCALE_COEFF_X,
+                    y: option.target.top / SCALE_COEFF_Y,
                 };
                 data.snap.angle = option.target.angle;
                 let msg: MovingMessage = new MovingMessage(this.game, data);
@@ -92,16 +92,16 @@ export class Board {
             body.setPrepOptions();
             this.promise.then(() => this.canvas.add(body.shape));
         }
-        // let myfont = new FontFaceObserver('KGTenThousandReasons');
-        // myfont.load()
-        //     .then(() => {
-        //         this.timerText.set('fontFamily', 'KGTenThousandReasons');
-        //         this.canvas.add(this.timerText);
-        //         this.canvas.renderAll();
-        //     }).catch(function (e) {
-        //     console.log(e);
-        //     alert('font loading failed');
-        // });
+        let myfont = new FontFaceObserver('KGTenThousandReasons');
+        myfont.load()
+            .then(() => {
+                this.timerText.set('fontFamily', 'KGTenThousandReasons');
+                this.canvas.add(this.timerText);
+                this.canvas.renderAll();
+            }).catch(function (e) {
+            console.log(e);
+            alert('font loading failed');
+        });
         this.canvas.add(this.timerText);
     }
 
@@ -148,7 +148,7 @@ export class Board {
         let promises = [];
         patterns_path.forEach((pattern_name, key, map) => {
             promises.push(new Promise((resolve) => {
-                fabric.util.loadImage('./img/' + pattern_name, (img) => {
+                fabric.util.loadImage('/img/' + pattern_name, (img) => {
                     if (img === null) {
                         console.log('Failed to load image!');
                         eventBus.emit('game', 'patternLoadFailed');

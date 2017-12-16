@@ -1,5 +1,5 @@
 const STATICS = [
-  '/',
+  '/kjhkjhkjh',
   '/main.js',
   '/css/bundle.css',
   '/font/KGSecondChancesSketch.ttf',
@@ -13,6 +13,7 @@ const STATICS = [
 
 
 self.addEventListener('install', function(event) {
+  self.skipWaiting();
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll(STATICS)
@@ -38,6 +39,10 @@ const fromNetwork = (request, timeout) => {
     });
   });
 };
+
+self.addEventListener('activate', (event) => {
+  console.log('V1 now ready to handle fetches!');
+});
 
 const fromCache = (request) => {
   return caches.open('v1')

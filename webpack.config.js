@@ -15,6 +15,7 @@ const babel = require('./webpack/babel');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const fileLoader = require('./webpack/fileloader');
 const devServer = require('./webpack/devServer');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, 'src'),
@@ -23,31 +24,32 @@ const PATHS = {
 };
 
 const common = wpMerge([{
-    context: __dirname,
-    entry: {
-      main: path.join(PATHS.src, 'js/main.js'),
-      worker: path.join(PATHS.src, 'js/workers.js'),
-      // game: path.join(PATHS.game, 'game.js'),
-    },
-    output: {
-      filename: '[name].js',
-      path: PATHS.public,
-      publicPath: '/',
-    },
-    resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.json'],
-    },
-    node: {
-      fs: 'empty',
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: './src/index.html',
-      }),
-      // new MinifyPlugin(),
-      new ProgressBarPlugin(),
-    ],
+  context: __dirname,
+  entry: {
+    main: path.join(PATHS.src, 'js/main.js'),
+    worker: path.join(PATHS.src, 'js/workers.js'),
+    // game: path.join(PATHS.game, 'game.js'),
   },
+  output: {
+    filename: '[name].js',
+    path: PATHS.public,
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
+  node: {
+    fs: 'empty',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+    // new MinifyPlugin(),
+    new ProgressBarPlugin(),
+    new UglifyJsPlugin(),
+  ],
+},
   lint(),
   pugLoader(),
   tsLoader(),

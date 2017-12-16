@@ -1,3 +1,4 @@
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import User from '../../../models/user';
@@ -17,6 +18,7 @@ export default class OnlineLobbyView extends BaseView {
   private backButton: Button;
   private settingsButton: Button;
   private logoutButton: Button;
+  private soundButton: SoundButton;
 
   constructor(parentElement) {
     super(parentElement, 'Physics.io | lobby');
@@ -28,14 +30,8 @@ export default class OnlineLobbyView extends BaseView {
 
     this.RenderPage(lobbyTmpl);
 
-    this.backButton = new Button(document.querySelector('.main-frame__header__back-button') as HTMLElement);
-    //////!!!!!!
-    // this.soundButton = new Button(document.querySelector('.main-frame__header__sound-button') as HTMLElement);
-    this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
-    this.logoutButton = new Button(document.querySelector('.main-frame__header__logout-button') as HTMLElement);
-
-    const mapPlaceholder = document.querySelector('.main-frame__lobby-content__maps') as HTMLElement;
-
+    const mapPlaceholder = document
+      .querySelector('.main-frame__lobby-content__maps') as HTMLElement;
     this.maps.forEach((map) => {
       const mapTileElement = new MapTile(map).renderElement();
 
@@ -44,9 +40,21 @@ export default class OnlineLobbyView extends BaseView {
       mapTileElement.onclick = () => this.router.go(ViewService.ViewPaths.online.gamePage, map);
     });
 
+    this.backButton = new Button(document
+      .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewPaths.start));
-    this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
 
+    this.soundButton = new SoundButton(document
+      .querySelector('.main-frame__header__sound-button') as HTMLElement);
+    this.soundButton.onClick(() => console.log('muted'));
+
+    this.settingsButton = new Button(document
+      .querySelector('.main-frame__header__settings-button') as HTMLElement);
+    this.settingsButton.onClick(() => this
+      .router.showOverlay(ViewService.OverlayNames.application.settings));
+
+    this.logoutButton = new Button(document
+      .querySelector('.main-frame__header__logout-button') as HTMLElement);
     this.logoutButton.onClick(async () => {
       try {
         await userService.logout();
@@ -55,6 +63,8 @@ export default class OnlineLobbyView extends BaseView {
         this.router.go(ViewPaths.start);
       }
     });
+
+
   }
 
   public async destroy(): Promise<void> {

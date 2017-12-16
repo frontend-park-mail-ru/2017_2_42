@@ -141,9 +141,6 @@ export class UserService {
       }
     }
 
-    while (this.serverResponded === undefined) {
-    }
-
     if (this.serverResponded === false) {
       throw this.errors.CONNECTION_ERROR;
     }
