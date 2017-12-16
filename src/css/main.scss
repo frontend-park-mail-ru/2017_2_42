@@ -1,11 +1,39 @@
 $font_name: 'KGSecondChancesSketch';
 
 html, body {
-  min-width: 480px; //1280
-  min-height: 220px; //720
   height: 100%;
   font-size: 3vh;
   font-family: $font_name;
+}
+
+@media only screen and (max-width: 200px) {
+  html, body {
+    font-size: 0.5vh;
+  }
+}
+
+@media only screen and (max-width: 1032px) {
+  html, body {
+    font-size: 2.5vh;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  html, body {
+    font-size: 2vh;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html, body {
+    font-size: 1.5vh;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html, body {
+    font-size: 1vh;
+  }
 }
 
 
