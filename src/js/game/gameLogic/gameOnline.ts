@@ -25,6 +25,9 @@ export interface MapMeta {
     playedTimes?: number;
 }
 
+let game: GameOnline;
+
+export {game};
 
 export abstract class Game {
     board: Board;
@@ -77,6 +80,11 @@ export class GameOnline implements Game {
             let msg = new SubscribeMessage(this, this.meta.id);
             msg.HandleRequest();
         });
+    }
+
+    public static Create(mapMeta: MapMeta): GameOnline {
+        game = new GameOnline(mapMeta);
+        return game;
     }
 
     public load(canvas: HTMLCanvasElement | string): void {
