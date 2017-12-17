@@ -89,7 +89,7 @@ export default class GameView extends BaseView {
         this.readyButton.onClick(() => {
             eventBus.emit('game', 'subscribe');
         });
-        this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+        this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__ready') as HTMLElement);
         this.startButton.onClick(() => {
             eventBus.emit('game', 'start');
         });
