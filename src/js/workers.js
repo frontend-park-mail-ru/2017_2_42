@@ -1,8 +1,11 @@
 const STATICS = [
-  '/kjhkjhkjh',
+  '/',
   '/main.js',
+  '/offline/lobby',
+  '/offline/game',
+  '/online/login',
   '/css/bundle.css',
-  '/font/KGSecondChancesSketch.ttf',
+  '/font/KGSecondChancesSketch.woff2',
   '/img/configuration.svg',
   '/img/exclamation.svg',
   '/img/speaker.svg',
@@ -13,7 +16,6 @@ const STATICS = [
 
 
 self.addEventListener('install', function(event) {
-  self.skipWaiting();
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll(STATICS)

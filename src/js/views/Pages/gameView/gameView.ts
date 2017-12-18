@@ -21,8 +21,7 @@ export default class GameView extends BaseView {
     private backButton: Button;
     private startButton: Button;
     private settingsButton: Button;
-    public canvasScale: number = 1;
-    // private game: GameOnline;
+    private mapMeta: Map.Meta;
 
     constructor(parentElement: HTMLElement) {
         super(parentElement, 'Game #');
@@ -31,7 +30,6 @@ export default class GameView extends BaseView {
     public async start(mapMeta: Map.Meta): Promise<void> {
         this.RenderPage(GameViewTmpl);
 
-        // this.game = new GameOnline(mapMeta);
         game.load(this.initCanvas());
 
         this.initButtons();
@@ -52,8 +50,6 @@ export default class GameView extends BaseView {
         this.destroy();
     }
 
-    private mapMeta: Map.Meta;
-
     private chooseCanvasSize(canvas: HTMLCanvasElement): Size {
         const x = canvas.offsetWidth;
         const y = canvas.offsetHeight;
@@ -70,15 +66,11 @@ export default class GameView extends BaseView {
         const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
         const canvasSize = this.chooseCanvasSize(canvas);
 
-        window.onresize = (ev) => {
+        let resize = () => {
 
-            let size = {width: (<HTMLDivElement>canvas.parentElement).offsetWidth, height: (<HTMLDivElement>canvas.parentElement).offsetHeight};
+            let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
+            let size = {width: parent.offsetWidth, height: parent.offsetHeight};
             let c = game.board.canvas;
-
-            // canvas.width = size.width;
-            // canvas.height = size.height;
-
-            console.log(c.getHeight(), c.getWidth());
 
             let widthScale = size.width / c.getWidth();
             let heightScale = size.height / c.getHeight();
@@ -108,8 +100,8 @@ export default class GameView extends BaseView {
 
             game.board.canvas.renderAll();
         };
-        canvas.width = canvasSize.width;
-        canvas.height = canvasSize.height;
+        resize();
+        window.onresize = resize;
         return canvas;
     }
 

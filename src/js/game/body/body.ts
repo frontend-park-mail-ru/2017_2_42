@@ -75,9 +75,7 @@ export abstract class Body {
         this.shape['borderDashArray'] = [5, 5];
         this.shape.strokeWidth = 5;
         this.shape.strokeLineCap = 'round';
-        // this.shapes.stroke = 'white';
-        // this.shapes.shadow = new fabric.Shadow('rgba(5,5,5,0.8) 3px 10px 15px');
-        this.shape.cornerSize = 3;
+        this.shape.cornerSize = 7;
         this.shape.transparentCorners = true;
         this.shape.cornerColor = 'white';
         this.shape['cornerStyle'] = 'circle';
