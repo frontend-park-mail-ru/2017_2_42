@@ -49,9 +49,15 @@ class AudioService {
 
     const buffsource = curCtx.createBufferSource();
 
-    buffsource.buffer = await curCtx.decodeAudioData(await soundFile.GetBuffer());
-    buffsource.connect(curCtxCtrl.getNode());
-    buffsource.start(0);
+    soundFile.GetBuffer()
+      .then((abuff) => {
+        return curCtx.decodeAudioData(abuff);
+      })
+      .then((buff) => {
+        buffsource.buffer = buff;
+        buffsource.connect(curCtxCtrl.getNode());
+        buffsource.start(0);
+      });
   }
 
   private BackgroundAudioCtx: AudioContext;

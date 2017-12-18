@@ -12,14 +12,14 @@ export default class SoundFile {
       mode: 'same-origin',
     } as RequestInit;
 
-    this.audioFile = fetch(`${window.location.origin}${PATHS.GET_SOUND}/${name}.mp3`, init);
+    this.audioFile = fetch(`${window.location.origin}${PATHS.GET_SOUND}/${name}.mp3`, init)
+      .then((resp: Response) => resp.arrayBuffer());
   }
 
-  public async GetBuffer(): Promise<ArrayBuffer> {
-    const response = await this.audioFile;
-    return response.arrayBuffer();
+  public GetBuffer(): Promise<ArrayBuffer> {
+    return this.audioFile;
   }
 
-  private audioFile: Promise<Response>;
+  private audioFile: Promise<ArrayBuffer>;
   private audioBuffer: ArrayBuffer;
 }
