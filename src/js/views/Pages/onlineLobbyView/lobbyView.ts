@@ -48,7 +48,7 @@ export default class OnlineLobbyView extends BaseView {
 
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);
-    this.backButton.onClick(() => this.router.go(ViewPaths.start));
+    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.startPage));
 
     // this.soundButton = new SoundButton(document
     //   .querySelector('.main-frame__header__sound-button') as HTMLElement);
@@ -59,16 +59,16 @@ export default class OnlineLobbyView extends BaseView {
     this.settingsButton.onClick(() => this
       .router.showOverlay(ViewService.OverlayNames.application.settings));
 
-    this.logoutButton = new Button(document
-      .querySelector('.main-frame__header__logout-button') as HTMLElement);
-    this.logoutButton.onClick(async () => {
-      try {
-        await userService.logout();
-        this.router.go(ViewService.ViewPaths.online.loginPage);
-      } catch (error) {
-        this.router.go(ViewPaths.start);
-      }
-    });
+    // this.logoutButton = new Button(document
+    //   .querySelector('.main-frame__header__logout-button') as HTMLElement);
+    // this.logoutButton.onClick(async () => {
+    //   try {
+    //     await userService.logout();
+    //     this.router.go(ViewService.ViewPaths.online.loginPage);
+    //   } catch (error) {
+    //     this.router.go(ViewPaths.start);
+    //   }
+    // });
 
 
   }

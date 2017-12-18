@@ -7,7 +7,7 @@ import eventBus from '../../modules/eventBus';
 import {Board} from '../board/board';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../board/config';
 import {BucketBody, CircleBody} from '../body/body';
-import {Message, SnapMessage, SubscribeMessage} from './Message';
+import {Message, SnapMessage, StartMessage, SubscribeMessage} from './Message';
 import {GameService} from './gameService';
 import {FinishState, GameState, InitState, LoadState, PrepareState, RunningState} from './gameState';
 import {Timer} from './timer';
@@ -79,6 +79,10 @@ export class GameOnline implements Game {
         eventBus.on('game', <string>GameEvents.subscribe, () => {
             let msg = new SubscribeMessage(this, this.meta.id);
             msg.HandleRequest();
+        });
+        eventBus.on('game', <string>GameEvents.start, () => {
+            let startMsg = new StartMessage(game);
+            startMsg.HandleRequest();
         });
     }
 
