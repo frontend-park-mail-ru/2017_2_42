@@ -5,7 +5,9 @@ import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import BaseView from '../../../modules/BaseView';
 import Utils from '../../../modules/utils/utils';
+import audioService from '../../../services/AudioService';
 import ViewService from '../../../services/ViewService';
+
 
 const StartPageTmpl = (require('./startView.pug') as TemplateRenderFunc);
 
@@ -42,13 +44,13 @@ export default class StartView extends BaseView {
 
     this.muteButton = new SoundButton(document
       .querySelector('.main_frame__header__sound-button') as HTMLElement);
-    this.muteButton.onClick(
-      () => console.log('soundMuted') /*TODO MediaService mute*/);
 
     this.settingsButton = new Button(document
       .querySelector('.main_frame__header__settings-button') as HTMLElement);
     this.settingsButton.onClick(
       () => this.router.showOverlay(ViewService.OverlayNames.application.settings));
+
+
   }
 
   public async destroy(): Promise<void> {

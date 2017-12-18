@@ -26,7 +26,7 @@ export default class OnlineLobbyView extends BaseView {
   }
 
   public async start(): Promise<void> {
-    this.user = await userService.getUser();
+    this.user = await userService.getUser(true);
     this.maps = this.maps || await mapService.getMaps(true);
 
     this.RenderPage(lobbyTmpl);
