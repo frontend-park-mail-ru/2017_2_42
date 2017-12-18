@@ -45,6 +45,7 @@ export default class OnlineLobbyView extends BaseView {
         this.router.go(ViewService.ViewPaths.online.gamePage);
       });
     });
+    document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
 
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);
