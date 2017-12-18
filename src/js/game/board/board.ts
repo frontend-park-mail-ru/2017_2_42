@@ -1,6 +1,6 @@
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import 'fabric';
-import {FontFaceObserver} from 'fontfaceobserver';
+// import {FontFaceObserver} from 'fontfaceobserver';
 import eventBus from '../../modules/eventBus';
 import {Body} from '../body/body';
 import {MovingMessage} from '../gameLogic/Message';
