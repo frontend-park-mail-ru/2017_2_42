@@ -47,12 +47,12 @@ const common = wpMerge([{
     }),
     // new MinifyPlugin(),
     new ProgressBarPlugin(),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        keep_classnames: true,
-        ecma: 6,
-      },
-    })
+    // new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     keep_classnames: true,
+    //     ecma: 6,
+    //   },
+    // })
 
   ],
 },

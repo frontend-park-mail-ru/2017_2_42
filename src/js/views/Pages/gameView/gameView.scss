@@ -12,9 +12,10 @@
   &__header {
     display: flex;
     width: 100%;
+    //height: $buttonSize + 1em;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
 
     button {
       padding: 0;
@@ -46,7 +47,7 @@
       height: $buttonSize;
       background: $back_button_img 100% 100% no-repeat;
       background-size: contain;
-      align-self: flex-end;
+      align-self: flex-start;
     }
 
     &__settings-button {
@@ -64,8 +65,8 @@
       &__not-ready {
         display: flex;
         margin: 0 1em;
-        font-size: 1.5em;
-        align-self: center;
+        font-size: 1.7em;
+        //align-self: center;
         height: $buttonSize;
         background: none;
         background-size: contain;
@@ -86,9 +87,9 @@
         background: none;
         margin: 0 1em;
         background-size: contain;
-        align-self: center;
+        //align-self: center;
         color: #f4f4f0;
-        font-size: 1.5em;
+        font-size: 1.7em;
         font-family: "KGSecondChancesSketch", serif;
         opacity: 0.5;
 
