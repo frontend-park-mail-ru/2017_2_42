@@ -1,9 +1,9 @@
 const STATICS = [
   '/',
   '/main.js',
-  '/offline/lobby',
-  '/offline/game',
-  '/online/login',
+  // '/offline/lobby',
+  // '/offline/game',
+  // '/online/login',
   '/css/bundle.css',
   '/font/KGSecondChancesSketch.woff2',
   '/img/configuration.svg',
