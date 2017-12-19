@@ -152,13 +152,22 @@ export class GameOnline implements Game {
             if (body.GetType() === b2BodyType.b2_dynamicBody && !body.GetUserData().isDeleted) {
                 let body_data: any = {};
                 body_data.id = body.GetUserData().ID;
-                body_data.position = body.GetPosition();
-                body_data.position.x /= SCALE_COEFF_X;
-                body_data.position.y /= SCALE_COEFF_Y;
+                body_data.position = {};
+                body_data.position.x = body.GetPosition().x / SCALE_COEFF_X;
+                body_data.position.y = body.GetPosition().y / SCALE_COEFF_Y;
+                // body_data.position.x /= SCALE_COEFF_X;
+                // body_data.position.y /= SCALE_COEFF_Y;
                 body_data.angle = body.GetAngle();
-                body_data.linVelocity = body.GetLinearVelocity();
+                body_data.linVelocity = {};
+                body_data.linVelocity.x = body.GetLinearVelocity().x / SCALE_COEFF_X;
+                // body_data.linVelocity.x /= SCALE_COEFF_X;
+                body_data.linVelocity.y = body.GetLinearVelocity().y / SCALE_COEFF_Y;
+                // body_data.linVelocity.y /= SCALE_COEFF_Y;
                 body_data.angVelocity = body.GetAngularVelocity();
                 data.bodies.push(body_data);
+                if (body.GetUserData() instanceof BucketBody) {
+                    console.log(body_data.position);
+                }
             }
         }
         let msg: SnapMessage = new SnapMessage(this, data);
