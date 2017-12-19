@@ -65,10 +65,13 @@ export default class GameView extends BaseView {
     private initCanvas(): HTMLCanvasElement {
         const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
         const canvasSize = this.chooseCanvasSize(canvas);
+        let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
+
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
 
         let resize = () => {
 
-            let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
             let size = {width: parent.offsetWidth, height: parent.offsetHeight};
             let c = game.board.canvas;
 
@@ -100,7 +103,6 @@ export default class GameView extends BaseView {
 
             game.board.canvas.renderAll();
         };
-        resize();
         window.onresize = resize;
         return canvas;
     }
