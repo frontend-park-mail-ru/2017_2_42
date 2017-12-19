@@ -230,9 +230,12 @@ export class GameService {
 
         let body = {meta: meta, data: obj};
 
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
         fetch('https://physicsio.tech/backend/api/game/map/12233sss/create', {
             body: JSON.stringify(body),
-            headers: {'Content-Type': 'application/json'},
+            headers: headers,
             method: 'POST',
         })
             .then((resp) => resp.json())
@@ -265,9 +268,11 @@ export class GameService {
         } else {
             let resp;
             try {
+                let headers = new Headers();
+                headers.append('Content-Type', 'application/json');
                 resp = await fetch(PATH_GET_MAP + id, {
                     method: 'GET',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: headers,
                 });
             }
             catch (e) {
