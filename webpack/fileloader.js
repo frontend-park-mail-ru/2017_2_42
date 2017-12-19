@@ -13,6 +13,12 @@ module.exports = () => {
                 options: {
                     name: 'img/[name].[ext]',
                 },
+            }, {
+                test: /\.(mp3|wav|wave)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'sounds/[name].[ext]',
+                },
             }],
         },
     };

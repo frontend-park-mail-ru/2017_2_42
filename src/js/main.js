@@ -3,6 +3,7 @@ import '../css/main.scss';
 import '../icons/favicon.ico';
 
 import Application from './application';
+import './sounds/bg1.mp3';
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/worker.js', {

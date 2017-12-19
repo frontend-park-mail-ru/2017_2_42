@@ -26,7 +26,7 @@ export default class OnlineLobbyView extends BaseView {
   }
 
   public async start(): Promise<void> {
-    this.user = await userService.getUser();
+    this.user = await userService.getUser(true);
     this.maps = this.maps || await mapService.getMaps(true);
 
     this.RenderPage(lobbyTmpl);
@@ -45,6 +45,7 @@ export default class OnlineLobbyView extends BaseView {
         this.router.go(ViewService.ViewPaths.online.gamePage);
       });
     });
+    document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
 
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);

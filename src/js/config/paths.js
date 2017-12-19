@@ -11,6 +11,8 @@ const PATHS = {
   },
   GET_MAPS_PATH: '/api/game/maps',
   GET_MAP: '/api/maps',
+
+  GET_SOUND: '/sounds',
 };
 
 export default PATHS;
