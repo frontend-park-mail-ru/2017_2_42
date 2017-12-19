@@ -12,9 +12,10 @@
   &__header {
     display: flex;
     width: 100%;
+    //height: $buttonSize + 1em;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
 
     button {
       padding: 0;
@@ -29,6 +30,114 @@
     &__stub {
       display: flex;
       flex-grow: 1;
+    }
+
+    &__userlist {
+
+      &__vs {
+        opacity: 0.5;
+        font-size: 1em;
+        color: #f4f4f0;
+        font-family: "KGSecondChancesSketch", serif;
+        align-self: center;
+      }
+
+      &__rating-1 {
+        width: $buttonSize*0.5;
+        height: $buttonSize*0.5;
+        background: $rating 100% 100% no-repeat;
+        background-size: contain;
+        margin: 1em 0.5em 1em 1em;
+        opacity: 0.5;
+        align-self: center;
+
+        //&:hover {
+        //  cursor:pointer;
+        //  opacity: 1;
+        //}
+      }
+
+      &__rating-level-1 {
+        opacity: 0.5;
+        margin-right: 1vw;
+        font-size: 1em;
+        color: #f4f4f0;
+        font-family: "KGSecondChancesSketch", serif;
+        align-self: center;
+      }
+
+      &__player-1 {
+        width: $buttonSize*0.5;
+        height: $buttonSize*0.5;
+        background: $button_player 100% 100% no-repeat;
+        background-size: contain;
+        margin: 1em 0 1em 1em;
+        align-self: center;
+        opacity: 0.5;
+
+        //&:hover {
+        //  cursor:pointer;
+        //  opacity: 1;
+        //}
+      }
+
+      &__player-name-1 {
+        opacity: 0.5;
+        margin-right: 1vw;
+        font-size: 1em;
+        color: #f4f4f0;
+        font-family: "KGSecondChancesSketch", serif;
+        align-self: center;
+      }
+
+      &__rating-2 {
+        width: $buttonSize*0.5;
+        height: $buttonSize*0.5;
+        background: $rating 100% 100% no-repeat;
+        background-size: contain;
+        margin: 1em 1em 1em 0.5em;
+        opacity: 0.5;
+        align-self: center;
+
+        //&:hover {
+        //  cursor:pointer;
+        //  opacity: 1;
+        //}
+      }
+
+      &__rating-level-2 {
+        opacity: 0.5;
+        margin-left: 1vw;
+        font-size: 1em;
+        color: #f4f4f0;
+        font-family: "KGSecondChancesSketch", serif;
+        align-self: center;
+      }
+
+      &__player-2 {
+        width: $buttonSize*0.5;
+        height: $buttonSize*0.5;
+        background: $button_player 100% 100% no-repeat;
+        background-size: contain;
+        margin: 1em 1em 1em 0;
+        align-self: center;
+        opacity: 0.5;
+
+        //&:hover {
+        //  cursor:pointer;
+        //  opacity: 1;
+        //}
+      }
+
+      &__player-name-2 {
+        opacity: 0.5;
+        margin-left: 1vw;
+        font-size: 1em;
+        color: #f4f4f0;
+        font-family: "KGSecondChancesSketch", serif;
+        align-self: center;
+      }
+
     }
 
     &__sound-button {
@@ -46,7 +155,7 @@
       height: $buttonSize;
       background: $back_button_img 100% 100% no-repeat;
       background-size: contain;
-      align-self: flex-end;
+      align-self: flex-start;
     }
 
     &__settings-button {
@@ -62,16 +171,15 @@
       color: rgba($color: #ffffff, $alpha: 1.0);
 
       &__not-ready {
-        display: flex;
         margin: 0 1em;
-        font-size: 1.5em;
-        align-self: center;
+        font-size: 1.7em;
         height: $buttonSize;
         background: none;
         background-size: contain;
         color: #f4f4f0;
         font-family: "KGSecondChancesSketch", serif;
         opacity: 0.5;
+        display: none;
 
         &:hover {
           cursor: pointer;
@@ -81,14 +189,13 @@
 
       &__ready {
         background: rgba($color: #ffffff, $alpha: 0.4);
-        display: flex;
+        display: none;
         height: $buttonSize;
         background: none;
         margin: 0 1em;
         background-size: contain;
-        align-self: center;
         color: #f4f4f0;
-        font-size: 1.5em;
+        font-size: 1.7em;
         font-family: "KGSecondChancesSketch", serif;
         opacity: 0.5;
 
@@ -113,9 +220,8 @@
     &__container {
       display: flex;
       vertical-align: middle;
-      //background: #ffffff;
-      width: 64vw;
-      height: 36vw;
+      width: 76.8vw;
+      height: 43.2vw;
       align-self: center;
       justify-content: center;
       align-items: center;
@@ -133,10 +239,8 @@
     canvas {
       width: 100%;
       height: auto;
-      position: absolute;
       top: 0;
       left: 0;
-      z-index: 3;
     }
 
     &__game-canvas {

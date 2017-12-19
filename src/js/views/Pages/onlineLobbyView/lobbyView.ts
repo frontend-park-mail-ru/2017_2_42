@@ -45,7 +45,7 @@ export default class OnlineLobbyView extends BaseView {
       eventBus.on('game', 'subscribed', () => {
         this.router.HideOverlay();
         this.router.go(ViewService.ViewPaths.online.gamePage);
-      });
+      // });
     });
     document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
 
