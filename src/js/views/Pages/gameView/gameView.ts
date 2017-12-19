@@ -21,7 +21,7 @@ export default class GameView extends BaseView {
     private backButton: Button;
     private startButton: Button;
     private settingsButton: Button;
-    // private game: GameOnline;
+    private mapMeta: Map.Meta;
 
     constructor(parentElement: HTMLElement) {
         super(parentElement, 'Game #');
@@ -30,7 +30,6 @@ export default class GameView extends BaseView {
     public async start(mapMeta: Map.Meta): Promise<void> {
         this.RenderPage(GameViewTmpl);
 
-        // this.game = new GameOnline(mapMeta);
         game.load(this.initCanvas());
 
         this.initButtons();
@@ -51,8 +50,6 @@ export default class GameView extends BaseView {
         this.destroy();
     }
 
-    private mapMeta: Map.Meta;
-
     private chooseCanvasSize(canvas: HTMLCanvasElement): Size {
         const x = canvas.offsetWidth;
         const y = canvas.offsetHeight;
@@ -68,12 +65,43 @@ export default class GameView extends BaseView {
     private initCanvas(): HTMLCanvasElement {
         const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
         const canvasSize = this.chooseCanvasSize(canvas);
-        window.onresize = (ev) => {
-            console.log('resize');
-            this.chooseCanvasSize(canvas);
+
+        let resize = () => {
+
+            let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
+            let size = {width: parent.offsetWidth, height: parent.offsetHeight};
+            let c = game.board.canvas;
+
+            let widthScale = size.width / c.getWidth();
+            let heightScale = size.height / c.getHeight();
+
+            c.setHeight(size.height);
+            c.setWidth(size.width);
+
+            let objects = c.getObjects();
+            for (let i in objects) {
+                let scaleX = objects[i].scaleX;
+                let scaleY = objects[i].scaleY;
+                let left = objects[i].left;
+                let top = objects[i].top;
+
+                let tempScaleX = scaleX * widthScale;
+                let tempScaleY = scaleY * heightScale;
+                let tempLeft = left * widthScale;
+                let tempTop = top * heightScale;
+
+                objects[i].scaleX = tempScaleX;
+                objects[i].scaleY = tempScaleY;
+                objects[i].left = tempLeft;
+                objects[i].top = tempTop;
+
+                objects[i].setCoords();
+            }
+
+            game.board.canvas.renderAll();
         };
-        canvas.width = canvasSize.width;
-        canvas.height = canvasSize.height;
+        resize();
+        window.onresize = resize;
         return canvas;
     }
 
@@ -85,11 +113,14 @@ export default class GameView extends BaseView {
         this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
         this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
 
-        this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
-        this.readyButton.onClick(() => {
-            eventBus.emit('game', 'subscribe');
-        });
-        this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+        // this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+        // this.readyButton.onClick(() => {
+        //     eventBus.emit('game', 'subscribe');
+        // });
+        this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__ready') as HTMLElement);
+        if (this.startButton === undefined) {
+            console.log('OP');
+        }
         this.startButton.onClick(() => {
             eventBus.emit('game', 'start');
         });

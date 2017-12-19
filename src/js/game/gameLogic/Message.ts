@@ -14,6 +14,7 @@ export enum Messages {
     SubscribeMessage = 'SubscribeMessage',
     StartMessage = 'StartMessage',
     FinishedMessage = 'FinishedMessage',
+    FinishMessage = 'FinishMessage',
 }
 
 export abstract class Message {
@@ -240,7 +241,7 @@ export class FinishedMessage extends Message {
     constructor(game: GameOnline, messageObj: any) {
         super();
         this.game = game;
-        this.class = this.constructor.name;
+        this.class = <string>Messages.FinishedMessage;
         this.message = messageObj;
         this.message.class = this.class;
     }
@@ -263,7 +264,7 @@ export class FinishMessage extends Message {
     constructor(game: GameOnline, messageObj: any) {
         super();
         this.game = game;
-        this.class = this.constructor.name;
+        this.class = <string>Messages.FinishMessage;
         this.message = messageObj;
         this.message.class = this.class;
     }

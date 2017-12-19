@@ -26,7 +26,7 @@ export default class OnlineLobbyView extends BaseView {
   }
 
   public async start(): Promise<void> {
-    this.user = await userService.getUser();
+    this.user = await userService.getUser(true);
     this.maps = this.maps || await mapService.getMaps(true);
 
     this.RenderPage(lobbyTmpl);
@@ -38,17 +38,18 @@ export default class OnlineLobbyView extends BaseView {
 
       mapPlaceholder.appendChild(mapTileElement);
       GameOnline.Create(map);
-      // eventBus.emit('game', 'subscribe');
-      // mapTileElement.onclick = () => this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
+      eventBus.emit('game', 'subscribe');
+      mapTileElement.onclick = () => this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
       // eventBus.on('game', 'subscribed', () => {
-        // this.router.HideOverlay();
+      //   this.router.HideOverlay();
         this.router.go(ViewService.ViewPaths.online.gamePage);
       // });
     });
+    document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
 
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);
-    this.backButton.onClick(() => this.router.go(ViewPaths.start));
+    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.startPage));
 
     // this.soundButton = new SoundButton(document
     //   .querySelector('.main-frame__header__sound-button') as HTMLElement);
@@ -59,16 +60,16 @@ export default class OnlineLobbyView extends BaseView {
     this.settingsButton.onClick(() => this
       .router.showOverlay(ViewService.OverlayNames.application.settings));
 
-    this.logoutButton = new Button(document
-      .querySelector('.main-frame__header__logout-button') as HTMLElement);
-    this.logoutButton.onClick(async () => {
-      try {
-        await userService.logout();
-        this.router.go(ViewService.ViewPaths.online.loginPage);
-      } catch (error) {
-        this.router.go(ViewPaths.start);
-      }
-    });
+    // this.logoutButton = new Button(document
+    //   .querySelector('.main-frame__header__logout-button') as HTMLElement);
+    // this.logoutButton.onClick(async () => {
+    //   try {
+    //     await userService.logout();
+    //     this.router.go(ViewService.ViewPaths.online.loginPage);
+    //   } catch (error) {
+    //     this.router.go(ViewPaths.start);
+    //   }
+    // });
 
 
   }
