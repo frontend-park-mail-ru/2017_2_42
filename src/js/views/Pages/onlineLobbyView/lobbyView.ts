@@ -38,7 +38,6 @@ export default class OnlineLobbyView extends BaseView {
 
       mapPlaceholder.appendChild(mapTileElement);
       GameOnline.Create(map);
-
       mapTileElement.onclick = () => {
         this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
         eventBus.emit('game', 'subscribe');

@@ -159,13 +159,15 @@ export class StartMessage extends Message {
 
     HandleRequest() {
         for (let body of this.game.board.bodies.values()) {
-            let frame: Frame = {};
-            frame.id = body.ID;
-            frame.position = body.getPosition(true);
-            frame.position.x /= SCALE_COEFF_X;
-            frame.position.y /= SCALE_COEFF_Y;
-            frame.angle = body.angle;
-            this.frames.push(frame);
+            if (body.owned) {
+                let frame: Frame = {};
+                frame.id = body.ID;
+                frame.position = body.getPosition(true);
+                frame.position.x /= SCALE_COEFF_X;
+                frame.position.y /= SCALE_COEFF_Y;
+                frame.angle = body.angle;
+                this.frames.push(frame);
+            }
         }
         let message = {
             class: this.class,
@@ -222,12 +224,12 @@ export class SnapMessage extends Message {
     }
 
     HandleResponse() {
-        // console.log(this.message);
+        console.log(this.message);
         for (let body of this.bodies) {
             body.position.x *= SCALE_COEFF_X;
             body.position.y *= SCALE_COEFF_Y;
             this.game.board.bodies.get(body.id).body.SetPosition(body.position);
-            this.game.board.bodies.get(body.id).body.SetLinearVelocity(body.linVelocity);
+            this.game.board.bodies.get(body.id).body.SetLinearVelocity(new b2Vec2(body.linVelocity.x * SCALE_COEFF_X, body.linVelocity.y * SCALE_COEFF_Y));
             this.game.board.bodies.get(body.id).body.SetAngularVelocity(body.angVelocity);
             this.game.frame = this.frame;
         }
@@ -252,8 +254,8 @@ export class FinishedMessage extends Message {
 
     HandleResponse() {
         console.log(this.message);
-        // this.game.changeState(new FinishState(this.game));
-        // this.game.finish(true);
+        this.game.state = new FinishState(this.game);
+        this.game.finish(true);
     }
 
 }

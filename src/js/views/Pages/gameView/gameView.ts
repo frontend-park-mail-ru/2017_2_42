@@ -12,6 +12,7 @@ interface Size {
 }
 
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
+import {assignScaleConf} from '../../../game/board/config';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import './gameView.scss';
@@ -101,7 +102,8 @@ export default class GameView extends BaseView {
                 objects[i].setCoords();
             }
 
-            game.board.canvas.renderAll();
+            c.renderAll();
+            assignScaleConf(c.getWidth(), c.getHeight());
         };
         window.onresize = resize;
         return canvas;

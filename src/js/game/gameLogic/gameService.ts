@@ -309,7 +309,7 @@ export class GameService {
                     bodies.set(body.id, rect);
                     break;
                 case 'circle':
-                    body.data.radius *= SCALE_COEFF_X;
+                    body.data.radius *= SCALE_COEFF_Y;
                     let circle = new CircleBody(
                         b2Vec2.MulVS(body.data.position, METERS_TO_PIXEL, new b2Vec2()),
                         body.data.radius * METERS_TO_PIXEL,
