@@ -89,7 +89,7 @@ export abstract class Body {
     }
 
     get angle(): number {
-        return this.bodyDef.angle;
+        return fabric.util.degreesToRadians(this.shape.angle);
     }
 
 
