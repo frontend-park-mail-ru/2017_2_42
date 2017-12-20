@@ -26,8 +26,8 @@ const PATHS = {
 const common = wpMerge([{
   context: __dirname,
   entry: {
-    main: path.join(PATHS.src, 'js/main.js'),
     worker: path.join(PATHS.src, 'js/workers.js'),
+    main: path.join(PATHS.src, 'js/main.js'),
     // game: path.join(PATHS.game, 'game.js'),
   },
   output: {
@@ -45,7 +45,6 @@ const common = wpMerge([{
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    // new MinifyPlugin(),
     new ProgressBarPlugin(),
     // new UglifyJsPlugin({
     //   uglifyOptions: {
