@@ -42,6 +42,7 @@ export class ListenerOnline extends b2ContactListener {
             };
             let finMessage = new FinishMessage(this.game, message);
             finMessage.HandleRequest();
+            console.log('finish');
             eventBus.emit('game', 'finish', {});
         }
     }

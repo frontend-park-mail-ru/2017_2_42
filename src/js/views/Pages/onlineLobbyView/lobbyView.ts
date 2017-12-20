@@ -38,12 +38,14 @@ export default class OnlineLobbyView extends BaseView {
 
       mapPlaceholder.appendChild(mapTileElement);
       GameOnline.Create(map);
-      eventBus.emit('game', 'subscribe');
-      mapTileElement.onclick = () => this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
+      mapTileElement.onclick = () => {
+        this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
+        eventBus.emit('game', 'subscribe');
+      };
       eventBus.on('game', 'subscribed', () => {
         this.router.HideOverlay();
         this.router.go(ViewService.ViewPaths.online.gamePage);
-      });
+      // });
     });
     document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
 

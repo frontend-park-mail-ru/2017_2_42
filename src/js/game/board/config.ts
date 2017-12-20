@@ -19,5 +19,6 @@ export {SCALE_COEFF_X, SCALE_COEFF_Y, DEFAULT_SIZE_X, DEFAULT_SIZE_Y, assignScal
 
 function assignScaleConf(x, y: number) {
     SCALE_COEFF_X = x / DEFAULT_SIZE_X;
-    SCALE_COEFF_Y = y / DEFAULT_SIZE_Y;
+    SCALE_COEFF_Y = SCALE_COEFF_X;
+    console.log(SCALE_COEFF_X, SCALE_COEFF_Y);
 }

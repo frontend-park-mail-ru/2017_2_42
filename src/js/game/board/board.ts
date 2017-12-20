@@ -60,6 +60,15 @@ export class Board {
             }
             isIntersect = false;
 
+            if (option.target.left < 0 || option.target.top < 0 ||
+                option.target.top > this.canvas.getHeight() || option.target.left > this.canvas.getWidth()) {
+                option.target.left = this.canvas.getWidth() / 2;
+                option.target.top = this.canvas.getHeight() / 2;
+                option.target.setCoords();
+                this.canvas.renderAll();
+            }
+            option.target.setCoords();
+
             if (this.game.meta.players !== 1) {
                 let data: any = {};
                 data.snap = {};
