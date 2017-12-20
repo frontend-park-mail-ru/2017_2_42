@@ -256,6 +256,8 @@ export class GameService {
 
         assignScaleConf(cvs.getWidth(), cvs.getHeight());
 
+        this.game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
+
         let mapExists: boolean = false;
         let bodies: Map<number, Body> = new Map<number, Body>();
         let mapString;
