@@ -134,7 +134,7 @@ export class GameOnline implements Game {
                 }
             }
             if (this.frame % 2 === 0 && !(this.state instanceof FinishState)) {
-                // this.sendSnapToServer();
+                this.sendSnapToServer();
                 this.timer.step(this.frame);
             }
             this._world.Step(1 / 60, 10, 10);
