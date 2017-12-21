@@ -57,7 +57,7 @@ export class BoardMessage extends Message {
     static fromRecievedData(game: GameOnline, msg: any): Message {
         let playerID = msg.playerID;
         console.log(msg);
-        return new this(game, playerID, msg.friend);
+        return new this(game, playerID, msg.friend, msg.level);
     }
 
     private playerID: number;

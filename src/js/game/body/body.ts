@@ -89,7 +89,7 @@ export abstract class Body {
     }
 
     get angle(): number {
-        return this.shape.angle;
+        return fabric.util.degreesToRadians(this.shape.angle);
     }
 
 
@@ -102,7 +102,8 @@ export abstract class Body {
         });
         this.fixDefs.forEach(this.body.CreateFixture, this.body);
         this.body.SetUserData(this);
-        this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS));
+        this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS,
+            this.shape.top * PIXEL_TO_METERS));
         this.body.SetAngle(fabric.util.degreesToRadians(this.shape.angle));
     }
 
