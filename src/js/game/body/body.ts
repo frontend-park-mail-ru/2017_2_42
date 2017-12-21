@@ -75,7 +75,7 @@ export abstract class Body {
         this.shape['borderDashArray'] = [5, 5];
         this.shape.strokeWidth = 5;
         this.shape.strokeLineCap = 'round';
-        this.shape.cornerSize = 7;
+        this.shape.cornerSize = 15;
         this.shape.transparentCorners = true;
         this.shape.cornerColor = 'white';
         this.shape['cornerStyle'] = 'circle';
@@ -89,7 +89,7 @@ export abstract class Body {
     }
 
     get angle(): number {
-        return this.bodyDef.angle;
+        return this.shape.angle;
     }
 
 
