@@ -57,15 +57,20 @@ export class BoardMessage extends Message {
     static fromRecievedData(game: GameOnline, msg: any): Message {
         let playerID = msg.playerID;
         console.log(msg);
-        return new this(game, playerID);
+        return new this(game, playerID, msg.friend);
     }
 
     private playerID: number;
+    private friend: string;
+    private level: number;
 
-    constructor(game: GameOnline, playerID: number) {
+
+    constructor(game: GameOnline, playerID: number, friend: string, level_friend: number) {
         super();
         this.game = game;
         this.playerID = playerID;
+        this.friend = friend;
+        this.level = level_friend;
         this.class = this.constructor.name;
     }
 
@@ -75,7 +80,7 @@ export class BoardMessage extends Message {
 
     HandleResponse() {
         this.game.playerID = this.playerID;
-        eventBus.emit('game', <string>GameEvents.subscribed);
+        eventBus.emit('game', <string>GameEvents.subscribed, {friend: this.friend, level: this.level});
     }
 }
 
