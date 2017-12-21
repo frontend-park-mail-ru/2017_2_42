@@ -92,6 +92,7 @@ export default class GameView extends BaseView {
         size.height = size.width / 16 * 9;
       }
 
+      console.log(size);
 
       let c = game.board.canvas;
 
@@ -99,7 +100,7 @@ export default class GameView extends BaseView {
       let heightScale = size.height / c.getHeight();
 
       c.setHeight(size.height);
-      c.setWidth(size.width);
+      c.setWidth(c.getWidth() * widthScale);
 
       let objects = c.getObjects();
       for (let i in objects) {
@@ -109,9 +110,9 @@ export default class GameView extends BaseView {
         let top = objects[i].top;
 
         let tempScaleX = scaleX * widthScale;
-        let tempScaleY = scaleY * heightScale;
+        let tempScaleY = scaleY * widthScale;
         let tempLeft = left * widthScale;
-        let tempTop = top * heightScale;
+        let tempTop = top * widthScale;
 
         objects[i].scaleX = tempScaleX;
         objects[i].scaleY = tempScaleY;
@@ -124,6 +125,7 @@ export default class GameView extends BaseView {
       c.renderAll();
       assignScaleConf(c.getWidth(), c.getHeight());
       game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
+
     };
     window.onresize = resize;
     return canvas;

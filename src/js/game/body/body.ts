@@ -7,6 +7,7 @@ import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import 'fabric';
 
 import {b2PolygonShape} from 'box2d.ts/Box2D/Box2D/Collision/Shapes/b2PolygonShape';
+import {SCALE_COEFF_X} from '../board/config';
 import {
     BucketConfig, CircleBucketConfig, InitOptions, JSONBody, KeyBodies, METERS_TO_PIXEL, Options,
     PIXEL_TO_METERS,
@@ -25,9 +26,11 @@ export abstract class Body {
     public body: b2Body;
     public shape: fabric.Object;
     public pattern: fabric.Image;
+    public keyBody: number;
 
     public isDeleted: boolean = false;
     public initOptions: InitOptions;
+    private options_: Options;
 
     constructor(bodyDef: b2BodyDef, fixDefs: b2FixtureDef[], shape: fabric.Object, options: Options) {
         this.bodyDef = bodyDef;
@@ -43,16 +46,13 @@ export abstract class Body {
         };
         this.shape = shape;
         this.initShapes(options);
-        this.fixDefs.forEach((fixDef, index, array) => {
-            fixDef.density = options.density || 0.2;
-            fixDef.friction = options.friction || 0.3;
-            fixDef.restitution = options.restitution || 0.1;
-        });
         this.ID = Body.counter++;
+        this.options_ = options;
+        this.keyBody = options.keyBodyID;
     }
 
     get isKeyBody(): boolean {
-        return this.fixDefs[0].filter.categoryBits === KeyBodies.KEY_BODY_1;
+        return this.keyBody === KeyBodies.KEY_BODY_1;
     }
 
 
@@ -89,7 +89,7 @@ export abstract class Body {
     }
 
     get angle(): number {
-        return fabric.util.degreesToRadians(this.shape.angle);
+        return this.bodyDef.angle;
     }
 
 
@@ -99,6 +99,11 @@ export abstract class Body {
         this.body.SetUserData(this);
         this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS));
         this.body.SetAngle(fabric.util.degreesToRadians(this.shape.angle));
+        this.fixDefs.forEach((fixDef, index, array) => {
+            fixDef.density = this.options_.density || 0.2;
+            fixDef.friction = this.options_.friction || 0.3;
+            fixDef.restitution = this.options_.restitution || 0.1;
+        });
     }
 
     public getPosition(inPixel: boolean = false): b2Vec2 {
@@ -115,9 +120,6 @@ export abstract class Body {
     }
 
     public setPrepOptions() {
-        // if (this.body) {
-        //     this.bodyDef.position = this.
-        // }
         this.shape.selectable = false;
         this.bodyDef.position = this.initOptions.position;
         this.bodyDef.angle = this.initOptions.angle;
@@ -200,19 +202,12 @@ export abstract class Body {
 export class RectBody extends Body {
     private size: b2Vec2;
     private fixture: b2FixtureDef;
+    private options: Options;
 
     constructor(position: b2Vec2 = b2Vec2.ZERO, angle: number = 0, size: b2Vec2 = new b2Vec2(50, 50), option: Options = {}) {
-        let fixDef = new b2FixtureDef();
-        fixDef.shape = new b2PolygonShape()
-            .SetAsBox(
-                size.x * PIXEL_TO_METERS / 2,
-                size.y * PIXEL_TO_METERS / 2);
+
         let bodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
-        if (option.sensor) {
-            fixDef.filter.categoryBits = option.keyBodyID;
-            fixDef.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
-        }
 
         bodyDef.angle = fabric.util.degreesToRadians(angle);
 
@@ -225,13 +220,29 @@ export class RectBody extends Body {
             opacity: option.opacity || 0.7,
             selectable: option.selectable && true,
         });
-        super(bodyDef, [fixDef], shape, option);
+        super(bodyDef, [], shape, option);
         this.size = size;
-        this.fixture = fixDef;
+        this.options = option;
     }
 
     getKind(): string {
         return 'rect';
+    }
+
+    Create(world: b2World) {
+        let fixDef = new b2FixtureDef();
+        fixDef.shape = new b2PolygonShape()
+            .SetAsBox(
+                (this.shape as fabric.Rect).width * PIXEL_TO_METERS / 2 * this.shape.scaleX,
+                (this.shape as fabric.Rect).height * PIXEL_TO_METERS / 2 * this.shape.scaleY);
+
+        if (this.options.sensor) {
+            fixDef.filter.categoryBits = this.options.keyBodyID;
+            fixDef.filter.maskBits = this.options.keyBodyID | KeyBodies.NOT_KEY_BODY;
+        }
+        this.fixDefs = [fixDef];
+        this.fixture = fixDef;
+        super.Create(world);
     }
 
     toJSON(): JSONBody {
@@ -260,14 +271,9 @@ export class RectBody extends Body {
 
 export class CircleBody extends Body {
     private fixture: b2FixtureDef;
+    private options: Options;
 
     constructor(position: b2Vec2 = b2Vec2.ZERO, radius: number = 50, option: Options = {}) {
-        let fixDef = new b2FixtureDef();
-        fixDef.shape = new b2CircleShape(radius * PIXEL_TO_METERS);
-        if (option.keyBodyID) {
-            fixDef.filter.categoryBits = option.keyBodyID;
-            fixDef.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
-        }
         let bodyDef = new b2BodyDef();
         b2Vec2.MulVS(position, PIXEL_TO_METERS, bodyDef.position);
 
@@ -279,8 +285,8 @@ export class CircleBody extends Body {
             opacity: option.opacity || 0.7,
             selectable: option.selectable || false,
         });
-        super(bodyDef, [fixDef], shape, option);
-        this.fixture = fixDef;
+        super(bodyDef, [], shape, option);
+        this.options = option;
     }
 
     get radius(): number {
@@ -293,6 +299,19 @@ export class CircleBody extends Body {
 
     getKind(): string {
         return 'circle';
+    }
+
+    Create(world: b2World) {
+        let fixDef = new b2FixtureDef();
+        fixDef.shape = new b2CircleShape((this.shape as fabric.Circle).radius * PIXEL_TO_METERS * this.shape.scaleX);
+        this.fixture = fixDef;
+
+        if (this.options.keyBodyID) {
+            fixDef.filter.categoryBits = this.options.keyBodyID;
+            fixDef.filter.maskBits = this.options.keyBodyID | KeyBodies.NOT_KEY_BODY;
+        }
+        this.fixDefs = [fixDef];
+        super.Create(world);
     }
 
     toJSON(): JSONBody {
@@ -319,51 +338,13 @@ export class CircleBody extends Body {
 
 export class BucketBody extends Body {
     private config: BucketConfig;
+    private options: Options;
 
     constructor(position: b2Vec2 = b2Vec2.ZERO, config: BucketConfig = {}, option: Options = {}) {
         let wallThickness = (config.wallThickness || 10) * PIXEL_TO_METERS;
         let bottomLength = (config.bottomLength || 70) * PIXEL_TO_METERS;
         let height = (config.height || 100) * PIXEL_TO_METERS;
 
-        let fixDefDown = new b2FixtureDef();
-        let fixDefLeft = new b2FixtureDef();
-        let fixDefRight = new b2FixtureDef();
-        let fixDefSensor = new b2FixtureDef();
-
-        let fixDefs: b2FixtureDef[] = [fixDefLeft, fixDefDown, fixDefRight, fixDefSensor];
-
-        fixDefLeft.shape = new b2PolygonShape()
-            .SetAsBox(
-                wallThickness / 2,
-                height / 2,
-                new b2Vec2(-(bottomLength + wallThickness) / 2, 0));
-
-        fixDefDown.shape = new b2PolygonShape()
-            .SetAsBox(
-                bottomLength / 2,
-                wallThickness / 2,
-                new b2Vec2(0, (height - wallThickness) / 2));
-
-        fixDefRight.shape = new b2PolygonShape()
-            .SetAsBox(
-                wallThickness / 2,
-                height / 2,
-                new b2Vec2((bottomLength + wallThickness) / 2, 0),
-            );
-
-        fixDefSensor.shape = new b2PolygonShape()
-            .SetAsBox(
-                bottomLength / 2,
-                (height - wallThickness) / 2,
-                new b2Vec2(0, -wallThickness / 2),
-                0,
-            );
-
-        fixDefSensor.isSensor = option.sensor || false;
-        if (option.keyBodyID) {
-            fixDefSensor.filter.categoryBits = option.keyBodyID;
-            fixDefSensor.filter.maskBits = option.keyBodyID | KeyBodies.NOT_KEY_BODY;
-        }
 
         let bodyDef = new b2BodyDef();
 
@@ -426,15 +407,68 @@ export class BucketBody extends Body {
             selectable: false,
         });
 
-        super(bodyDef, fixDefs, group, option);
+        super(bodyDef, [], group, option);
         this.config = config;
         this.config.height = height;
         this.config.wallThickness = wallThickness;
         this.config.bottomLength = bottomLength;
+        this.options = option;
     }
 
     getKind(): string {
         return 'bucket';
+    }
+
+    Create(world: b2World) {
+        let group = (this.shape as fabric.Group);
+
+        let wallThickness = (this.config.wallThickness || 10) * this.shape.scaleX;
+        let bottomLength = (this.config.bottomLength || 70) * this.shape.scaleX;
+        let height = (this.config.height || 100) * this.shape.scaleY;
+
+
+        let fixDefDown = new b2FixtureDef();
+        let fixDefLeft = new b2FixtureDef();
+        let fixDefRight = new b2FixtureDef();
+        let fixDefSensor = new b2FixtureDef();
+
+        let fixDefs: b2FixtureDef[] = [fixDefLeft, fixDefDown, fixDefRight, fixDefSensor];
+
+        fixDefLeft.shape = new b2PolygonShape()
+            .SetAsBox(
+                wallThickness / 2,
+                height / 2,
+                new b2Vec2(-(bottomLength + wallThickness) / 2, 0));
+
+        fixDefDown.shape = new b2PolygonShape()
+            .SetAsBox(
+                bottomLength / 2,
+                wallThickness / 2,
+                new b2Vec2(0, (height - wallThickness) / 2));
+
+        fixDefRight.shape = new b2PolygonShape()
+            .SetAsBox(
+                wallThickness / 2,
+                height / 2,
+                new b2Vec2((bottomLength + wallThickness) / 2, 0),
+            );
+
+        fixDefSensor.shape = new b2PolygonShape()
+            .SetAsBox(
+                bottomLength / 2,
+                (height - wallThickness) / 2,
+                new b2Vec2(0, -wallThickness / 2),
+                0,
+            );
+
+        fixDefSensor.isSensor = this.options.sensor || false;
+        if (this.options.keyBodyID) {
+            fixDefSensor.filter.categoryBits = this.options.keyBodyID;
+            fixDefSensor.filter.maskBits = this.options.keyBodyID | KeyBodies.NOT_KEY_BODY;
+        }
+        this.fixDefs = fixDefs;
+        super.Create(world);
+
     }
 
     toJSON(): JSONBody {
