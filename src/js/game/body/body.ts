@@ -95,15 +95,15 @@ export abstract class Body {
 
     public Create(world: b2World) {
         this.body = world.CreateBody(this.bodyDef);
-        this.fixDefs.forEach(this.body.CreateFixture, this.body);
-        this.body.SetUserData(this);
-        this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS));
-        this.body.SetAngle(fabric.util.degreesToRadians(this.shape.angle));
         this.fixDefs.forEach((fixDef, index, array) => {
             fixDef.density = this.options_.density || 0.2;
             fixDef.friction = this.options_.friction || 0.3;
             fixDef.restitution = this.options_.restitution || 0.1;
         });
+        this.fixDefs.forEach(this.body.CreateFixture, this.body);
+        this.body.SetUserData(this);
+        this.body.SetPosition(new b2Vec2(this.shape.left * PIXEL_TO_METERS, this.shape.top * PIXEL_TO_METERS));
+        this.body.SetAngle(fabric.util.degreesToRadians(this.shape.angle));
     }
 
     public getPosition(inPixel: boolean = false): b2Vec2 {
