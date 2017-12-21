@@ -90,4 +90,5 @@ export default class OnlineLobbyView extends BaseView {
     public async pause(): Promise<void> {
         return this.destroy();
     }
+
 }
