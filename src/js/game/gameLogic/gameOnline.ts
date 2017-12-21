@@ -171,9 +171,6 @@ export class GameOnline implements Game {
         // body_data.linVelocity.y /= SCALE_COEFF_Y;
         body_data.angVelocity = body.GetAngularVelocity();
         data.bodies.push(body_data);
-        if (body.GetUserData() instanceof BucketBody) {
-          console.log(body_data.position);
-        }
       }
     }
     let msg: SnapMessage = new SnapMessage(this, data);

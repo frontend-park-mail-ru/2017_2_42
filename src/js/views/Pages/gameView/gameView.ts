@@ -12,7 +12,8 @@ interface Size {
 }
 
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
-import {assignScaleConf} from '../../../game/board/config';
+import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import './gameView.scss';
@@ -122,8 +123,8 @@ export default class GameView extends BaseView {
 
       c.renderAll();
       assignScaleConf(c.getWidth(), c.getHeight());
+      game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
     };
-
     window.onresize = resize;
     return canvas;
   }
