@@ -39,11 +39,17 @@ export abstract class Game {
     state: GameState;
     running: boolean;
     frame: number;
+
     abstract load(canvas: string | HTMLCanvasElement): void;
+
     abstract prepare(): void;
+
     abstract finish(success: boolean): void;
+
     abstract start(): void;
+
     abstract run?(): void;
+
     abstract sendSnapToServer?(): void;
 }
 
@@ -155,19 +161,12 @@ export class GameOnline implements Game {
                 body_data.position = {};
                 body_data.position.x = body.GetPosition().x / SCALE_COEFF_X;
                 body_data.position.y = body.GetPosition().y / SCALE_COEFF_Y;
-                // body_data.position.x /= SCALE_COEFF_X;
-                // body_data.position.y /= SCALE_COEFF_Y;
                 body_data.angle = body.GetAngle();
                 body_data.linVelocity = {};
                 body_data.linVelocity.x = body.GetLinearVelocity().x / SCALE_COEFF_X;
-                // body_data.linVelocity.x /= SCALE_COEFF_X;
                 body_data.linVelocity.y = body.GetLinearVelocity().y / SCALE_COEFF_Y;
-                // body_data.linVelocity.y /= SCALE_COEFF_Y;
                 body_data.angVelocity = body.GetAngularVelocity();
                 data.bodies.push(body_data);
-                if (body.GetUserData() instanceof BucketBody) {
-                    console.log(body_data.position);
-                }
             }
         }
         let msg: SnapMessage = new SnapMessage(this, data);

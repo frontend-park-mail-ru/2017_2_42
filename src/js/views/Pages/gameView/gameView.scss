@@ -32,9 +32,9 @@
       flex-grow: 1;
     }
 
-    &__userlist-1 {
 
-      //display: none;
+    &__userlist {
+      display: none;
 
       &__vs {
         opacity: 0.5;
@@ -181,7 +181,7 @@
         color: #f4f4f0;
         font-family: "KGSecondChancesSketch", serif;
         opacity: 0.5;
-        display: none;
+        //display: none;
 
         &:hover {
           cursor: pointer;
@@ -213,8 +213,8 @@
   &__wrapper {
     display: flex;
     padding: 0;
-    width: 64vw;
-    height: 36vw;
+    width: 100%;
+    height: 100%;
     align-self: center;
     justify-content: center;
     align-items: center;
@@ -222,18 +222,18 @@
     &__container {
       display: flex;
       vertical-align: middle;
-      width: 76.8vw;
-      height: 43.2vw;
+      width: 100%;
+      height: 100%;
       align-self: center;
       justify-content: center;
       align-items: center;
 
       &__canvas-container {
-        max-width: 1024px;
-        min-width: 320px;
+        //max-width: 1024px;
+        //min-width: 320px;
         margin: 0 auto;
-        width: 64vw;
-        height: 36vw;
+        width: 100%;
+        height: 100%;
       }
 
     }

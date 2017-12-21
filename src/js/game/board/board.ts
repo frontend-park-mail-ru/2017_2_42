@@ -17,7 +17,7 @@ export class Board {
     public canvas: fabric.Canvas;
     private promise: Promise<any>;
     private patterns: Map<number, fabric.Image>;
-    private timerText: any = new fabric.Text('Hello', {
+    public timerText: any = new fabric.Text('Hello', {
         top: 100,
         fontSize: 40,
         left: 100,

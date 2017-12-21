@@ -7,127 +7,145 @@ import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
 import BaseView from '../../../modules/BaseView';
 
 interface Size {
-    height: number;
-    width: number;
+  height: number;
+  width: number;
 }
 
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
-import {assignScaleConf} from '../../../game/board/config';
+import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import './gameView.scss';
 
 export default class GameView extends BaseView {
-    private readyButton: Button;
-    private backButton: Button;
-    private startButton: Button;
-    private settingsButton: Button;
-    private mapMeta: Map.Meta;
+  private readyButton: Button;
+  private backButton: Button;
+  private startButton: Button;
+  private settingsButton: Button;
+  private mapMeta: Map.Meta;
 
-    constructor(parentElement: HTMLElement) {
-        super(parentElement, 'Game #');
+  constructor(parentElement: HTMLElement) {
+    super(parentElement, 'Game #');
+  }
+
+  public async start(mapMeta: Map.Meta): Promise<void> {
+    this.RenderPage(GameViewTmpl);
+
+    game.load(this.initCanvas());
+
+    this.initButtons();
+
+    document.ontouchend = (event) => {
+    };
+    (document.querySelector('.canvas-container') as HTMLElement).style.margin = '0 auto';
+  }
+
+  public async destroy(): Promise<void> {
+    this.rootElement.innerHTML = GameViewTmpl();
+  }
+
+  public async resume(mapMeta: Map.Meta): Promise<void> {
+    this.start(mapMeta);
+  }
+
+  public async pause(): Promise<void> {
+    this.destroy();
+  }
+
+  private chooseCanvasSize(canvas: HTMLCanvasElement): Size {
+    const x = canvas.offsetWidth;
+    const y = canvas.offsetHeight;
+
+    const new_x = y * 16 / 9;
+    if (x > new_x) {
+      return {height: y, width: new_x};
+    } else {
+      return {height: x * 9 / 16, width: x};
     }
+  }
 
-    public async start(mapMeta: Map.Meta): Promise<void> {
-        this.RenderPage(GameViewTmpl);
+  private initCanvas(): HTMLCanvasElement {
+    const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
+    const canvasSize = this.chooseCanvasSize(canvas);
+    let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
 
-        game.load(this.initCanvas());
 
-        this.initButtons();
-
-        document.ontouchend = (event) => {
-        };
+    let size = {width: parent.offsetWidth, height: parent.offsetHeight};
+    console.log(size);
+    if (size.height / 9 * 16 < size.width) {
+      size.width = size.height / 9 * 16;
+    } else {
+      size.height = size.width / 16 * 9;
     }
+    console.log(size);
 
-    public async destroy(): Promise<void> {
-        this.rootElement.innerHTML = GameViewTmpl();
-    }
+    canvas.height = size.height;
+    canvas.width = size.width;
 
-    public async resume(mapMeta: Map.Meta): Promise<void> {
-        this.start(mapMeta);
-    }
+    let resize = () => {
 
-    public async pause(): Promise<void> {
-        this.destroy();
-    }
+      let size = {width: parent.offsetWidth, height: parent.offsetHeight};
+      if (size.height / 9 * 16 < size.width) {
+        size.width = size.height / 9 * 16;
+      } else {
+        size.height = size.width / 16 * 9;
+      }
 
-    private chooseCanvasSize(canvas: HTMLCanvasElement): Size {
-        const x = canvas.offsetWidth;
-        const y = canvas.offsetHeight;
+      console.log(size);
 
-        const new_x = y * 16 / 9;
-        if (x > new_x) {
-            return {height: y, width: new_x};
-        } else {
-            return {height: x * 9 / 16, width: x};
-        }
-    }
+      let c = game.board.canvas;
 
-    private initCanvas(): HTMLCanvasElement {
-        const canvas = document.querySelector('.main-frame__game-canvas') as HTMLCanvasElement;
-        const canvasSize = this.chooseCanvasSize(canvas);
-        let parent = document.querySelector('.main-frame__wrapper__container__canvas-container') as HTMLDivElement;
+      let widthScale = size.width / c.getWidth();
+      let heightScale = size.height / c.getHeight();
 
-        canvas.width = parent.offsetWidth;
-        canvas.height = parent.offsetHeight;
+      c.setHeight(size.height);
+      c.setWidth(c.getWidth() * widthScale);
 
-        let resize = () => {
+      let objects = c.getObjects();
+      for (let i in objects) {
+        let scaleX = objects[i].scaleX;
+        let scaleY = objects[i].scaleY;
+        let left = objects[i].left;
+        let top = objects[i].top;
 
-            let size = {width: parent.offsetWidth, height: parent.offsetHeight};
-            let c = game.board.canvas;
+        let tempScaleX = scaleX * widthScale;
+        let tempScaleY = scaleY * widthScale;
+        let tempLeft = left * widthScale;
+        let tempTop = top * widthScale;
 
-            let widthScale = size.width / c.getWidth();
-            let heightScale = size.height / c.getHeight();
+        objects[i].scaleX = tempScaleX;
+        objects[i].scaleY = tempScaleY;
+        objects[i].left = tempLeft;
+        objects[i].top = tempTop;
 
-            c.setHeight(size.height);
-            c.setWidth(size.width);
+        objects[i].setCoords();
+      }
 
-            let objects = c.getObjects();
-            for (let i in objects) {
-                let scaleX = objects[i].scaleX;
-                let scaleY = objects[i].scaleY;
-                let left = objects[i].left;
-                let top = objects[i].top;
+      c.renderAll();
+      assignScaleConf(c.getWidth(), c.getHeight());
+      game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
 
-                let tempScaleX = scaleX * widthScale;
-                let tempScaleY = scaleY * heightScale;
-                let tempLeft = left * widthScale;
-                let tempTop = top * heightScale;
+    };
+    window.onresize = resize;
+    return canvas;
+  }
 
-                objects[i].scaleX = tempScaleX;
-                objects[i].scaleY = tempScaleY;
-                objects[i].left = tempLeft;
-                objects[i].top = tempTop;
+  private initButtons() {
+    this.backButton = new Button(document
+      .querySelector('.main-frame__header__back-button') as HTMLElement);
+    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.online.lobbyPage));
 
-                objects[i].setCoords();
-            }
+    this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
+    this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
 
-            c.renderAll();
-            assignScaleConf(c.getWidth(), c.getHeight());
-        };
-        window.onresize = resize;
-        return canvas;
-    }
-
-    private initButtons() {
-        this.backButton = new Button(document
-            .querySelector('.main-frame__header__back-button') as HTMLElement);
-        this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.online.lobbyPage));
-
-        this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
-        this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
-
-        // this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
-        // this.readyButton.onClick(() => {
-        //     eventBus.emit('game', 'subscribe');
-        // });
-
-        this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__ready') as HTMLElement);
-        if (this.startButton === undefined) {
-            console.log('OP');
-        }
-        this.startButton.onClick(() => {
-            eventBus.emit('game', 'start');
-        });
-    }
+    // this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+    // this.readyButton.onClick(() => {
+    //     eventBus.emit('game', 'subscribe');
+    // });
+    this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
+    this.startButton.onClick(() => {
+      eventBus.emit('game', 'start');
+    });
+  }
 }
