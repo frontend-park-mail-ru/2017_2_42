@@ -1,0 +1,36 @@
+@import '../../Pages/CommonCss/common.scss';
+
+.main-block {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 40vw;
+    height: 40vh;
+    background: $background_img no-repeat;
+    background-size: cover;
+    border: 0.5em solid rgba(255, 255, 255, .8);
+    border-image: $border_wood 9;
+
+    &__table {
+      color: #f4f4f0;
+      line-height: 1em;
+      border: none;
+      font-family: "KGSecondChancesSketch", serif;
+
+      &__tr {
+        &__td-2 {
+          padding-left: 3em;
+        }
+      }
+    }
+
+  }
+}

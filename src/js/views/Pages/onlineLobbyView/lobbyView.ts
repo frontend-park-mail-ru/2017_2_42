@@ -42,8 +42,8 @@ export default class OnlineLobbyView extends BaseView {
         this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
         eventBus.emit('game', 'subscribe');
       };
-      eventBus.on('game', 'subscribed', () => {
-        this.router.HideOverlay();
+      // eventBus.on('game', 'subscribed', () => {
+      //   this.router.HideOverlay();
         this.router.go(ViewService.ViewPaths.online.gamePage);
       // });
     });
@@ -76,7 +76,7 @@ export default class OnlineLobbyView extends BaseView {
 
   }
 
-  public async destroy(): Promise<void> {
+  public async destroy(): Promise < void > {
     this.rootElement.innerHTML = '';
 
     this.backButton = undefined;
