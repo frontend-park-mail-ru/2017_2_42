@@ -23,6 +23,9 @@ export default class Win extends BaseOverlay {
     this.backButton.onClick(() => data.offline ?
       router.go(ViewService.ViewPaths.offline.lobbyPage) :
       router.go(ViewService.ViewPaths.online.lobbyPage));
+
+    (document.querySelector('.main-block__frame__score') as HTMLElement).innerText = `Score: ${data.score}`;
+    (document.querySelector('.main-block__frame__time') as HTMLElement).innerText = `Time left: ${data.time}`;
   }
 
   public async stop(): Promise<void> {
