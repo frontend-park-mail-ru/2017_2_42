@@ -2,7 +2,6 @@
 import Button from '../../../blocks/button';
 
 import {StartMessage} from '../../../game/gameLogic/Message';
-import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
 
 import BaseView from '../../../modules/BaseView';
 
@@ -14,6 +13,7 @@ interface Size {
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
+import {GameOnline} from '../../../game/gameLogic/gameOnline';
 import User from '../../../models/user';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
@@ -67,7 +67,7 @@ export default class GameView extends BaseView {
       (document.querySelector(
         '.main-frame__header__userlist__rating-level-1') as HTMLElement).innerText = `${user.level}`;
     });
-    game.load(this.initCanvas());
+    GameOnline.game.load(this.initCanvas());
 
     this.initButtons();
 
@@ -134,7 +134,7 @@ export default class GameView extends BaseView {
 
       console.log(size);
 
-      let c = game.board.canvas;
+      let c = GameOnline.game.board.canvas;
 
       let widthScale = size.width / c.getWidth();
       let heightScale = size.height / c.getHeight();
@@ -164,7 +164,7 @@ export default class GameView extends BaseView {
 
       c.renderAll();
       assignScaleConf(c.getWidth(), c.getHeight());
-      game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
+      GameOnline.game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
 
     };
     window.onresize = resize;

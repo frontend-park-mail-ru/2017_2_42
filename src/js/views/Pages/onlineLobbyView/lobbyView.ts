@@ -1,6 +1,6 @@
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
-import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
+import {GameOnline} from '../../../game/gameLogic/gameOnline';
 import User from '../../../models/user';
 import BaseView from '../../../modules/BaseView';
 import eventBus from '../../../modules/eventBus';

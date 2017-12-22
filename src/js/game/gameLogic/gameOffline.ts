@@ -8,7 +8,7 @@ import {Message, SnapMessage, SubscribeMessage} from './Message';
 import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {Timer} from './timer';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../board/config';
-import {Game, game} from './gameOnline';
+import {Game} from './gameOnline';
 
 
 export interface MapMeta {
@@ -47,6 +47,8 @@ export class GameOffline implements Game {
     public frame: number = 1;
     public running: boolean;
 
+    static game: GameOffline;
+
     constructor(mapMeta: MapMeta) {
         this.meta = mapMeta;
         this._world = new b2World(new b2Vec2(0, 10));
@@ -61,12 +63,12 @@ export class GameOffline implements Game {
     }
 
     public static Create(mapMeta: MapMeta): GameOffline {
-        game = new GameOffline(mapMeta);
-        return game;
+        GameOffline.game = new GameOffline(mapMeta);
+        return GameOffline.game;
     }
 
     public static Destroy() {
-        game = null;
+        GameOffline.game = null;
     }
 
     public prepare(): void {

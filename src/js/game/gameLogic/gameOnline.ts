@@ -25,16 +25,12 @@ export interface MapMeta {
     playedTimes?: number;
 }
 
-let game: GameOnline;
-
-export {game};
-
 export abstract class Game {
     board: Board;
     timer: Timer;
     meta: MapMeta;
-    gameService?: GameService;
-    playerID?: number;
+    gameService: GameService;
+    playerID: number;
     _world: b2World;
     state: GameState;
     running: boolean;
@@ -48,7 +44,7 @@ export abstract class Game {
 
     abstract start(): void;
 
-    abstract run?(): void;
+    abstract run(): void;
 
     abstract sendSnapToServer?(): void;
 }
@@ -70,12 +66,12 @@ export enum GameEvents {
 
 
 export class GameOnline implements Game {
-    public playerID?: number;
+    public playerID: number;
     public board: Board;
     public timer: Timer;
     public meta: MapMeta;
     public _world: b2World;
-    public gameService?: GameService;
+    public gameService: GameService;
     public state: GameState;
     public frame: number = 1;
     public running: boolean;
@@ -94,26 +90,28 @@ export class GameOnline implements Game {
         };
         eventBus.on('game', <string>GameEvents.subscribe, cb);
         eventBus.on('game', <string>GameEvents.start, () => {
-            let startMsg = new StartMessage(game);
+            let startMsg = new StartMessage(this);
             startMsg.HandleRequest();
         });
         eventBus.on('game', <string>GameEvents.quit, () => {
             this.gameService.closed = true;
             this.gameService.closeConnection();
-            game = null;
+            GameOnline.game = null;
         });
-        eventBus.on('timer', GameEvents.finish, () => {
+        eventBus.on('timer', <string>GameEvents.finish, () => {
             this.board.timerText.text = '00.00';
         });
     }
 
+    public static game: GameOnline;
+
     public static Create(mapMeta: MapMeta): GameOnline {
-        game = new GameOnline(mapMeta);
-        return game;
+        GameOnline.game = new GameOnline(mapMeta);
+        return GameOnline.game;
     }
 
     public static Destroy() {
-        game = null;
+        GameOnline.game = null;
     }
 
     public load(canvas: HTMLCanvasElement | string): void {
@@ -140,7 +138,7 @@ export class GameOnline implements Game {
         this.run();
     }
 
-    public run?(): void {
+    public run(): void {
         if (this.running) {
             for (let body = this._world.GetBodyList(); body.GetNext() !== null; body = body.GetNext()) {
                 let b = body.GetUserData();
@@ -192,3 +190,5 @@ export class GameOnline implements Game {
         msg.HandleRequest();
     }
 }
+
+
