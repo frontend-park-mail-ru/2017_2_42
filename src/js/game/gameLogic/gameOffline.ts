@@ -12,96 +12,107 @@ import {Timer} from './timer';
 
 
 export interface MapMeta {
-    id: number;
-    name: string;
-    level?: number;
-    timer?: number;
-    rating?: number;
-    created?: string;
-    preview?: string;
-    players: number;
-    playedTimes?: number;
+  id: number;
+  name: string;
+  level?: number;
+  timer?: number;
+  rating?: number;
+  created?: string;
+  preview?: string;
+  players: number;
+  playedTimes?: number;
 }
 
 export type States = 'loadBoards' | 'run' | 'pause' | 'successfulFinish' | 'failedFinish';
 
 export enum GameEvents {
-    subscribe = 'subscribe',
-    subscribed = 'subscribed',
-    loadSuccess = 'loadSuccess',
-    loadFailed = 'loadFailed',
-    start = 'start',
-    started = 'started',
+  subscribe = 'subscribe',
+  subscribed = 'subscribed',
+  loadSuccess = 'loadSuccess',
+  loadFailed = 'loadFailed',
+  start = 'start',
+  started = 'started',
 }
 
 
 export class GameOffline implements Game {
-    gameService: GameService;
-    playerID: number;
-    public board: Board;
-    public timer: Timer;
-    public meta: MapMeta;
-    public _world: b2World;
-    // public gameService: GameService;
-    public state: GameState;
-    public frame: number = 1;
-    public running: boolean;
+  gameService: GameService;
+  playerID: number;
+  public board: Board;
+  public timer: Timer;
+  public meta: MapMeta;
+  public _world: b2World;
+  // public gameService: GameService;
+  public state: GameState;
+  public frame: number = 1;
+  public running: boolean;
 
-    constructor(mapMeta: MapMeta) {
-        this.meta = mapMeta;
-        this._world = new b2World(new b2Vec2(0, 10));
-        this._world.SetContinuousPhysics(false);
-        // this.gameService = new GameService(this);
-        this.state = new InitState(this);
+  static game: GameOffline;
+
+  constructor(mapMeta: MapMeta) {
+    this.meta = mapMeta;
+    this._world = new b2World(new b2Vec2(0, 10));
+    this._world.SetContinuousPhysics(false);
+    // this.gameService = new GameService(this);
+    this.state = new InitState(this);
+  }
+
+  public load(canvas: HTMLCanvasElement | string): void {
+    this.timer = new Timer(this.meta.timer);
+    this.state.onLoad(canvas);
+  }
+
+  public static Create(mapMeta: MapMeta): GameOffline {
+    GameOffline.game = new GameOffline(mapMeta);
+    return GameOffline.game;
+  }
+
+  public static Destroy() {
+    GameOffline.game = null;
+  }
+
+  public prepare(): void {
+    this.state.onPrepare();
+  }
+
+  public finish(success: boolean) {
+    if (success) {
+      this.state.onSuccessFinish();
+    } else {
+      this.state.onFailedFinish();
     }
+  }
 
-    public load(canvas: HTMLCanvasElement | string): void {
-        this.timer = new Timer(this.meta.timer);
-        this.state.onLoad(canvas);
-    }
+  public start(): void {
+    this.state.onRun();
+    this.running = true;
+    this.timer.start();
+    this.run();
+  }
 
-    public prepare(): void {
-        this.state.onPrepare();
-    }
-
-    public finish(success: boolean) {
-        if (success) {
-            this.state.onSuccessFinish();
+  public run(): void {
+    if (this.running) {
+      for (let body = this._world.GetBodyList(); body.GetNext() !== null; body = body.GetNext()) {
+        let b = body.GetUserData();
+        if (b.isDeleted) {
+          this._world.DestroyBody(body);
+          this.board.canvas.remove(b.shape);
         } else {
-            this.state.onFailedFinish();
+          b.update();
+          this.board.canvas.renderAll();
         }
+      }
+      if (this.frame % 2 === 0 && !(this.state instanceof FinishState)) {
+        this.timer.step(this.frame);
+      }
+      this._world.Step(1 / 60, 10, 10);
+      this._world.ClearForces();
+      requestAnimationFrame(this.run.bind(this));
+      this.frame++;
+    } else {
+      for (let body = this._world.GetBodyList(); body.GetNext() !== null; body = body.GetNext()) {
+        this._world.DestroyBody(body);
+      }
     }
-
-    public start(): void {
-        this.state.onRun();
-        this.running = true;
-        this.timer.start();
-        this.run();
-    }
-
-    public run(): void {
-        if (this.running) {
-            for (let body = this._world.GetBodyList(); body.GetNext() !== null; body = body.GetNext()) {
-                let b = body.GetUserData();
-                if (b.isDeleted) {
-                    this._world.DestroyBody(body);
-                    this.board.canvas.remove(b.shape);
-                } else {
-                    b.update();
-                    this.board.canvas.renderAll();
-                }
-            }
-            if (this.frame % 2 === 0 && !(this.state instanceof FinishState)) {
-                this.timer.step(this.frame);
-            }
-            this._world.Step(1 / 60, 10, 10);
-            this._world.ClearForces();
-            requestAnimationFrame(this.run.bind(this));
-            this.frame++;
-        } else {
-            for (let body = this._world.GetBodyList(); body.GetNext() !== null; body = body.GetNext()) {
-                this._world.DestroyBody(body);
-            }
-        }
-    }
+  }
 }

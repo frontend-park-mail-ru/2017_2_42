@@ -1,7 +1,6 @@
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import {GameOffline} from '../../../game/gameLogic/gameOffline';
-import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
 import User from '../../../models/user';
 import BaseView from '../../../modules/BaseView';
 import eventBus from '../../../modules/eventBus';
@@ -37,7 +36,7 @@ export default class OfflineLobbyView extends BaseView {
       mapPlaceholder.appendChild(mapTileElement);
 
       mapTileElement.onclick = () => {
-        GameOnline.Create(map);
+        GameOffline.Create(map);
         this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
         eventBus.emit('game', 'subscribe');
       };
