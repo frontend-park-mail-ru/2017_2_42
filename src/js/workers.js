@@ -48,8 +48,8 @@ self.addEventListener('fetch', function(event) {
         return response;
       }
       return fetch(event.request).then(function(response) {
-        if (path !== '/backend/api/auth/me') {
-          console.log(path);
+        if (path !== '/backend/api/auth/me' &&
+          path !== 'https://physicsio.tech/backend/api/auth/me') {
           let responseClone = response.clone();
 
           caches.open(version).then(function(cache) {
