@@ -1,22 +1,20 @@
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import {GameOffline} from '../../../game/gameLogic/gameOffline';
-import User from '../../../models/user';
 import BaseView from '../../../modules/BaseView';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import mapService from '../../../services/mapService';
-import userService from '../../../services/userService';
 import './lobbyView.scss';
 
 const lobbyTmpl = require('./lobbyView.pug') as TemplateRenderFunc;
 
 export default class OfflineLobbyView extends BaseView {
   private maps: Map.Meta[];
-  private user: User;
 
   private backButton: Button;
-  private settingsButton: Button;
+  private muteButton: Button;
   private profileButton: Button;
 
   constructor(parentElement) {
@@ -51,17 +49,23 @@ export default class OfflineLobbyView extends BaseView {
       .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.startPage));
 
-    this.settingsButton = new Button(document
-      .querySelector('.main-frame__header__settings-button') as HTMLElement);
-    this.settingsButton.onClick(() => this
-      .router.showOverlay(ViewService.OverlayNames.application.settings));
+    // this.settingsButton = new Button(document
+    //   .querySelector('.main_frame__header__settings-button') as HTMLElement);
+    // this.settingsButton.onClick(
+    //   () => this.router.showOverlay(ViewService.OverlayNames.application.settings));
+    this.muteButton = new SoundButton(document
+      .querySelector('.main-frame__header__sound-button') as HTMLElement);
+    // this.settingsButton = new Button(document
+    //   .querySelector('.main-frame__header__settings-button') as HTMLElement);
+    // this.settingsButton.onClick(() => this
+    //   .router.showOverlay(ViewService.OverlayNames.application.settings));
   }
 
   public async destroy(): Promise<void> {
     this.rootElement.innerHTML = '';
 
     this.backButton = undefined;
-    this.settingsButton = undefined;
+    this.muteButton = undefined;
     this.profileButton = undefined;
   }
 

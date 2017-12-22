@@ -13,6 +13,7 @@ interface Size {
 
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
 import User from '../../../models/user';
 import eventBus from '../../../modules/eventBus';
@@ -24,7 +25,7 @@ export default class GameView extends BaseView {
   private readyButton: Button;
   private backButton: Button;
   private startButton: Button;
-  private settingsButton: Button;
+  private muteButton: Button;
   private mapMeta: Map.Meta;
 
   private friend: User;
@@ -182,13 +183,9 @@ export default class GameView extends BaseView {
     this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.online.lobbyPage));
     this.backButton.onClick(() => this.bus.emit('game', 'quit'));
 
-    this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
-    this.settingsButton.onClick(() => this.router.showOverlay(ViewService.OverlayNames.application.settings));
+    this.muteButton = new SoundButton(document
+      .querySelector('.main-frame__header__sound-button') as HTMLElement);
 
-    // this.readyButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
-    // this.readyButton.onClick(() => {
-    //     eventBus.emit('game', 'subscribe');
-    // });
     this.startButton = new Button(document.querySelector('.main-frame__header__ready-button__not-ready') as HTMLElement);
     this.startButton.onClick(() => {
       eventBus.emit('game', 'start');
