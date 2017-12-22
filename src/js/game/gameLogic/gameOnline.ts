@@ -98,16 +98,22 @@ export class GameOnline implements Game {
             startMsg.HandleRequest();
         });
         eventBus.on('game', <string>GameEvents.quit, () => {
+            this.gameService.closed = true;
             this.gameService.closeConnection();
+            game = null;
         });
         eventBus.on('timer', GameEvents.finish, () => {
-
+            this.board.timerText.text = '00.00';
         });
     }
 
     public static Create(mapMeta: MapMeta): GameOnline {
         game = new GameOnline(mapMeta);
         return game;
+    }
+
+    public static Destroy() {
+        game = null;
     }
 
     public load(canvas: HTMLCanvasElement | string): void {
