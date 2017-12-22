@@ -1,4 +1,3 @@
-import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
@@ -8,7 +7,6 @@ import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import mapService from '../../../services/mapService';
 import userService from '../../../services/userService';
-import ViewPaths from '../../pagePaths';
 import './lobbyView.scss';
 
 const lobbyTmpl = require('./lobbyView.pug') as TemplateRenderFunc;
@@ -46,9 +44,9 @@ export default class OnlineLobbyView extends BaseView {
         eventBus.emit('game', 'subscribe');
       };
 
-      eventBus.on('game', 'subscribed', () => {
+      eventBus.on('game', 'subscribed', (friend) => {
         this.router.HideOverlay();
-        this.router.go(ViewService.ViewPaths.online.gamePage);
+        this.router.go(ViewService.ViewPaths.online.gamePage, friend);
       });
     });
     document.querySelector('.main-frame__header__userlist__player-name').innerHTML = this.user.username;
