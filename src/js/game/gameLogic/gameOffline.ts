@@ -1,14 +1,14 @@
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
+import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import {Board} from '../board/board';
+import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../board/config';
 import {BucketBody, CircleBody} from '../body/body';
+import {Message, SnapMessage, SubscribeMessage} from './Message';
+import {Game} from './gameOnline';
 import {GameService} from './gameService';
 import {FinishState, GameState, InitState, LoadState, PrepareState, RunningState} from './gameState';
-import {Message, SnapMessage, SubscribeMessage} from './Message';
-import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {Timer} from './timer';
-import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../board/config';
-import {Game} from './gameOnline';
 
 
 export interface MapMeta {

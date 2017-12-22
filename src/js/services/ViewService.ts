@@ -10,6 +10,7 @@ import Settings from '../views/Overlays/Settings/Settings';
 import UserProfile from '../views/Overlays/UserProfile/UserProfile';
 import WaitingTeammates from '../views/Overlays/WaitingTeammates/WaitingTeammates';
 import WinOverlay from '../views/Overlays/Win/Win';
+import OfflineGameView from '../views/Pages/OfflineGameView/gameView';
 import AboutView from '../views/Pages/aboutView/aboutView';
 import GameView from '../views/Pages/gameView/gameView';
 import LoginView from '../views/Pages/loginView/loginView';
@@ -108,6 +109,10 @@ export default class ViewService {
             path: ViewService.ViewPaths.online.gamePage,
             view: GameView,
         }, {
+            name: 'Offline game',
+            path: ViewService.ViewPaths.offline.gamePage,
+            view: OfflineGameView,
+        }, {
             name: 'About page',
             path: ViewService.ViewPaths.aboutPage,
             view: AboutView,
@@ -115,10 +120,6 @@ export default class ViewService {
             name: 'Offline lobby',
             path: ViewService.ViewPaths.offline.lobbyPage,
             view: OfflineLobbyView,
-        }, {
-            name: 'Offline game',
-            path: ViewService.ViewPaths.offline.gamePage,
-            view: GameView,
         },
     ];
 

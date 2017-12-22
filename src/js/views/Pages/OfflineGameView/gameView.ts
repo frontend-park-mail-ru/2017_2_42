@@ -14,28 +14,24 @@ interface Size {
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
-import User from '../../../models/user';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
-import userService from '../../../services/userService';
 import './gameView.scss';
 
-export default class GameView extends BaseView {
+export default class OfflineGameView extends BaseView {
   private readyButton: Button;
   private backButton: Button;
   private startButton: Button;
   private settingsButton: Button;
   private mapMeta: Map.Meta;
 
-  private friend: User;
-
   private wincb = (data: any) => {
     data = data || {};
-    data.offline = false;
+    data.offline = true;
     return this.router.showOverlay(ViewService.OverlayNames.game.win, data);
   }
 
-  private losecb = () => this.router.showOverlay(ViewService.OverlayNames.game.lose, {offline: false});
+  private losecb = () => this.router.showOverlay(ViewService.OverlayNames.game.lose, {offline: true});
 
 
   constructor(parentElement: HTMLElement) {
@@ -44,34 +40,8 @@ export default class GameView extends BaseView {
 
   public async start(friend: any): Promise<void> {
     this.RenderPage(GameViewTmpl);
-    friend = friend || {};
+    console.log('offline');
 
-    // zavtra zaSHITa
-    if (!friend.friend) {
-      (document.querySelector('.main-frame__header__userlist__vs') as HTMLElement).style.display = 'none';
-      (document.querySelector('.main-frame__header__userlist__player-name-2') as HTMLElement).style.display = 'none';
-      (document.querySelector('.main-frame__header__userlist__player-2') as HTMLElement).style.display = 'none';
-      (document.querySelector('.main-frame__header__userlist__rating-level-2') as HTMLElement).style.display = 'none';
-      (document.querySelector('.main-frame__header__userlist__rating-2') as HTMLElement).style.display = 'none';
-    } else {
-      console.log(friend);
-      (document.querySelector('.main-frame__header__userlist__vs') as HTMLElement).style.display = 'flex';
-      (document.querySelector('.main-frame__header__userlist__player-name-2') as HTMLElement).style.display = 'flex';
-      (document.querySelector('.main-frame__header__userlist__player-2') as HTMLElement).style.display = 'flex';
-      (document.querySelector('.main-frame__header__userlist__rating-level-2') as HTMLElement).style.display = 'flex';
-      (document.querySelector('.main-frame__header__userlist__rating-2') as HTMLElement).style.display = 'flex';
-      (document.querySelector(
-        '.main-frame__header__userlist__player-name-2') as HTMLElement).innerText = friend.friend;
-      (document.querySelector(
-        '.main-frame__header__userlist__rating-level-2') as HTMLElement).innerText = `${friend.level}`;
-    }
-
-    userService.getUser().then((user) => {
-      (document.querySelector(
-        '.main-frame__header__userlist__player-name-1') as HTMLElement).innerText = user.username;
-      (document.querySelector(
-        '.main-frame__header__userlist__rating-level-1') as HTMLElement).innerText = `${user.level}`;
-    });
     game.load(this.initCanvas());
 
     this.initButtons();
@@ -85,7 +55,7 @@ export default class GameView extends BaseView {
   }
 
   public async destroy(): Promise<void> {
-    this.rootElement.innerHTML = GameViewTmpl();
+    this.rootElement.innerHTML = '';
     this.bus.off('game', 'win', this.wincb);
     this.bus.off('game', 'lose', this.losecb);
   }
@@ -179,7 +149,7 @@ export default class GameView extends BaseView {
   private initButtons() {
     this.backButton = new Button(document
       .querySelector('.main-frame__header__back-button') as HTMLElement);
-    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.online.lobbyPage));
+    this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.offline.lobbyPage));
     this.backButton.onClick(() => this.bus.emit('game', 'quit'));
 
     this.settingsButton = new Button(document.querySelector('.main-frame__header__settings-button') as HTMLElement);
