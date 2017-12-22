@@ -17,10 +17,10 @@ export default class MapTile {
     this.htmlElement.classList.add(
       'main-frame__lobby-content__maps__map-tile');
 
-    const image = document.createElement('img');
-    image.classList.add('main-frame__lobby-content__maps__map-tile__img');
-    image.setAttribute('src', this.mapMeta.preview || '/static/img/img_placeholder.jpg');
-    this.htmlElement.appendChild(image);
+    // const image = document.createElement('img');
+    // image.classList.add('main-frame__lobby-content__maps__map-tile__img');
+    // image.setAttribute('src', this.mapMeta.preview || '/static/img/img_placeholder.jpg');
+    // this.htmlElement.appendChild(image);
 
     const mapName = document.createElement('p');
     mapName.innerText = this.mapMeta.name;
