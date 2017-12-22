@@ -109,9 +109,22 @@ body {
     height: 100%;
     width: 100%;
 
-    display: none;
-    background: rgba(0, 0, 0, 0.6);
+    #overlay-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      height: 100%;
+      width: 100%;
+
+      background: rgba(0, 0, 0, 0.6);
+    }
+
   }
+}
+
+.main-block {
+  position: absolute;
 }
 
 @font-face {
