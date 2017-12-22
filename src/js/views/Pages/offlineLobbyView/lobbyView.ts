@@ -49,16 +49,8 @@ export default class OfflineLobbyView extends BaseView {
       .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.startPage));
 
-    // this.settingsButton = new Button(document
-    //   .querySelector('.main_frame__header__settings-button') as HTMLElement);
-    // this.settingsButton.onClick(
-    //   () => this.router.showOverlay(ViewService.OverlayNames.application.settings));
     this.muteButton = new SoundButton(document
       .querySelector('.main-frame__header__sound-button') as HTMLElement);
-    // this.settingsButton = new Button(document
-    //   .querySelector('.main-frame__header__settings-button') as HTMLElement);
-    // this.settingsButton.onClick(() => this
-    //   .router.showOverlay(ViewService.OverlayNames.application.settings));
   }
 
   public async destroy(): Promise<void> {
