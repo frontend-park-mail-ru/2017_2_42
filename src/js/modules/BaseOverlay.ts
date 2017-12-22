@@ -10,9 +10,6 @@ export default abstract class BaseOverlay {
   constructor(protected rootElement: HTMLElement) {
     this.bus = bus;
     this.router = router;
-
-    document.querySelector('#overlays')
-      .addEventListener('click', () => this.router.HideAllOverlays());
   }
 
   public async abstract start(data?: any): Promise<void>;

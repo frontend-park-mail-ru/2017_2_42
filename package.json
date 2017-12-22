@@ -24,6 +24,7 @@
   "dependencies": {
     "@types/fabric": "^1.5.27",
     "@types/fontfaceobserver": "0.0.6",
+    "@types/webaudioapi": "0.0.27",
     "box2d.ts": "flyover/box2d.ts",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.28.7",
