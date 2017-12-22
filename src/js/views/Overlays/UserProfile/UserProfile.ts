@@ -23,6 +23,10 @@ export default class UserProfile extends BaseOverlay {
 
     this.logoutButton = new Button(document
       .querySelector('.main-block__frame__footer__logout-section') as HTMLElement);
+    this.logoutButton.onClick(() => {
+      userService.logout()
+        .then(() => router.go(ViewService.ViewPaths.online.loginPage));
+    });
 
     userService.getUser()
       .then((user) => {
