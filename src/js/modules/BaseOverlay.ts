@@ -11,8 +11,8 @@ export default abstract class BaseOverlay {
     this.bus = bus;
     this.router = router;
 
-    document.querySelector('#overlay-bg')
-      .addEventListener('click', () => this.router.HideAllOverlays());
+    document.querySelector('#overlays')
+      .addEventListener('click', () => router.HideAllOverlays());
   }
 
   public async abstract start(data?: any): Promise<void>;
@@ -26,7 +26,8 @@ export default abstract class BaseOverlay {
   public hide(): void {
     this.rootElement.style.display = 'none';
   }
+
   protected RenderOverlay(renderer: (data?: any) => string) {
-        this.rootElement.innerHTML = renderer();
-    }
+    this.rootElement.innerHTML = renderer();
+  }
 }

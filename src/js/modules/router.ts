@@ -115,10 +115,6 @@ export class Router {
     const newOverlaySection = document.createElement('section');
     if (this.openedOverlayList.length !== 0) {
       this.openedOverlayList[this.openedOverlayList.length - 1].hide();
-    } else {
-      const background = document.createElement('section');
-      background.id = 'overlay-bg';
-      this.overlaySection.appendChild(background);
     }
     this.overlaySection.appendChild(newOverlaySection);
 
@@ -146,7 +142,6 @@ export class Router {
       this.openedOverlayList[this.openedOverlayList.length - 1].show();
     } else {
       this.overlaySection.style.display = 'none';
-      this.overlaySection.innerHTML = '';
     }
   }
 
