@@ -10,9 +10,10 @@ const STATICS = [
   '/img/exclamation.svg',
   '/img/speaker.svg',
   '/img/vkontakte-draw.svg',
+  '/img/Ball.svg',
   '/img/chalk_input_border.png',
   '/img/chalk-background-filled.png',
-  '/api/game/maps',
+  '/api/game/maps?sort=rating&offline=true',
   '/api/game/map/53',
   // '/api/game/map/54',
   // '/api/game/map/55',
@@ -59,7 +60,7 @@ const STATICS = [
 // };
 
 
-const version = 'v2';
+const version = 'v3';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
