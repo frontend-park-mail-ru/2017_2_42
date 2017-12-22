@@ -1,5 +1,6 @@
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
 import 'fabric';
+import {FontFaceObserver} from 'fontfaceobserver';
 // import {FontFaceObserver} from 'fontfaceobserver';
 import eventBus from '../../modules/eventBus';
 import {Body} from '../body/body';
@@ -19,10 +20,12 @@ export class Board {
     private patterns: Map<number, fabric.Image>;
     public timerText: any = new fabric.Text('Hello', {
         top: 100,
-        fontSize: 40,
+        fontSize: 40 * SCALE_COEFF_X,
         left: 100,
         selectable: false,
         fill: 'white',
+        originX: 'center',
+        originY: 'center',
     });
 
     private game: GameOnline;
@@ -101,16 +104,16 @@ export class Board {
             body.setPrepOptions();
             this.promise.then(() => this.canvas.add(body.shape));
         }
-        // let myfont = new FontFaceObserver('KGTenThousandReasons');
-        // myfont.load()
-        //     .then(() => {
-        //         this.timerText.set('fontFamily', 'KGTenThousandReasons');
-        //         this.canvas.add(this.timerText);
-        //         this.canvas.renderAll();
-        //     }).catch(function (e) {
-        //     console.log(e);
-        //     alert('font loading failed');
-        // });
+        let myfont = new FontFaceObserver('KGTenThousandReasons');
+        myfont.load()
+            .then(() => {
+                this.timerText.set('fontFamily', 'KGTenThousandReasons');
+                this.canvas.add(this.timerText);
+                this.canvas.renderAll();
+            }).catch(function (e) {
+            console.log(e);
+            alert('font loading failed');
+        });
         this.canvas.add(this.timerText);
         this.promise.then(() => {
             this.game.board.setOwn();

@@ -14,6 +14,7 @@ interface Size {
 const GameViewTmpl = require('./gameView.pug') as TemplateRenderFunc;
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../../../game/board/config';
+import {GameOffline} from '../../../game/gameLogic/gameOffline';
 import eventBus from '../../../modules/eventBus';
 import ViewService from '../../../services/ViewService';
 import './gameView.scss';
@@ -42,7 +43,7 @@ export default class OfflineGameView extends BaseView {
     this.RenderPage(GameViewTmpl);
     console.log('offline');
 
-    game.load(this.initCanvas());
+    GameOffline.game.load(this.initCanvas());
 
     this.initButtons();
 

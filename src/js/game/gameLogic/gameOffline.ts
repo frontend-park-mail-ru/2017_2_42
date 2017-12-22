@@ -52,7 +52,7 @@ export class GameOffline implements Game {
     this.meta = mapMeta;
     this._world = new b2World(new b2Vec2(0, 10));
     this._world.SetContinuousPhysics(false);
-    // this.gameService = new GameService(this);
+    this.gameService = new GameService(this);
     this.state = new InitState(this);
     const cb = () => {
       eventBus.emit('game', <string>GameEvents.subscribed, {});
