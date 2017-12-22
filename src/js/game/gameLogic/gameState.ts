@@ -209,6 +209,7 @@ export class FinishState extends GameState {
     }
 
     onSuccessFinish(): void {
+        this.game.running = false;
         console.log('SUCCESS FINISH!');
     }
 

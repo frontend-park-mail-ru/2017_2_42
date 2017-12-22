@@ -41,6 +41,10 @@ export class GameService {
         };
     }
 
+    public closeConnection() {
+        this.socket.close();
+    }
+
     public sendSocketMessage(message: string | Object) {
         if (this.socket.readyState === WebSocket.OPEN) {
             if (message instanceof Object) {

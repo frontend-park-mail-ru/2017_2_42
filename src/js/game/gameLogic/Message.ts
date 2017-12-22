@@ -260,6 +260,11 @@ export class FinishedMessage extends Message {
     HandleResponse() {
         console.log(this.message);
         this.game.state = new FinishState(this.game);
+        if (this.message.reason === 'TIMEOUT') {
+            eventBus.emit('game', <string>GameEvents.lose, {});
+        } else if (this.message.reason === 'SUCCESS') {
+            eventBus.emit('game', <string>GameEvents.win, {score: this.message.score});
+        }
         this.game.finish(true);
     }
 

@@ -484,7 +484,7 @@ export class BucketBody extends Body {
         json.size = {x: 1, y: 1};
         json.config = this.config;
         json.config.angle = 3;
-        json.angle = 0;
+        json.angle = this.bodyDef.angle;
         json.options = {
             density: this.fixDefs[0].density,
             restitution: this.fixDefs[0].restitution,

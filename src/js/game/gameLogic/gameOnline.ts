@@ -62,6 +62,10 @@ export enum GameEvents {
     loadFailed = 'loadFailed',
     start = 'start',
     started = 'started',
+    quit = 'quit',
+    finish = 'finish',
+    win = 'win',
+    lose = 'lose',
 }
 
 
@@ -92,6 +96,12 @@ export class GameOnline implements Game {
         eventBus.on('game', <string>GameEvents.start, () => {
             let startMsg = new StartMessage(game);
             startMsg.HandleRequest();
+        });
+        eventBus.on('game', <string>GameEvents.quit, () => {
+            this.gameService.closeConnection();
+        });
+        eventBus.on('timer', GameEvents.finish, () => {
+
         });
     }
 
