@@ -47,6 +47,6 @@ document.onreadystatechange = () => {
     preGameDiv.innerHTML = '';
     preGameDiv.classList.add('loaded');
     app.start();
-    setTimeout(preGameRemover, 2000);
+    setTimeout(preGameRemover, 500);
   }
 };
