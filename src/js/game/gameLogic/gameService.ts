@@ -155,6 +155,7 @@ export class GameService {
                 bottomLength: 45,
                 height: 150,
             },
+            0,
             {
                 bodyType: b2BodyType.b2_dynamicBody,
                 keyBodyID: KeyBodies.KEY_BODY_1,
@@ -330,10 +331,13 @@ export class GameService {
                     config.bottomLength *= (METERS_TO_PIXEL * SCALE_COEFF_X);
                     config.height *= (METERS_TO_PIXEL * SCALE_COEFF_Y);
                     config.wallThickness *= (METERS_TO_PIXEL * SCALE_COEFF_X);
+
                     let bucket = new BucketBody(
                         b2Vec2.MulVS(body.data.position, METERS_TO_PIXEL, new b2Vec2()),
                         config,
+                        fabric.util.radiansToDegrees(body.data.angle),
                         options);
+                    bucket.ID = body.id;
                     bodies.set(body.id, bucket);
                     break;
             }

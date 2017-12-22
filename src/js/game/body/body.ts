@@ -16,7 +16,7 @@ import {Colors} from './config';
 declare const fabric: any;
 
 export abstract class Body {
-    private static counter = 0;
+    private static counter = 1;
 
     public ID: number;
 
@@ -341,7 +341,7 @@ export class BucketBody extends Body {
     private config: BucketConfig;
     private options: Options;
 
-    constructor(position: b2Vec2 = b2Vec2.ZERO, config: BucketConfig = {}, option: Options = {}) {
+    constructor(position: b2Vec2 = b2Vec2.ZERO, config: BucketConfig = {}, angle = 0, option: Options = {}) {
         let wallThickness = (config.wallThickness || 10) * PIXEL_TO_METERS;
         let bottomLength = (config.bottomLength || 70) * PIXEL_TO_METERS;
         let height = (config.height || 100) * PIXEL_TO_METERS;
@@ -402,6 +402,7 @@ export class BucketBody extends Body {
             originY: 'center',
             left: position.x,
             top: position.y,
+            angle: angle,
             // fill: 'red',
             stroke: null,
             subTargetCheck: true,
@@ -452,6 +453,7 @@ export class BucketBody extends Body {
                 wallThickness / 2,
                 height / 2,
                 new b2Vec2((bottomLength + wallThickness) / 2, 0),
+
             );
 
         fixDefSensor.shape = new b2PolygonShape()
@@ -459,7 +461,7 @@ export class BucketBody extends Body {
                 bottomLength / 2,
                 (height - wallThickness) / 2,
                 new b2Vec2(0, -wallThickness / 2),
-                0,
+
             );
 
         fixDefSensor.isSensor = this.options.sensor || false;
