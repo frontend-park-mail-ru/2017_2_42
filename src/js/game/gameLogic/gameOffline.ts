@@ -1,6 +1,6 @@
 import {b2Vec2} from 'box2d.ts/Box2D/Box2D/Common/b2Math';
-import {b2BodyType} from 'box2d.ts/Box2D/Box2D/Dynamics/b2Body';
 import {b2World} from 'box2d.ts/Box2D/Box2D/Dynamics/b2World';
+import eventBus from '../../modules/eventBus';
 import {Board} from '../board/board';
 import {assignScaleConf, SCALE_COEFF_X, SCALE_COEFF_Y} from '../board/config';
 import {BucketBody, CircleBody} from '../body/body';
@@ -9,7 +9,6 @@ import {Game} from './gameOnline';
 import {GameService} from './gameService';
 import {FinishState, GameState, InitState, LoadState, PrepareState, RunningState} from './gameState';
 import {Timer} from './timer';
-
 
 export interface MapMeta {
   id: number;
@@ -55,12 +54,23 @@ export class GameOffline implements Game {
     this._world.SetContinuousPhysics(false);
     // this.gameService = new GameService(this);
     this.state = new InitState(this);
+    const cb = () => {
+      eventBus.emit('game', <string>GameEvents.subscribed, {});
+      eventBus.off('game', <string>GameEvents.subscribe, cb);
+    };
+    eventBus.on('game', <string>GameEvents.subscribe, cb);
+    eventBus.on('game', <string>GameEvents.start, () => {
+      this.state = new RunningState(this);
+      this.start();
+    });
   }
+
 
   public load(canvas: HTMLCanvasElement | string): void {
     this.timer = new Timer(this.meta.timer);
     this.state.onLoad(canvas);
   }
+
 
   public static Create(mapMeta: MapMeta): GameOffline {
     GameOffline.game = new GameOffline(mapMeta);

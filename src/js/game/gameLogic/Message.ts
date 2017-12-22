@@ -263,7 +263,7 @@ export class FinishedMessage extends Message {
         if (this.message.reason === 'TIMEOUT') {
             eventBus.emit('game', <string>GameEvents.lose, {});
         } else if (this.message.reason === 'SUCCESS') {
-            eventBus.emit('game', <string>GameEvents.win, {score: this.message.score});
+            eventBus.emit('game', <string>GameEvents.win, {score: this.message.score, time: `${this.message.time}`});
         }
         this.game.finish(true);
     }
