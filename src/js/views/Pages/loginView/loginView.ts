@@ -48,7 +48,7 @@ export default class LoginView extends BaseView {
     this.aboutButton = new Button(document
       .querySelector('.main-frame__footer__about-button') as HTMLElement);
     this.aboutButton.onClick(
-      () => this.router.go(ViewService.ViewPaths.aboutPage));
+      () => this.router.showOverlay(ViewService.OverlayNames.application.info));
 
     this.signUpButton = new Button(document
       .querySelector(
