@@ -24,7 +24,11 @@ export default class UserProfile extends BaseOverlay {
     this.logoutButton = new Button(document
       .querySelector('.main-block__frame__footer__logout-section') as HTMLElement);
 
-    (document.querySelector('.'));
+    userService.getUser()
+      .then((user) => {
+        document.querySelector('.main-block__frame__user-block__username').innerHTML = user.username;
+        document.querySelector('.main-block__frame__user-block__rating-block__rating-level').innerHTML = `Level: ${user.level}`;
+      });
   }
 
   public async stop(): Promise<void> {
