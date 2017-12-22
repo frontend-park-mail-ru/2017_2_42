@@ -18,6 +18,7 @@ const PATH_WEBSOCKET = 'wss://physicsio.tech/backend/handler';
 
 export class GameService {
     private socket: WebSocket;
+    public closed: boolean;
     private game: GameOnline;
     private count_conn = 1;
 
@@ -46,30 +47,32 @@ export class GameService {
     }
 
     public sendSocketMessage(message: string | Object) {
-        if (this.socket.readyState === WebSocket.OPEN) {
-            if (message instanceof Object) {
-                this.socket.send(JSON.stringify(message));
-            } else {
-                this.socket.send(message);
-            }
-        } else {
-            let id = setInterval(() => {
-                console.log('Try connect...');
-                if (this.count_conn === 5) {
-                    clearInterval(id);
-                    this.count_conn = 1;
+        if (!this.closed) {
+            if (this.socket.readyState === WebSocket.OPEN) {
+                if (message instanceof Object) {
+                    this.socket.send(JSON.stringify(message));
+                } else {
+                    this.socket.send(message);
                 }
-                this.socket = new WebSocket(PATH_WEBSOCKET);
-                this.count_conn++;
-                this.socket.onopen = (ev) => {
-                    console.log('Connect OK');
-                    clearInterval(id);
-                    this.count_conn = 1;
-                    this._initWebSocket();
-                    this.sendSocketMessage(message);
-                };
-            }, 2000);
+            } else {
+                let id = setInterval(() => {
+                    console.log('Try connect...');
+                    if (this.count_conn === 5 || this.closed) {
+                        clearInterval(id);
+                        this.count_conn = 1;
+                    }
+                    this.socket = new WebSocket(PATH_WEBSOCKET);
+                    this.count_conn++;
+                    this.socket.onopen = (ev) => {
+                        console.log('Connect OK');
+                        clearInterval(id);
+                        this.count_conn = 1;
+                        this._initWebSocket();
+                        this.sendSocketMessage(message);
+                    };
+                }, 2000);
 
+            }
         }
 
     }
