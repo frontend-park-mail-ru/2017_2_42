@@ -170,9 +170,7 @@ export default class GameView extends BaseView {
 
       c.renderAll();
       assignScaleConf(c.getWidth(), c.getHeight());
-      GameOnline.game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
-      fontSize: 40 * SCALE_COEFF_X;
-
+      game._world.SetGravity(new b2Vec2(0, 10 * SCALE_COEFF_Y));
     };
     window.onresize = resize;
     return canvas;

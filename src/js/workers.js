@@ -49,6 +49,7 @@ self.addEventListener('fetch', function(event) {
       }
       return fetch(event.request).then(function(response) {
         if (path !== '/backend/api/auth/me') {
+          console.log(path);
           let responseClone = response.clone();
 
           caches.open(version).then(function(cache) {
