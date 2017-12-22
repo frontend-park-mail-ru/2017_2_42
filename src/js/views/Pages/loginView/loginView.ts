@@ -10,7 +10,7 @@ const LoginTmpl = require('./loginView.pug') as TemplateRenderFunc;
 export default class LoginView extends BaseView {
   private form: LoginForm;
 
-  private settingsButton: Button;
+  private muteButton: Button;
   private soundButton: Button;
   private aboutButton: Button;
   private backButton: Button;
@@ -35,16 +35,17 @@ export default class LoginView extends BaseView {
     this.backButton.onClick(
       () => this.router.go(ViewService.ViewPaths.startPage));
 
-    this.soundButton = new SoundButton(document
+    // this.soundButton = new SoundButton(document
+    //   .querySelector('.main-frame__header__sound-button') as HTMLElement);
+    // this.soundButton.onClick(() => console.log('sound muted'));
+    //
+    // this.settingsButton = new Button(document
+    //   .querySelector('.main-frame__header__settings-button') as HTMLElement);
+    // this.settingsButton.onClick(
+    //   () => this.router
+    //     .showOverlay(ViewService.OverlayNames.application.settings));
+    this.muteButton = new SoundButton(document
       .querySelector('.main-frame__header__sound-button') as HTMLElement);
-    this.soundButton.onClick(() => console.log('sound muted'));
-
-    this.settingsButton = new Button(document
-      .querySelector('.main-frame__header__settings-button') as HTMLElement);
-    this.settingsButton.onClick(
-      () => this.router
-        .showOverlay(ViewService.OverlayNames.application.settings));
-
     this.aboutButton = new Button(document
       .querySelector('.main-frame__footer__about-button') as HTMLElement);
     this.aboutButton.onClick(
@@ -68,7 +69,7 @@ export default class LoginView extends BaseView {
 
     this.aboutButton = undefined;
     this.backButton = undefined;
-    this.settingsButton = undefined;
+    this.muteButton = undefined;
     this.soundButton = undefined;
 
     this.signUpButton = undefined;

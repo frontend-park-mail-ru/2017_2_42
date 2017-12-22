@@ -1,3 +1,4 @@
+import SoundButton from '../../../blocks/Buttons/SoundButton';
 import Button from '../../../blocks/button';
 import MapTile from '../../../blocks/mapTile';
 import {game, GameOnline} from '../../../game/gameLogic/gameOnline';
@@ -16,7 +17,7 @@ export default class OnlineLobbyView extends BaseView {
   private user: User;
 
   private backButton: Button;
-  private settingsButton: Button;
+  private muteButton: Button;
   private profileButton: Button;
 
   constructor(parentElement) {
@@ -56,38 +57,20 @@ export default class OnlineLobbyView extends BaseView {
       .querySelector('.main-frame__header__back-button') as HTMLElement);
     this.backButton.onClick(() => this.router.go(ViewService.ViewPaths.startPage));
 
-    // this.soundButton = new SoundButton(document
-    //   .querySelector('.main-frame__header__sound-button') as HTMLElement);
-    // this.soundButton.onClick(() => console.log('muted'));
-
-    this.settingsButton = new Button(document
-      .querySelector('.main-frame__header__settings-button') as HTMLElement);
-    this.settingsButton.onClick(() => this
-      .router.showOverlay(ViewService.OverlayNames.application.settings));
+    this.muteButton = new SoundButton(document
+      .querySelector('.main-frame__header__sound-button') as HTMLElement);
 
     this.profileButton = new Button(document
       .querySelector('.main-frame__header__userlist__player') as HTMLElement);
     this.profileButton.onClick(() => this
       .router.showOverlay(ViewService.OverlayNames.application.userProfile));
-    // this.logoutButton = new Button(document
-    //   .querySelector('.main-frame__header__logout-button') as HTMLElement);
-    // this.logoutButton.onClick(async () => {
-    //   try {
-    //     await userService.logout();
-    //     this.router.go(ViewService.ViewPaths.online.loginPage);
-    //   } catch (error) {
-    //     this.router.go(ViewPaths.start);
-    //   }
-    // });
-
-
   }
 
   public async destroy(): Promise<void> {
     this.rootElement.innerHTML = '';
 
     this.backButton = undefined;
-    this.settingsButton = undefined;
+    this.muteButton = undefined;
     this.profileButton = undefined;
   }
 

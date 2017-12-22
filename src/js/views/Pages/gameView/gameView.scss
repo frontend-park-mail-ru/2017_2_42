@@ -76,6 +76,7 @@
         margin: 1em 0 1em 1em;
         align-self: center;
         opacity: 0.5;
+        color: #2E97BD;
 
         //&:hover {
         //  cursor:pointer;
@@ -84,12 +85,13 @@
       }
 
       &__player-name-1 {
-        opacity: 0.5;
+        opacity: 0.7;
         margin-right: 1vw;
         font-size: 1em;
-        color: #f4f4f0;
+        color: #2E97BD;
         font-family: "KGSecondChancesSketch", serif;
         align-self: center;
+
       }
 
       &__rating-2 {
@@ -100,6 +102,7 @@
         margin: 1em 1em 1em 0.5em;
         opacity: 0.5;
         align-self: center;
+        color: #FFCF56;
 
         //&:hover {
         //  cursor:pointer;
@@ -108,7 +111,7 @@
       }
 
       &__rating-level-2 {
-        opacity: 0.5;
+        opacity: 0.7;
         margin-left: 1vw;
         font-size: 1em;
         color: #f4f4f0;
@@ -135,7 +138,7 @@
         opacity: 0.5;
         margin-left: 1vw;
         font-size: 1em;
-        color: #f4f4f0;
+        color: #FFCF56;
         font-family: "KGSecondChancesSketch", serif;
         align-self: center;
       }
