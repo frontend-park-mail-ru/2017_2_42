@@ -3,7 +3,6 @@
  *
  */
 export default class Block {
-  private element: HTMLElement;
   private childArray: Block[];
   private listenerRemovers: EventHandlerRemover[];
 
@@ -12,8 +11,7 @@ export default class Block {
    * @param {HTMLElement} element this element becomes the block
    * @memberof Block
    */
-  constructor(element: HTMLElement) {
-    this.element = element;
+  constructor(protected element: HTMLElement) {
     this.childArray = [];
     this.listenerRemovers = [];
   }

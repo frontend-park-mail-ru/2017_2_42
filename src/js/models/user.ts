@@ -1,4 +1,5 @@
 export default class User {
-  public name: string;
-  public score: string;
+  public username: string;
+  public email: string;
+  public level: number;
 }

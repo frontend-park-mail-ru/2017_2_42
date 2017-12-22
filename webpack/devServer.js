@@ -1,10 +1,11 @@
 module.exports = () => {
-    return {
-        devServer: {
-            contentBase: __dirname + '/public/static',
-            stats: 'errors-only',
-            inline: true,
-            port: '8001',
-        },
-    };
+  return {
+    devServer: {
+      contentBase: __dirname + '/public/',
+      stats: 'errors-only',
+      inline: true,
+      port: '8080',
+      host: '0.0.0.0',
+    },
+  };
 };

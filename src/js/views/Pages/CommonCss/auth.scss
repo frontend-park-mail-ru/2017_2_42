@@ -1,0 +1,11 @@
+@import './common.scss';
+
+.input-ok {
+  border: 0.5em solid rgba(255, 255, 255, .8);
+  border-image: $border_img 15;
+}
+
+.input-error {
+  border: 0.5em solid rgba(255, 255, 255, .8);
+  border-image: $border_error_img 15;
+}

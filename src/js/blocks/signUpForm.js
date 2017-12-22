@@ -1,6 +1,7 @@
 import Form from './form';
 import Input from './input';
-import Button from './button';
+import userService from '../services/userService';
+import LockableButton from './Buttons/LockableButton';
 
 /**
  *
@@ -25,8 +26,36 @@ export default class SignUpForm extends Form {
     this.confirmationField = new Input(document.querySelector(
       '.main-frame__content__content-column__form__confirmation'));
 
-    this.submitButton = new Button(document.querySelector(
+    this.submitButton = new LockableButton(document.querySelector(
       '.main-frame__content__content-column__form__submit'));
+  }
+
+  /**
+   * On success submit
+   * @param {function} callback cb
+   */
+  onSuccessSubmit(callback) {
+    const func = async (event) => {
+      this.submitButton.lock();
+      this.element.removeEventListener('submit', func);
+      this.element.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
+      event.preventDefault();
+
+      try {
+        const validatedData = await this.validate();
+        await userService.signUp(validatedData);
+
+        callback();
+      } catch (errorsArr) {
+        this.submitButton.unlock();
+        this._handle(errorsArr);
+        this.element.addEventListener('submit', func);
+      }
+    };
+
+    this.element.addEventListener('submit', func);
   }
 
   /**
