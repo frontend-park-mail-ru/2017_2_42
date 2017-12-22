@@ -12,6 +12,12 @@ const STATICS = [
   '/img/vkontakte-draw.svg',
   '/img/chalk_input_border.png',
   '/img/chalk-background-filled.png',
+  '/api/game/maps',
+  '/api/game/map/53',
+  // '/api/game/map/54',
+  // '/api/game/map/55',
+  // '/api/game/map/56',
+  // '/api/game/map/58',
 ];
 
 //
