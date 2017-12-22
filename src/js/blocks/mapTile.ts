@@ -1,7 +1,7 @@
 import router from '../modules/router';
 import ViewPaths from '../views/pagePaths';
 
-import '../../img/img_placeholder.jpg';
+import '../../img/answer-box.png';
 
 export default class MapTile {
   constructor(mapMeta: Map.Meta) {
@@ -17,10 +17,10 @@ export default class MapTile {
     this.htmlElement.classList.add(
       'main-frame__lobby-content__maps__map-tile');
 
-    // const image = document.createElement('img');
-    // image.classList.add('main-frame__lobby-content__maps__map-tile__img');
-    // image.setAttribute('src', this.mapMeta.preview || '/static/img/img_placeholder.jpg');
-    // this.htmlElement.appendChild(image);
+    const image = document.createElement('img');
+    image.classList.add('main-frame__lobby-content__maps__map-tile__img');
+    image.setAttribute('src', '/img/answer-box.png');
+    this.htmlElement.appendChild(image);
 
     const mapName = document.createElement('p');
     mapName.innerText = this.mapMeta.name;
