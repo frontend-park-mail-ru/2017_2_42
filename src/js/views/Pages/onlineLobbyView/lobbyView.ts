@@ -35,13 +35,17 @@ export default class OnlineLobbyView extends BaseView {
       .querySelector('.main-frame__lobby-content__maps') as HTMLElement;
     this.maps.forEach((map) => {
       const mapTileElement = new MapTile(map).renderElement();
+      console.log('registered');
 
       mapPlaceholder.appendChild(mapTileElement);
-      GameOnline.Create(map);
+
       mapTileElement.onclick = () => {
+        GameOnline.Create(map);
+        console.log('clicked');
         this.router.showOverlay(ViewService.OverlayNames.game.waitingTeammates);
         eventBus.emit('game', 'subscribe');
       };
+
       eventBus.on('game', 'subscribed', () => {
         this.router.HideOverlay();
         this.router.go(ViewService.ViewPaths.online.gamePage);
