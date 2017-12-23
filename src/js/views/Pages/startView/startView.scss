@@ -1,0 +1,145 @@
+@import '../CommonCss/common.scss';
+
+.main_frame {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
+
+
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        button{
+            padding: 0;
+            border: none;
+            outline: 0;
+
+            &:hover{
+                cursor:pointer;
+            }
+        }
+
+        &__stub {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        &__sound-button {
+            //display: flex;
+            width: $buttonSize;
+            height: $buttonSize;
+            background: $sound_button_img 100% 100% no-repeat;
+            background-size: contain;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
+        }
+
+        &__sound-button-muted {
+            //display: flex;
+            width: $buttonSize;
+            height: $buttonSize;
+            background: $sound_button_img_muted 100% 100% no-repeat;
+            background-size: contain;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
+        }
+
+        &__settings-button {
+            //display: flex;
+            width: $buttonSize;
+            height: $buttonSize;
+            background: $settings_button_img 100% 100% no-repeat;
+            background-size: contain;
+            align-self: flex-end;
+            margin: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 4em;
+
+        &__title {
+            flex-grow: 2;
+            //user-select: none;
+            margin: 0;
+            font-size: 7rem;
+            font-weight: normal;
+            color: rgba($color: #ffffff, $alpha: 0.7);
+
+            &:hover{
+                cursor: default;
+            }
+        }
+
+        &__play_button{
+            flex-grow: 2;
+            user-select: none;
+            font-size: 3rem;
+            color: rgba($color: #ffffff, $alpha: 0.5);
+
+            &:hover {
+                cursor:pointer;
+                color: rgba($color: #ffffff, $alpha: 1);
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        button{
+            padding: 0;
+            border: none;
+            outline: 0;
+
+            &:hover{
+                cursor:pointer;
+            }
+        }
+
+        &__about_button {
+            width: $buttonSize;
+            height: $buttonSize;
+            background: $about_button_img 100% 100% no-repeat;
+            background-size: cover;
+            align-self: flex-end;
+            margin-right: 1em;
+            margin-bottom: 1em;
+            opacity: 0.5;
+
+            &:hover {
+                cursor:pointer;
+                opacity: 1;
+            }
+        }
+    }
+}

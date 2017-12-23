@@ -1,73 +1,82 @@
 'use strict';
 
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-module.exports = {
-    context: __dirname,
-  devtool: 'source-map',
-    entry: {
-        main: './static/js/main.js',
-    },
-    output: {
-        filename: './bundle.js',
-        path: __dirname + '/public'
-    },
-    module: {
-        rules: [
-          // {
-          //   enforce: 'pre',
-          //   test: /\.js$/,
-          //   exclude: /node_modules/,
-          //   loader: 'eslint-loader',
-          //   options: {
-          //     failOnWarning: true,
-          //     failOnError: true
-          //   }
-          // },
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-          },
-          {
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: ['css-loader']
-            })
-          },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader'
-                ]
-            },
-            {
-                test: /\.(png|svg|jpg|gif|jpeg)$/,
-                use: [
-                    'file-loader'
-                ]
-            },
-            {
-                test: /\.html$/,
+const wpMerge = require('webpack-merge');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const sourceMap = require('./webpack/source-map');
+const pugLoader = require('./webpack/pug');
+const lint = require('./webpack/lint');
+const tsLoader = require('./webpack/tsloader');
+const extractCss = require('./webpack/css.extract');
+// const consoleLogRemover = require('./webpack/clearConsole');
+const babel = require('./webpack/babel');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
+const fileLoader = require('./webpack/fileloader');
+const devServer = require('./webpack/devServer');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-                use: [
-                  'html-loader'
-                ]
-            }
-        ]
-    },
-    plugins: [
-        new ExtractTextPlugin('./bundle.css'),
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: './static/index.html'
-        }),
-    ],
-    devServer: {
-        contentBase: __dirname + '/public',
-        inline: true,
-        port: 1234
-    },
+const PATHS = {
+  src: path.join(__dirname, 'src'),
+  public: path.join(__dirname, 'public'),
+  game: path.join(__dirname, 'src/js/game'),
+};
+
+const common = wpMerge([{
+  context: __dirname,
+  entry: {
+    worker: path.join(PATHS.src, 'js/workers.js'),
+    main: path.join(PATHS.src, 'js/main.js'),
+    // game: path.join(PATHS.game, 'game.js'),
+  },
+  output: {
+    filename: '[name].js',
+    path: PATHS.public,
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
+  node: {
+    fs: 'empty',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+    new ProgressBarPlugin(),
+    // new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     keep_classnames: true,
+    //     ecma: 6,
+    //   },
+    // })
+
+  ],
+},
+  lint(),
+  pugLoader(),
+  tsLoader(),
+  babel(),
+  fileLoader(),
+  extractCss(),
+]);
+
+
+module.exports = (env) => {
+  switch (env) {
+    case 'development':
+      return wpMerge([
+        common,
+        sourceMap(),
+        devServer(),
+      ]);
+    case 'production':
+      return wpMerge([
+        common,
+        // consoleLogRemover(),
+        // uglify(),
+      ]);
+  }
 };

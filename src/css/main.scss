@@ -1,0 +1,125 @@
+$font_name: 'KGSecondChancesSketch';
+
+html, body {
+  height: 100%;
+  font-size: 3vh;
+  font-family: $font_name;
+}
+
+@media only screen and (max-width: 200px) {
+  html, body {
+    font-size: 0.5vh;
+  }
+}
+
+@media only screen and (max-width: 1032px) {
+  html, body {
+    font-size: 2.5vh;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  html, body {
+    font-size: 2vh;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html, body {
+    font-size: 1.5vh;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html, body {
+    font-size: 1vh;
+  }
+}
+
+
+
+$background_blue_4096: url("../img/chalkboard_blue_4096.jpg");
+$background_blue_3840: url("../img/chalkboard_blue_3840.jpg");
+$background_blue_2560: url("../img/chalkboard_blue_2560.jpg");
+$background_blue_2048: url("../img/chalkboard_blue_2048.jpg");
+$background_blue_1920: url("../img/chalkboard_blue_1920.jpg");
+$background_blue_1600: url("../img/chalkboard_blue_1600.jpg");
+$background_blue_1280: url("../img/chalkboard_blue_1280.jpg");
+
+$background_green_4096: url("../img/chalkboard_green_4096.jpg");
+$background_green_3840: url("../img/chalkboard_green_3840.jpg");
+$background_green_2560: url("../img/chalkboard_green_2560.jpg");
+$background_green_2048: url("../img/chalkboard_green_2048.jpg");
+$background_green_1920: url("../img/chalkboard_green_1920.jpg");
+$background_green_1600: url("../img/chalkboard_green_1600.jpg");
+$background_green_1280: url("../img/chalkboard_green_1280.jpg");
+
+/* @1x Images (Pixel Ratio 1.0) */
+body {
+  background: $background_green_1920 100% 100% no-repeat;
+}
+
+/* @2x Images (Pixel Ratio of 1.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 5/4),
+only screen and (-webkit-min-device-pixel-ratio: 1.25),
+only screen and (min-device-pixel-ratio: 1.25),
+only screen and (min-resolution: 1.25dppx) {
+  body {
+    background: $background_green_2048 100% 100% no-repeat;
+  }
+}
+
+/* @3x Images (Pixel Ratio of 2.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 9/4),
+only screen and (-webkit-min-device-pixel-ratio: 2.25),
+only screen and (min-device-pixel-ratio: 2.25),
+only screen and (min-resolution: 2.25dppx) {
+  body {
+    background: $background_green_2560 100% 100% no-repeat;
+  }
+}
+
+/* @4x Images (Pixel Ratio of 3.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 13/4),
+only screen and (-webkit-min-device-pixel-ratio: 3.25),
+only screen and (min-device-pixel-ratio: 3.25),
+only screen and (min-resolution: 3.25dppx) {
+  body {
+    background-image: $background_green_4096 100% 100% no-repeat;
+  }
+}
+
+body {
+  background-size: 100% 100%;
+  flex-basis: 1024px;
+
+  #main-frame {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  #overlays {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    height: 100%;
+    width: 100%;
+
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@font-face {
+  font-family: $font_name;
+  src: url(../fonts/KGSecondChancesSketch.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'KGTenThousandReasons';
+  src: url(../fonts/KGTenThousandReasons.ttf) format('truetype');
+}
